@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "precucumber": "webdriver-manager update",
+    "precucumber": "node node_modules/typescript/bin/tsc cucumber/steps/*.ts && webdriver-manager update",
     "cucumber": "protractor cucumber/cucumber.conf.js --debug"
   },
   "private": true,

@@ -3,7 +3,7 @@ import { browser, by, element, until } from 'protractor';
 export class AppPage {
 
     public navigateTo() {
-        return browser.get('/');
+        return browser.get('https://angular.io/');
     }
 
     public enterSearchInput(text: string) {
