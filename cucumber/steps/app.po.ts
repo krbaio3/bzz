@@ -1,20 +1,11 @@
-import { browser, by, element, until } from 'protractor';
+import { $ } from 'protractor';
 
-export class AppPage {
+export class SearchPageObject {
+    public searchTextBox: any;
+    public searchButton: any;
 
-    public navigateTo() {
-        return browser.get('https://angular.io/');
+    constructor() {
+        this.searchTextBox = $('#lst-ib');
+        this.searchButton = $('input[value=\'Google Search\']');
     }
-
-    public enterSearchInput(text: string) {
-        return element(by.css('input[aria-label="search"]'))
-            .sendKeys(text);
-    }
-
-    public getSearchResultItems() {
-        const condition = until.elementsLocated(by.css('.search-results .search-result-item'));
-
-        return browser.wait(condition, 5000);
-    }
-
 }

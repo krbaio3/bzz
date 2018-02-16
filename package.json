@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "precucumber": "node node_modules/typescript/bin/tsc cucumber/steps/*.ts && webdriver-manager update",
+    "precucumber": "webdriver-manager update",
     "cucumber": "protractor cucumber/cucumber.conf.js --debug"
   },
   "private": true,
@@ -37,6 +37,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "codelyzer": "^4.0.1",
     "cucumber": "^4.0.0",
     "jasmine-core": "~2.8.0",

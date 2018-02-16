@@ -36,35 +36,16 @@ exports.config = {
 
     // Options to be passed to Cucumber.
     cucumberOpts: {
+        compiler: 'ts:ts-node/register',
+
         require: [
             path.resolve(process.cwd(), './**/*.steps.js')
         ],
         // Tell CucumberJS to save the JSON report
         format: 'json:cucumber/report/results.json',
-        strict: true
+        strict: true,
+        tags: '@TypeScriptScenario or @CucumberScenario or @ProtractorScenario',
     },
-
-    // multiCapabilities: [{
-    //     browserName: 'chrome',
-    //     shardTestFiles: true,
-    //     maxInstances: 2,
-    //     chromeOptions: {
-    //         args: ['disable-infobars']
-    //     },
-    //     // Add this settings
-    //     /** MODIFY with script */
-    //     metadata: {
-    //         browser: {
-    //             name: 'chrome',
-    //             version: '65'
-    //         },
-    //         device: 'Dell E6330',
-    //         platform: {
-    //             name: 'Ubuntu',
-    //             version: '16.04.1'
-    //         }
-    //     }
-    // }],
     
     // Plugin
     plugins: [{

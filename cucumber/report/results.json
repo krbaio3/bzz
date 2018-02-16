@@ -1,0 +1,68 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "To search typescript in google",
+    "line": 1,
+    "id": "to-search-typescript-in-google",
+    "tags": [],
+    "uri": "cucumber/features/typescript.feature",
+    "elements": [
+      {
+        "id": "to-search-typescript-in-google;typescript-google-search",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "Typescript Google Search",
+        "tags": [
+          {
+            "name": "@TypeScriptScenario",
+            "line": 2
+          }
+        ],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I am on google page",
+            "match": {
+              "location": "cucumber/steps/typescript.steps.js:45"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 46000000,
+              "error_message": "Error: Error while waiting for Protractor to sync with the page: \"both angularJS testability and angular testability are undefined.  This could be either because this is a non-angular page or because your test involves client-side navigation, which can interfere with Protractor's bootstrapping.  See http://git.io/v4gXM for details\"\n    at runWaitForAngularScript.then (/home/jorgecarballo/Workspace/bzz/node_modules/protractor/built/browser.js:463:23)\n    at ManagedPromise.invokeCallback_ (/home/jorgecarballo/Workspace/bzz/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/home/jorgecarballo/Workspace/bzz/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/home/jorgecarballo/Workspace/bzz/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/home/jorgecarballo/Workspace/bzz/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /home/jorgecarballo/Workspace/bzz/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:160:7)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I type \"Typescript\"",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 7,
+            "name": "I click on search button",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "I clear the search text",
+            "result": {
+              "status": "undefined"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
