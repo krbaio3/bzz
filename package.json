@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "precucumber":"webdriver-manager update",
-    "cucumber":"protractor cucumber/cucumber.conf.js"
+    "precucumber": "webdriver-manager update",
+    "cucumber": "protractor cucumber/cucumber.conf.js"
   },
   "private": true,
   "dependencies": {
