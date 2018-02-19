@@ -1,11 +1,11 @@
-import { $ } from 'protractor';
+import { $ } from '../../node_modules/protractor';
 
 export class SearchPageObject {
-    public searchTextBox: any;
-    public searchButton: any;
+  public searchTextBox: any;
+  public searchButton: any;
 
-    constructor() {
-        this.searchTextBox = $('#lst-ib');
-        this.searchButton = $('input[value=\'Google Search\']');
-    }
+  constructor() {
+    this.searchTextBox = $('#lst-ib');
+    this.searchButton = $('input[value="Google Search"]');
+  }
 }

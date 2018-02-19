@@ -37,12 +37,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 exports.__esModule = true;
 var protractor_1 = require("protractor");
-var app_po_1 = require("./app.po");
-var Given = require('cucumber').Given;
+var cucumber_1 = require("cucumber");
 var chai = require('chai').use(require('chai-as-promised'));
 var expect = chai.expect;
-var search = new app_po_1.SearchPageObject();
-Given(/^I am on google page$/, function () { return __awaiter(_this, void 0, void 0, function () {
+cucumber_1.Given(/^I am on google page$/, function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, expect(protractor_1.browser.getTitle()).to.eventually.equal('Google')];

@@ -37,7 +37,6 @@ exports.config = {
     // Options to be passed to Cucumber.
     cucumberOpts: {
         compiler: 'ts:ts-node/register',
-
         require: [
             path.resolve(process.cwd(), './**/*.steps.js')
         ],
