@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   resolve: {
@@ -8,8 +9,8 @@ module.exports = {
   },
   entry: {
     polyfills: './src/polyfills.ts',
-    main: './src/app.ts',
-    vendor: './src/vendor.js'
+    vendor: './src/vendor.js',
+    main: './src/app.ts'
   },
   output: {
     path: path.resolve(__dirname, 'dist'), // output directory
@@ -19,37 +20,78 @@ module.exports = {
     rules: [
       {
         test: /\.html$/,
+        exclude: /node_modules/,
         loader: 'html-loader'
       },
-      {
-        test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.ts$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        test: /\.ts$/,
-        enforce: 'pre',
-        loader: 'tslint-loader'
-      },
-      // { 
-      //   test: /\.scss$/, 
-      //   loader: [ 
-      //     'style-loader', 
-      //     'css-loader?sourceMap', 
-      //     'raw-loader', 
-      //     'sass-loader?sourceMap' 
-      //   ] 
+      // {
+      //   test: /\.css$/,
+      //   exclude: /node_modules/,
+      //   loader: ['style-loader', 'css-loader']
+      // },
+      // {
+      //   test: /\.scss$/,
+      //   exclude: /node_modules/,
+      //   use: [
+      //     'exports-loader?module.exports.toString()',
+      //     {
+      //       loader: 'sass-loader',
+      //       options: {
+      //         sourceMap: false,
+      //         import: false
+      //       }
+      //     }
+      //   ]
       // },
       {
         test: /\.scss$/,
-        loader: [
-          'raw-loader',
-          'sass-loader?sourceMap'
+        exclude: /node_modules/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ]
+        })
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader'
+            }
+          ]
+        })
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loaders: [
+          'awesome-typescript-loader',
+          'angular2-template-loader?keepUrl=true'
         ]
       },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'tslint-loader'
+      }
+      // {
+      //   test: /\.scss$/,
+      //   loader: [
+      //     'style-loader',
+      //     'css-loader?sourceMap',
+      //     'raw-loader',
+      //     'sass-loader?sourceMap'
+      //   ]
+      // },
     ]
   },
   devtool: 'source-map',
@@ -63,6 +105,11 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
+    }),
+    new ExtractTextPlugin({
+      filename: '[chunkhash].[name].css',
+      disable: false,
+      allChunks: true
     })
   ]
 };

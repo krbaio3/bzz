@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'hellow-app',
-  styles: [require('./app.component.scss')],
-  template: require('./app.component.html'),
+  selector: "hellow-app",
+  // template: require('./app.component.html'),
+  // styles: [require('./app.component.scss').toString()]
+  styles: [require("./app.component.scss").toString()],
+  template: require("./app.component.html"),
 })
 export class HelloComponent {
-  message = 'Wololooo';
+  message = "Wololooo";
 }
