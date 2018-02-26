@@ -7,9 +7,9 @@ module.exports = {
     extensions: ['.js', '.ts']
   },
   entry: {
-      polyfills: './src/polyfills.ts',
-      main: './src/app.ts',
-      vendor: './src/vendor.js'
+    polyfills: './src/polyfills.ts',
+    main: './src/app.ts',
+    vendor: './src/vendor.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'), // output directory
@@ -17,6 +17,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
       {
         test: /\.css$/,
         loader: ['style-loader', 'css-loader']
@@ -30,14 +34,22 @@ module.exports = {
         enforce: 'pre',
         loader: 'tslint-loader'
       },
+      // { 
+      //   test: /\.scss$/, 
+      //   loader: [ 
+      //     'style-loader', 
+      //     'css-loader?sourceMap', 
+      //     'raw-loader', 
+      //     'sass-loader?sourceMap' 
+      //   ] 
+      // },
       {
         test: /\.scss$/,
         loader: [
-          'style-loader',
-          'css-loader?sourceMap',
+          'raw-loader',
           'sass-loader?sourceMap'
         ]
-      }
+      },
     ]
   },
   devtool: 'source-map',
