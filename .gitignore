@@ -96,3 +96,10 @@ typings/
 
 # Angular
 .angulardoc.json
+
+# Babel cache
+\.awcache/
+
+# Lock Modules
+yarn\.lock
+package-lock.json
