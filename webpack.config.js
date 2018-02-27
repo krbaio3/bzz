@@ -1,3 +1,5 @@
+// module.exports = require('./config/webpack.dev.conf.js');
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
@@ -8,21 +10,21 @@ module.exports = {
     extensions: ['.js', '.ts']
   },
   entry: {
-    polyfills: './src/polyfills.ts',
-    vendor: './src/vendor.js',
-    main: './src/app.ts'
+    // polyfills: './src/polyfills.ts',
+    // vendor: './src/vendor.js',
+    main: './src/main.css'
   },
   output: {
-    path: path.resolve(__dirname, 'dist'), // output directory
-    filename: '[name].js' // name of the generated bundle
+    path: path.resolve(__dirname, 'src'), // output directory
+    filename: '[name].css' // name of the generated bundle
   },
   module: {
     rules: [
-      {
-        test: /\.html$/,
-        exclude: /node_modules/,
-        loader: 'html-loader'
-      },
+      // {
+      //   test: /\.html$/,
+      //   exclude: /node_modules/,
+      //   loader: 'html-loader'
+      // },
       // {
       //   test: /\.css$/,
       //   exclude: /node_modules/,
@@ -69,45 +71,45 @@ module.exports = {
           ]
         })
       },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        loaders: [
-          'awesome-typescript-loader',
-          'angular2-template-loader?keepUrl=true'
-        ]
-      },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        enforce: 'pre',
-        loader: 'tslint-loader'
-      }
-      // {
-      //   test: /\.scss$/,
-      //   loader: [
-      //     'style-loader',
-      //     'css-loader?sourceMap',
-      //     'raw-loader',
-      //     'sass-loader?sourceMap'
-      //   ]
-      // },
+  //     {
+  //       test: /\.ts$/,
+  //       exclude: /node_modules/,
+  //       loaders: [
+  //         'awesome-typescript-loader',
+  //         'angular2-template-loader?keepUrl=true'
+  //       ]
+  //     },
+  //     {
+  //       test: /\.ts$/,
+  //       exclude: /node_modules/,
+  //       enforce: 'pre',
+  //       loader: 'tslint-loader'
+  //     }
+  //     // {
+  //     //   test: /\.scss$/,
+  //     //   loader: [
+  //     //     'style-loader',
+  //     //     'css-loader?sourceMap',
+  //     //     'raw-loader',
+  //     //     'sass-loader?sourceMap'
+  //     //   ]
+  //     // },
     ]
   },
-  devtool: 'source-map',
-  devServer: {
-    historyApiFallback: true
-  },
+  // devtool: 'source-map',
+  // devServer: {
+  //   historyApiFallback: true
+  // },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      inject: 'body'
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
-    }),
+  //   new HtmlWebpackPlugin({
+  //     template: 'src/index.html',
+  //     inject: 'body'
+  //   }),
+  //   new webpack.optimize.CommonsChunkPlugin({
+  //     name: 'vendor'
+  //   }),
     new ExtractTextPlugin({
-      filename: '[chunkhash].[name].css',
+      filename: '[name].css',
       disable: false,
       allChunks: true
     })
