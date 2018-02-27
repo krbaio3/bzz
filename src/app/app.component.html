@@ -1,3 +1,9 @@
-<h1>{{message}}</h1>
-
-<input type="text" [(ngModel)] = "message">
+<div class="container">
+    <header>
+        <h1>{{appName}}</h1>
+        <nav></nav>
+    </header>
+    <section>
+        <router-outlet></router-outlet>
+    </section>
+</div>

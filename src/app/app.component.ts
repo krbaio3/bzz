@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
+
+import '../public/scss/styles.scss';
 
 @Component({
-  selector: "hellow-app",
-  styles: ["./app.component.css"],
-  template: require("./app.component.html"),
+	selector: 'app',
+	templateUrl: 'app.component.html',
+	styleUrls: ['app.component.scss']
 })
-export class HelloComponent {
-  message = "Wololooo";
-}
+export class AppComponent { appName = 'Setting up Angular 2 Webpack 2 Application'; }
