@@ -4,6 +4,15 @@ const path = require('path');
 const helpers = require('./helpers');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+exports.assetsPath = function(_path) {
+  const assetsSubDirectory = 'assets/';
+  // const assetsSubDirectory =
+  //   process.env.NODE_ENV === 'production'
+  //     ? config.build.assetsSubDirectory
+  //     : config.dev.assetsSubDirectory;
+  return path.posix.join(assetsSubDirectory, _path);
+};
+
 exports.cssLoaders = function(options, include, exclude) {
   options = options || {};
   include = include || {};

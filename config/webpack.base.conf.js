@@ -2,8 +2,9 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var helpers = require('./helpers');
 var path = require('path');
+var helpers = require('./helpers');
+const utils = require('./utils');
 
 module.exports = {
   entry: {
@@ -16,19 +17,28 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'tslint-loader',
+        enforce: 'pre',
+        include: [helpers.resolve('src'), helpers.resolve('test')],
+        options: {
+          // automatically fix linting errors
+          fix: true,
+          // can specify a custom tsconfig file relative to current directory or with absolute path
+          // to be used with type checked rules
+          tsConfigFile: 'tsconfig.json',
+          // name of your formatter (optional)
+          formatter: 'grouped',
+          // path to directory containing formatter (optional)
+          formattersDirectory:
+            'node_modules/custom-tslint-formatters/formatters'
+        }
+      },
       // angular2 typescript loader
-      // {
-      //   test: /\.tsx?$/,
-      //   loader: 'tslint-loader',
-      //   enforce: 'pre',
-      //   include: [resolve('src'), resolve('test')],
-      //   // options: {
-      //     // formatter: require('eslint-friendly-formatter')
-      //   // }
-      // },
       {
         test: /\.ts$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules | config | build)/,
         use: [
           {
             loader: 'awesome-typescript-loader',
@@ -36,7 +46,8 @@ module.exports = {
               useBabel: true,
               useWebpackText: true,
               useCache: true,
-              babelCore: 'babel-core',
+              // babelCore: 'babel-core'
+              babelCore: '@babel/core'
               // babelOptions: {
               //   plugins: [
               //     // '@babel/plugin-transform-runtime',
@@ -52,19 +63,19 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules | config | build)/,
         use: [
           {
             loader: 'angular-router-loader'
           }
         ]
       },
-      // {
-      //   test: /\.jsx?$/,
-      //   exclude: /(node_modules | config | build)/,
-      //   loader: 'babel-loader',
-      //   include: [helpers.resolve('src'), helpers.resolve('test')]
-      // },
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules | config | build)/,
+        loader: 'babel-loader',
+        include: [helpers.resolve('src'), helpers.resolve('test')]
+      },
       // html loader
       {
         test: /\.html$/,
@@ -73,10 +84,29 @@ module.exports = {
       },
       // static assets
       {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file-loader?name=assets/[name].[hash].[ext]'
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
       },
-
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+        }
+      },
       // extraer en funcion la generacion de loaders. Se quita CSS, habilitar cuando esté postCSS
       // css global which not include in components
       // {

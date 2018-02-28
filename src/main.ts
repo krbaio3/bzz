@@ -6,4 +6,5 @@ import { AppModule } from './app/app.module';
 if (process.env.ENV === 'production') {
     enableProdMode();
 }
+console.log('Hola!!!');
 platformBrowserDynamic().bootstrapModule(AppModule);
