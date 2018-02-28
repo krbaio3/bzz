@@ -5,12 +5,24 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var helpers = require('./helpers');
 const utils = require('./utils');
+const config = require('../config');
+
 
 module.exports = {
   entry: {
     polyfills: './src/polyfills.ts',
     vendor: './src/vendor.ts',
     app: './src/main.ts'
+  },
+  output: {
+    path: config.build.assetsRoot,
+    filename: '[name].js',
+    publicPath:
+      // process.env.NODE_ENV === 'production'
+      //   ? config.build.assetsPublicPath
+      //   : 
+        config.dev.assetsPublicPath,
+    chunkFilename: '[id].chunk.js'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -125,30 +137,15 @@ module.exports = {
       //   include: helpers.root('src', 'app'),
       //   loader: 'raw-loader'
       // },
-      // SASS loader and inject into components
-      {
-        test: /\.scss$/,
-        include: helpers.root('src', 'app'),
-        use: ['raw-loader', 'sass-loader']
-      },
-      // SASS global which not include in components
-      {
-        test: /\.scss$/,
-        exclude: helpers.root('src', 'app'),
-        use: ExtractTextPlugin.extract({
-          use: ['raw-loader', 'sass-loader']
-        })
-      }
+     
     ]
   },
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
+      // todo el codigo comun lo quita y lo pone en vendor
     }),
 
     new CopyWebpackPlugin([

@@ -69,16 +69,9 @@ const staticPath = path.posix.join(
   config.dev.assetsSubDirectory
 );
 
-console.log(
-  `Este es el config.dev.assetsPublicPath => ${config.dev.assetsPublicPath}`
-);
-console.log(
-  `Este es el config.dev.assetsSubDirectory => ${config.dev.assetsSubDirectory}`
-);
 console.log(`Este es el staticPath => ${staticPath}`);
 
-// app.use(staticPath, express.static('./src/assets'));
-app.use(staticPath, express.static('./assets'));
+app.use(staticPath, express.static('./static'));
 
 const uri = 'http://localhost:' + port;
 
