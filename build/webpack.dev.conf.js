@@ -19,9 +19,23 @@ Object.keys(baseWebpackConfig.entry).forEach(function(name) {
 });
 
 module.exports = webpackMerge(baseWebpackConfig, {
-  
   module: {
     rules: [
+      // extraer en funcion la generacion de loaders. Se quita CSS, habilitar cuando esté postCSS
+      // css global which not include in components
+      {
+        test: /\.css$/,
+        exclude: helpers.root('src', 'app'),
+        use: ExtractTextPlugin.extract({
+          use: ['raw-loader', 'css-loader']
+        })
+      },
+      // css loader and inject into components
+      {
+        test: /\.css$/,
+        include: helpers.root('src', 'app'),
+        loader: 'raw-loader'
+      },
       // SASS loader and inject into components
       {
         test: /\.scss$/,
@@ -38,7 +52,7 @@ module.exports = webpackMerge(baseWebpackConfig, {
       }
     ]
   },
-  
+
   plugins: [
     new ExtractTextPlugin('[name].css'),
     new webpack.DefinePlugin({
