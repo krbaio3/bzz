@@ -13,7 +13,10 @@ module.exports = {
     app: './src/main.ts'
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    alias: {
+      '@': helpers.resolve('src')
+    }
   },
   module: {
     rules: [
