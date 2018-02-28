@@ -187,9 +187,15 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
+      // al omitir el campo filename, entiende que son los mismos que los campos de entrada
       // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
       // todo el codigo comun lo quita y lo pone en vendor
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: 15,
+    }),
+
     new CopyWebpackPlugin([
       {
         from: 'src/assets',
