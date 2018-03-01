@@ -24,6 +24,7 @@ Object.assign(ngcWebpackConfig.plugin, {
 
 module.exports = {
   entry: builder.entry,
+ 
   output: builder.output,
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -240,6 +241,7 @@ module.exports = {
       /angular(\\|\/)core/,
       helpers.resolve('src')
     ),
+    // See: https://github.com/webpack-contrib/extract-text-webpack-plugin
     new ExtractTextPlugin({
       filename: '[name].css',
       disable: false,

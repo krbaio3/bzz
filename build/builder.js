@@ -13,14 +13,38 @@ const entry = {
 };
 
 const output = {
+   /**
+   * The output directory as absolute path (required).
+   * See: https://webpack.js.org/configuration/output/#output-path
+   */
   path: config.build.assetsRoot,
-  // path: helpers.root('dist'),
+  /* Specifies the name of each output file on disk.
+  * IMPORTANT: You must not specify an absolute path here!
+  * See: https://webpack.js.org/configuration/output/#output-filename
+  */
   filename: '[name].js',
+  /** The filename of non-entry chunks as relative path
+   * inside the output.path directory.
+   *
+   * See: https://webpack.js.org/configuration/output/#output-chunkfilename
+   */
+  chunkFilename: '[id].chunk.js',
+  // See: https://webpack.js.org/configuration/output/#output-publicpath
   publicPath:
     process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath,
-  chunkFilename: '[id].chunk.js'
+  /**
+   * The filename of the SourceMaps for the JavaScript files.
+   * They are inside the output.path directory.
+   *
+   * See: https://webpack.js.org/configuration/output/#output-sourcemapfilename
+   */
+  sourceMapFilename: '[file].map',
+  // See: https://webpack.js.org/configuration/output/#output-library
+  library: 'ac_[name]',
+  // See: https://webpack.js.org/configuration/output/#output-library-target
+  libraryTarget: 'var',
 };
 
 const METADATOS_DEFECTO = {

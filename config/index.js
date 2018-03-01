@@ -1,12 +1,13 @@
 'use strict';
 
 const path = require('path');
+const helpers = require('../build/helpers');
 
 module.exports = {
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: helpers.root('dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true,
