@@ -68,48 +68,6 @@ module.exports = {
       //   enforce: 'pre'
       // },
       ...ngcWebpackConfig.loaders,
-      // angular2 typescript loader
-      // {
-      //   test: /\.ts$/,
-      //   exclude: /(node_modules | config | build)/,
-      //   use: [
-      //     {
-      //       loader: 'awesome-typescript-loader',
-      //       options: {
-      //         useBabel: true,
-      //         useWebpackText: true,
-      //         useCache: true,
-      //         // babelCore: 'babel-core'
-      //         babelCore: '@babel/core'
-      //         // babelOptions: {
-      //         //   plugins: [
-      //         //     // '@babel/plugin-transform-runtime',
-      //         //     'transform-runtime'
-      //         //   ]
-      //         // }
-      //       }
-      //     },
-      //     {
-      //       loader: 'angular2-template-loader'
-      //     }
-      //   ]
-      // },
-      // {
-      //   test: /\.ts$/,
-      //   exclude: /(node_modules | config | build)/,
-      //   use: [
-      //     {
-      //       loader: 'angular-router-loader'
-      //     }
-      //   ]
-      // },
-      // {
-      //   test: /\.jsx?$/,
-      //   exclude: /(node_modules | config | build)/,
-      //   loader: 'babel-loader',
-      //   include: [helpers.resolve('src'), helpers.resolve('test')]
-      // },
-
       /**
        * To string and css loader support for *.css files (from Angular components)
        * Returns file content as string
@@ -157,13 +115,8 @@ module.exports = {
         }
       },
       // {
-      //   // test: /\.(gif|png|jpe?g|svg)$/i,
-      //   test: /\.\/src\/assets/,
-      //   use: [
-      //     'file-loader',
-      //     {
       //       loader: 'image-webpack-loader',
-      //       options: {
+      //   options: {
       //         mozjpeg: {
       //           progressive: true,
       //           quality: 65
@@ -182,9 +135,9 @@ module.exports = {
       //         // the webp option will enable WEBP
       //         webp: {
       //           quality: 75
-      //         }
-      //       }
-      //     }
+      //   }
+      //   }
+      //   }
       //   ]
       // },
       {
@@ -234,18 +187,6 @@ module.exports = {
       children: true,
       minChunks: 2
     }),
-
-    
-    // new webpack.optimize.CommonsChunkPlugin({
-      // name: ['main', 'vendor', 'polyfills']
-      // al omitir el campo filename, entiende que son los mismos que los campos de entrada
-      // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
-      // todo el codigo comun lo quita y lo pone en vendor
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'manifest',
-    //   minChunks: Infinity
-    // }),
 
     new CopyWebpackPlugin([
       {
