@@ -12,9 +12,9 @@
     "strictNullChecks": false,
     "lib": ["es2015", "dom"],
     "baseUrl": "./src",
-    "paths": {
-      "@angular/*": ["node_modules/@angular/*"]
-    },
+    // "paths": {
+    //   "@angular/*": ["node_modules/@angular/*"]
+    // },
     "typeRoots": ["node_modules/@types"],
     "types": ["hammerjs", "node"]
   },

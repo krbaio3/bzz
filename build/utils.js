@@ -210,10 +210,10 @@ exports.ngcWebpackSetup = (prod, metadata) => {
   const loaders = [
     {
       test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-      // use: buildOptimizer
-      //   ? [buildOptimizerLoader, '@ngtools/webpack']
-      //   : ['@ngtools/webpack']
-      use: ['@ngtools/webpack']
+      use: buildOptimizer
+        ? [buildOptimizerLoader, '@ngtools/webpack']
+        : ['@ngtools/webpack']
+      // use: ['@ngtools/webpack']
     },
     ...(buildOptimizer ? [{ test: /\.js$/, use: [buildOptimizerLoader] }] : [])
   ];

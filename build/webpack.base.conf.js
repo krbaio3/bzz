@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ngcWebpack = require('ngc-webpack');
 const path = require('path');
 const helpers = require('./helpers');
@@ -23,7 +24,7 @@ Object.assign(ngcWebpackConfig.plugin, {
 
 module.exports = {
   entry: builder.entry,
-  output: builder.output,
+  // output: builder.output,
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     // Indicamos el alias para que al hacer el import, sepa dónde tiene que ir a buscar
@@ -219,15 +220,32 @@ module.exports = {
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['main', 'vendor', 'polyfills']
+      name: 'polyfills',
+      chunks: ['polyfills']
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      minChunks: Infinity,
+      name: 'inline'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'main',
+      async: 'common',
+      children: true,
+      minChunks: 2
+    }),
+
+    
+    // new webpack.optimize.CommonsChunkPlugin({
+      // name: ['main', 'vendor', 'polyfills']
       // al omitir el campo filename, entiende que son los mismos que los campos de entrada
       // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
       // todo el codigo comun lo quita y lo pone en vendor
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
-    }),
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'manifest',
+    //   minChunks: Infinity
+    // }),
 
     new CopyWebpackPlugin([
       {
@@ -241,6 +259,20 @@ module.exports = {
       $: 'jquery',
       jquery: 'jquery'
     }),
+
+     /**
+       * Plugin: ScriptExtHtmlWebpackPlugin
+       * Description: Enhances html-webpack-plugin functionality
+       * with different deployment options for your scripts including:
+       *
+       * See: https://github.com/numical/script-ext-html-webpack-plugin
+       */
+      new ScriptExtHtmlWebpackPlugin({
+        sync: /inline|polyfills|vendor/,
+        defaultAttribute: 'async',
+        preload: [/polyfills|vendor|main/],
+        prefetch: [/chunk/]
+      }),
 
     new ngcWebpack.NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
