@@ -4,6 +4,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const helpers = require('./helpers');
 const config = require('../config');
+const fs = require('fs');
 
 exports.assetsPath = function(_path) {
   const assetsSubDirectory =
@@ -139,4 +140,86 @@ exports.styleLoadersGlobal = function(options, include, exclude) {
   }
   console.log('output => ', output);
   return output;
+};
+
+/* ======================================================== */
+function getEnvFile(suffix) {
+  if (suffix && suffix[0] !== '.') {
+    suffix = '.' + suffix;
+  }
+
+  if (suffix === null) {
+    return;
+  }
+  console.log(`src/environments/environment${suffix}.ts`);
+
+  let fileName = helpers.root(`src/environments/environment${suffix}.ts`);
+
+  console.log(fileName);
+
+  if (fs.existsSync(fileName)) {
+    return fileName;
+  } else if (
+    fs.existsSync((fileName = helpers.root('src/environments/environment.ts')))
+  ) {
+    console.warn(
+      `Could not find environment file with suffix ${suffix}, loading default environment file`
+    );
+    return fileName;
+  } else {
+    throw new Error('Environment file not found.');
+  }
+}
+
+// Se le pasa el entorno por el merge de webpack
+// metadatos
+exports.ngcWebpackSetup = (prod, metadata) => {
+  if (!metadata) {
+    metadata = DEFAULT_METADATA;
+  }
+
+  const buildOptimizer = prod && metadata.AOT;
+  console.log(`Optimizacion: ${buildOptimizer}`);
+  const sourceMap = true; // TODO: apply based on tsconfig value?
+  const ngcWebpackPluginOptions = {
+    skipCodeGeneration: !metadata.AOT,
+    sourceMap
+  };
+
+  const environment = getEnvFile(metadata.envFileSuffix);
+  if (environment) {
+    ngcWebpackPluginOptions.hostReplacementPaths = {
+      [helpers.root('src/environments/environment.ts')]: environment
+    };
+  }
+
+  if (!prod && metadata.WATCH) {
+    // Force commonjs module format for TS on dev watch builds.
+    ngcWebpackPluginOptions.compilerOptions = {
+      module: 'commonjs'
+    };
+  }
+
+  const buildOptimizerLoader = {
+    loader: '@angular-devkit/build-optimizer/webpack-loader',
+    options: {
+      sourceMap
+    }
+  };
+
+  const loaders = [
+    {
+      test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+      // use: buildOptimizer
+      //   ? [buildOptimizerLoader, '@ngtools/webpack']
+      //   : ['@ngtools/webpack']
+      use: ['@ngtools/webpack']
+    },
+    ...(buildOptimizer ? [{ test: /\.js$/, use: [buildOptimizerLoader] }] : [])
+  ];
+
+  return {
+    loaders,
+    plugin: ngcWebpackPluginOptions
+  };
 };
