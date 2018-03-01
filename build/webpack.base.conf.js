@@ -41,32 +41,33 @@ module.exports = {
   module: {
     rules: [
       // Trocear loaders en PRE
-      // {
-      //   test: /\.tsx?$/,
-      //   loader: 'tslint-loader',
-      //   enforce: 'pre',
-      //   include: [helpers.resolve('src'), helpers.resolve('test')],
-      //   options: {
-      //     // automatically fix linting errors
-      //     fix: true,
-      //     // can specify a custom tsconfig file relative to current directory or with absolute path
-      //     // to be used with type checked rules
-      //     tsConfigFile: 'tsconfig.json',
-      //     // name of your formatter (optional)
-      //     formatter: 'grouped',
-      //     // path to directory containing formatter (optional)
-      //     formattersDirectory:
-      //       'node_modules/custom-tslint-formatters/formatters'
-      //   }
-      // },
-      // {
-      //   test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      //   loader: 'image-webpack-loader',
-      //   // Specify enforce: 'pre' to apply the loader
-      //   // before url-loader/svg-url-loader
-      //   // and not duplicate it in rules with them
-      //   enforce: 'pre'
-      // },
+      {
+        test: /\.tsx?$/,
+        loader: 'tslint-loader',
+        enforce: 'pre',
+        include: [helpers.resolve('src'), helpers.resolve('test')],
+        options: {
+          // automatically fix linting errors
+          fix: true,
+          // can specify a custom tsconfig file relative to current directory or with absolute path
+          // to be used with type checked rules
+          tsConfigFile: 'tsconfig.json',
+          // name of your formatter (optional)
+          formatter: 'grouped',
+          // path to directory containing formatter (optional)
+          formattersDirectory:
+            'node_modules/custom-tslint-formatters/formatters'
+        }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'image-webpack-loader',
+        // Specify enforce: 'pre' to apply the loader
+        // before url-loader/svg-url-loader
+        // and not duplicate it in rules with them
+        enforce: 'pre'
+      },
+      // equivalente al typescript loader
       ...ngcWebpackConfig.loaders,
       /**
        * To string and css loader support for *.css files (from Angular components)
@@ -105,41 +106,45 @@ module.exports = {
 
       // Trocear loaders ASSETS
       // static assets
-      {
-        test: /\.(png|jpe?g|gif)(\?.*)?$/,
-        // use: 'file-loader',
-        loader: 'url-loader',
-        options: {
-          limit: 10 * 1024,
-          name: utils.assetsPath('media/[name].[hash:7].[ext]')
-        }
-      },
       // {
-      //       loader: 'image-webpack-loader',
+      //   test: /\.(png|jpe?g|gif)(\?.*)?$/,
+      //   // use: 'file-loader',
+      //   loader: 'url-loader',
       //   options: {
-      //         mozjpeg: {
-      //           progressive: true,
-      //           quality: 65
-      //         },
-      //         // optipng.enabled: false will disable optipng
-      //         optipng: {
-      //           enabled: false
-      //         },
-      //         pngquant: {
-      //           quality: '65-90',
-      //           speed: 4
-      //         },
-      //         gifsicle: {
-      //           interlaced: false
-      //         },
-      //         // the webp option will enable WEBP
-      //         webp: {
-      //           quality: 75
+      //     limit: 10 * 1024,
+      //     name: utils.assetsPath('media/[name].[hash:7].[ext]')
       //   }
-      //   }
-      //   }
-      //   ]
       // },
+      {
+        test: /\.(gif|png|jpe?g)(\?.*)?$/,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          }
+        ]
+      },
       {
         test: /\.svg$/,
         loader: 'svg-url-loader',
@@ -172,6 +177,8 @@ module.exports = {
   },
 
   plugins: [
+    // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
+    // todo el codigo comun lo quita y lo pone en vendor
     new webpack.optimize.CommonsChunkPlugin({
       name: 'polyfills',
       chunks: ['polyfills']
