@@ -1,9 +1,9 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
-var helpers = require('./helpers');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const helpers = require('./helpers');
 const utils = require('./utils');
 const config = require('../config');
 
@@ -103,26 +103,18 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'raw-loader',
-        exclude: [helpers.root('src/index.html')]
+        // exclude: [helpers.root('src/index.html')]
+        exclude: [helpers.root('index.html')]
       },
       // static assets
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10 * 1024,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
-      // static assets
-      // {
-      // test: /\.(png|jpe?g|gif)(\?.*)?$/,
-      // loader: 'file-loader',
-      // options: {
-      // publicPath: 'assets/',
-      // outputPath: 'images/'
-      // }
-      // },
       // {
       //   // test: /\.(gif|png|jpe?g|svg)$/i,
       //   test: /\.\/src\/assets/,

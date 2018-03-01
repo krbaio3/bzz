@@ -1,8 +1,8 @@
-var webpack = require('webpack');
-var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var baseWebpackConfig = require('./webpack.base.conf.js');
-var helpers = require('./helpers');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const baseWebpackConfig = require('./webpack.base.conf.js');
+const helpers = require('./helpers');
 const config = require('../config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
@@ -67,12 +67,13 @@ module.exports = webpackMerge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/index.html',
+      // template: 'src/index.html',
+      template: 'index.html',
       inject: true
     }),
     new FriendlyErrorsPlugin()
   ],
   // cheap-module-eval-source-map is faster for development
   // https://webpack.js.org/configuration/devtool/#devtool
-  devtool: '#cheap-module-eval-source-map',
+  devtool: '#cheap-module-eval-source-map'
 });
