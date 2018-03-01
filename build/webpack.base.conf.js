@@ -24,13 +24,13 @@ Object.assign(ngcWebpackConfig.plugin, {
 
 module.exports = {
   entry: builder.entry,
-  // output: builder.output,
+  output: builder.output,
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     // Indicamos el alias para que al hacer el import, sepa dónde tiene que ir a buscar
-    // alias: {
-    //   '@': helpers.resolve('src')
-    // },
+    alias: {
+      '@': helpers.resolve('src')
+    },
     /**
      * Indique a webpack qué directorios se deben buscar al resolver módulos.
      *

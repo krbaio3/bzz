@@ -24,37 +24,39 @@ Object.keys(baseWebpackConfig.entry).forEach(function(name) {
 module.exports = webpackMerge(baseWebpackConfig, {
   output: {
 
-    /**
-     * The output directory as absolute path (required).
-     *
-     * See: http://webpack.github.io/docs/configuration.html#output-path
-     */
-    path: helpers.root('dist'),
+      /**
+       * The output directory as absolute path (required).
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-path
+       */
+      path: helpers.root('dist'),
 
-    /**
-     * Specifies the name of each output file on disk.
-     * IMPORTANT: You must not specify an absolute path here!
-     *
-     * See: http://webpack.github.io/docs/configuration.html#output-filename
-     */
-    filename: '[name].bundle.js',
+      /**
+       * Specifies the name of each output file on disk.
+       * IMPORTANT: You must not specify an absolute path here!
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-filename
+       */
+      filename: '[name].bundle.js',
 
-    /**
-     * The filename of the SourceMaps for the JavaScript files.
-     * They are inside the output.path directory.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
-     */
-    sourceMapFilename: '[file].map',
+      /**
+       * The filename of the SourceMaps for the JavaScript files.
+       * They are inside the output.path directory.
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
+       */
+      sourceMapFilename: '[file].map',
 
-    /** The filename of non-entry chunks as relative path
-     * inside the output.path directory.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
-     */
-    chunkFilename: '[id].chunk.js',
+      /** The filename of non-entry chunks as relative path
+       * inside the output.path directory.
+       *
+       * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
+       */
+      chunkFilename: '[id].chunk.js',
 
-  },
+      library: 'ac_[name]',
+      libraryTarget: 'var',
+    },
   module: {
     rules: [
       // // extraer en funcion la generacion de loaders. Se quita CSS, habilitar cuando esté postCSS
