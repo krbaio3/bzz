@@ -279,10 +279,14 @@ module.exports = {
     /**
      * Plugin: InlineManifestWebpackPlugin
      * Inline Webpack's manifest.js in index.html
+     * Lo que antes poniamos como manifest, ahora no podemos ponerlo por la version
+     * del htmlPlugin, ahora lo ponemos con el InlineManifest....
      *
      * https://github.com/szrenwei/inline-manifest-webpack-plugin
      */
-    new InlineManifestWebpackPlugin(),
+    new InlineManifestWebpackPlugin({
+      name: 'webpackManifest'
+    }),
 
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core/,
