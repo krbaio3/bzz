@@ -14,4 +14,8 @@ https://github.com/gdi2290/angular-starter
 
 * Saco el index.html al raíz, considero que es una buena practica. Se comenta las lineas en webpack base y dev para cambiarlo dentro de src
 * Creo carpeta static para meter estáticos del index (iconos, imagenes, etc), no tiene nada que ver con los assets del proyecto
-* 
+* Una vez arrancado, actualizar dependencias:
+  * webpack 4, hay que cambiar los chunks
+  * html-webpack-plugin la configuracion cambian en la version 3
+  * si se va a meter lodash, usar loader de lodash y exclusivamente importar lo que se use
+  * Monment, lo mismo que lodash. Ver artículo: https://iamakulov.com/notes/webpack-front-end-size-caching/

@@ -51,10 +51,12 @@ module.exports = webpackMerge(baseWebpackConfig, {
   },
 
   plugins: [
-    new EvalSourceMapDevToolPlugin({
-      moduleFilenameTemplate: '[resource-path]',
-      sourceRoot: 'webpack:///'
-    }),
+    /** Alternativa a devtool: https://webpack.js.org/plugins/eval-source-map-dev-tool-plugin/ */
+    // new EvalSourceMapDevToolPlugin({
+    //   moduleFilenameTemplate: '[resource-path]',
+    //   sourceRoot: 'webpack:///',
+    //   exclude: ['vendor.ts', 'pollyfills.ts']
+    // }),
     new ExtractTextPlugin('[name].css'),
 
     new webpack.DefinePlugin({

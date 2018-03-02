@@ -12,10 +12,19 @@ const config = require('../config');
 const builder = require('./builder');
 
 console.log(`Variable de entorno: ${config.dev.env.NODE_ENV}`);
-const ngcWebpackConfig = utils.ngcWebpackSetup(
-  config.dev.env.NODE_ENV == 'production',
+
+const isProduction = config.dev.env.NODE_ENV == 'production';
+
+const ngcWebpackConfig = utils.ngcWebpackSetup(isProduction, builder.METADATOS);
+
+const assetsLoader = utils.assetsLoader(10 * 1024);
+
+const tsLintLoader = utils.tsLintLoader(
+  [helpers.resolve('src'), helpers.resolve('test')],
   builder.METADATOS
 );
+
+const preAssetsLoader = utils.preAssetsLoader(isProduction);
 
 Object.assign(ngcWebpackConfig.plugin, {
   tsConfigPath: builder.METADATOS.tsConfigPath,
@@ -42,33 +51,13 @@ module.exports = {
   module: {
     rules: [
       // Trocear loaders en PRE
-      {
-        test: /\.tsx?$/,
-        loader: 'tslint-loader',
-        enforce: 'pre',
-        include: [helpers.resolve('src'), helpers.resolve('test')],
-        options: {
-          // automatically fix linting errors
-          fix: true,
-          // can specify a custom tsconfig file relative to current directory or with absolute path
-          // to be used with type checked rules
-          tsConfigFile: 'tsconfig.json',
-          // name of your formatter (optional)
-          formatter: 'grouped',
-          // path to directory containing formatter (optional)
-          formattersDirectory:
-            'node_modules/custom-tslint-formatters/formatters'
-        }
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'image-webpack-loader',
-        // Specify enforce: 'pre' to apply the loader
-        // before url-loader/svg-url-loader
-        // and not duplicate it in rules with them
-        enforce: 'pre'
-      },
+
+      ...tsLintLoader,
+      // See: https://github.com/tcoopman/image-webpack-loader
+      ...preAssetsLoader,
+
       // equivalente al typescript loader
+      // See: https://github.com/shlomiassaf/ngc-webpack
       ...ngcWebpackConfig.loaders,
       /**
        * To string and css loader support for *.css files (from Angular components)
@@ -105,75 +94,11 @@ module.exports = {
         exclude: [helpers.root('index.html')]
       },
 
-      // Trocear loaders ASSETS
-      // static assets
-      // {
-      //   test: /\.(png|jpe?g|gif)(\?.*)?$/,
-      //   // use: 'file-loader',
-      //   loader: 'url-loader',
-      //   options: {
-      //     limit: 10 * 1024,
-      //     name: utils.assetsPath('media/[name].[hash:7].[ext]')
-      //   }
-      // },
-      {
-        test: /\.(gif|png|jpe?g)(\?.*)?$/,
-        use: [
-          'file-loader',
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              // optipng.enabled: false will disable optipng
-              optipng: {
-                enabled: false
-              },
-              pngquant: {
-                quality: '65-90',
-                speed: 4
-              },
-              gifsicle: {
-                interlaced: false
-              },
-              // the webp option will enable WEBP
-              webp: {
-                quality: 75
-              }
-            }
-          }
-        ]
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-url-loader',
-        options: {
-          // Images larger than 10 KB won’t be inlined
-          limit: 10 * 1024,
-          // Remove quotes around the encoded URL –
-          // they’re rarely useful
-          noquotes: true
-        }
-      },
-      {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10 * 1024,
-          name: utils.assetsPath('media/[name].[hash:7].[ext]')
-        }
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        // use: 'file-loader'
-        loader: 'url-loader',
-        options: {
-          limit: 10 * 1024,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-        }
-      }
+      // Assets Loader
+      // See:
+      // * https://github.com/bhovhannes/svg-url-loader
+      // * https://github.com/webpack-contrib/url-loader
+      ...assetsLoader
     ]
   },
 
@@ -229,6 +154,17 @@ module.exports = {
     }),
 
     new ngcWebpack.NgcWebpackPlugin(ngcWebpackConfig.plugin),
+
+    /**
+     * LLevarlo a utils
+     */
+
+    // See: https://github.com/angular/angular-cli/tree/master/packages/%40ngtools/webpack
+    // new AngularCompilerPlugin({
+    //   tsConfigPath: builder.METADATOS.tsConfigPath,
+    //   entryModule: 'src/app/app.module#AppModule',
+    //   sourceMap: true
+    // }),
 
     /**
      * Plugin: InlineManifestWebpackPlugin

@@ -6,15 +6,17 @@ const helpers = require('./helpers');
 const config = require('../config');
 const fs = require('fs');
 
-exports.assetsPath = function(_path) {
+function assetsPath(_path) {
   const assetsSubDirectory =
     process.env.NODE_ENV === 'production'
       ? config.build.assetsSubDirectory
       : config.dev.assetsSubDirectory;
   return path.posix.join(assetsSubDirectory, _path);
-};
+}
 
-exports.cssLoaders = function(options, include, exclude) {
+exports.assetsPath = assetsPath;
+
+exports.cssLoaders = (options, include, exclude) => {
   options = options || {};
   include = include || {};
   exclude = exclude || {};
@@ -61,75 +63,9 @@ exports.cssLoaders = function(options, include, exclude) {
 };
 
 // Generate loaders for standalone style files
-exports.styleLoaders = function(options, include, exclude) {
+exports.styleLoaders = (options, include, exclude) => {
   const output = [];
   const loaders = exports.cssLoaders(options);
-  console.log('results =>', loaders);
-  for (const extension in loaders) {
-    const loader = loaders[extension];
-    output.push({
-      test: new RegExp('\\.' + extension + '$'),
-      use: loader
-    });
-  }
-  console.log('output => ', output);
-  return output;
-};
-
-/**
- * Global
- **/
-
-exports.cssLoadersGlobal = function(options, include, exclude) {
-  options = options || {};
-  include = include || {};
-  exclude = exclude || {};
-
-  const cssLoader = {
-    loader: 'raw-loader',
-    include: helpers.root('src', 'app')
-  };
-
-  // generate loader string to be used with extract text plugin
-  function generateLoaders(loader, loaderOptions) {
-    const loaders = [cssLoader];
-    console.log('loaders =>', loaders);
-    if (loader) {
-      // console.log('loader =>', loader);
-      loaders.push({
-        loader: loader + '-loader',
-        options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap
-        })
-      });
-      // console.log('loaders dentro if =>', loaders);
-    }
-    // (which is the case during production build)
-    if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'style-loader'
-      });
-    } else {
-      return ['style-loader'].concat(loaders);
-    }
-  }
-
-  return {
-    css: generateLoaders(),
-    postcss: generateLoaders(),
-    less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
-    stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
-  };
-};
-
-// Generate loaders for standalone style files
-exports.styleLoadersGlobal = function(options, include, exclude) {
-  const output = [];
-  const loaders = exports.cssLoadersGlobal(options);
   console.log('results =>', loaders);
   for (const extension in loaders) {
     const loader = loaders[extension];
@@ -173,6 +109,7 @@ function getEnvFile(suffix) {
 
 // Se le pasa el entorno por el merge de webpack
 // metadatos
+// configuracion de ngc-webpack, transforma los ts de angular
 exports.ngcWebpackSetup = (prod, metadata) => {
   if (!metadata) {
     metadata = DEFAULT_METADATA;
@@ -213,7 +150,6 @@ exports.ngcWebpackSetup = (prod, metadata) => {
       use: buildOptimizer
         ? [buildOptimizerLoader, '@ngtools/webpack']
         : ['@ngtools/webpack']
-      // use: ['@ngtools/webpack']
     },
     ...(buildOptimizer ? [{ test: /\.js$/, use: [buildOptimizerLoader] }] : [])
   ];
@@ -222,4 +158,120 @@ exports.ngcWebpackSetup = (prod, metadata) => {
     loaders,
     plugin: ngcWebpackPluginOptions
   };
+};
+
+// Exporta los pre-loader para que sea más legible el webpack base
+exports.tsLintLoader = (include, metadatos) => {
+  let tslint = [
+    {
+      test: /\.tsx?$/,
+      loader: 'tslint-loader',
+      enforce: 'pre',
+      include: include,
+      options: {
+        // automatically fix linting errors
+        fix: metadatos.fixTs,
+        // can specify a custom tsconfig file relative to current directory or with absolute path
+        // to be used with type checked rules
+        tsConfigFile: metadatos.tsConfigPath,
+        // name of your formatter (optional)
+        formatter: metadatos.formatter,
+        // path to directory containing formatter (optional)
+        formattersDirectory: metadatos.urlFormatter
+      }
+    }
+  ];
+
+  return tslint;
+};
+
+// Exporta loader PRE (preprocesa primero si es necesario) de assets
+
+exports.preAssetsLoader = isProduction => {
+  let image = [
+    // Specify enforce: 'pre' to apply the loader
+    // before url-loader/svg-url-loader
+    // and not duplicate it in rules with them
+
+    //ver articulo de iamakulov
+    {
+      test: /\.(gif|png|jpe?g)(\?.*)?$/,
+      enforce: 'pre',
+      use: [
+        'file-loader',
+        {
+          loader: 'image-webpack-loader',
+          options: {
+            name: assetsPath('img/[name].[hash:7].[ext]'),
+            bypassOnDebug: !isProduction,
+            mozjpeg: {
+              progressive: true,
+              quality: 65
+            },
+            // optipng.enabled: false will disable optipng
+            optipng: {
+              enabled: false
+            },
+            pngquant: {
+              quality: '65-90',
+              speed: 4
+            },
+            gifsicle: {
+              interlaced: false
+            },
+            // the webp option will enable WEBP
+            webp: {
+              quality: 75
+            }
+          }
+        }
+      ]
+    }
+  ];
+
+  return image;
+};
+
+// Exporta loader de assets
+exports.assetsLoader = limit => {
+  let svg = [
+    {
+      test: /\.svg$/,
+      loader: 'svg-url-loader',
+      options: {
+        // Images larger than 10 KB won’t be inlined
+        limit,
+        // Remove quotes around the encoded URL –
+        // they’re rarely useful
+        noquotes: true
+      }
+    }
+  ];
+
+  let media = [
+    {
+      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+      loader: 'url-loader',
+      options: {
+        limit: limit,
+        name: assetsPath('media/[name].[hash:7].[ext]')
+      }
+    }
+  ];
+
+  let fonts = [
+    {
+      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+      loader: 'url-loader',
+      options: {
+        limit: limit,
+        name: assetsPath('fonts/[name].[hash:7].[ext]')
+      }
+    }
+  ];
+
+  return []
+    .concat(svg)
+    .concat(media)
+    .concat(fonts);
 };

@@ -55,6 +55,9 @@ const METADATOS_DEFECTO = {
   E2E: !!process.env.BUILD_E2E,
   // WATCH: helpers.hasProcessFlag('watch'),
   tsConfigPath: 'tsconfig.json',
+  fixTs: true,
+  formatter: 'grouped',
+  urlFormatter: 'node_modules/custom-tslint-formatters/formatters',
   /**
    * This suffix is added to the environment.ts file, if not set the default environment file is loaded (development)
    * To disable environment files set this to null
