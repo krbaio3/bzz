@@ -7,7 +7,6 @@ const config = require('../config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const EvalSourceMapDevToolPlugin = require('webpack/lib/EvalSourceMapDevToolPlugin');
-const ngcWebpack = require('ngc-webpack');
 
 const ENV = (process.env.NODE_ENV = config.dev.env.NODE_ENV);
 const APP_CONFIG = {

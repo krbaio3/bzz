@@ -19,3 +19,5 @@ https://github.com/gdi2290/angular-starter
   * html-webpack-plugin la configuracion cambian en la version 3
   * si se va a meter lodash, usar loader de lodash y exclusivamente importar lo que se use
   * Monment, lo mismo que lodash. Ver artículo: https://iamakulov.com/notes/webpack-front-end-size-caching/
+  * Revisar Utils la parte de ngc-webpack con documentacion: https://github.com/shlomiassaf/ngc-webpack#usage
+  * 

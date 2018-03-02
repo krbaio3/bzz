@@ -4,6 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+//REVUISARLO
+const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
+
 const ngcWebpack = require('ngc-webpack');
 const path = require('path');
 const helpers = require('./helpers');
