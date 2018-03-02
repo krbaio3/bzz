@@ -7,4 +7,5 @@ import '../styles/main.scss';
 	templateUrl: 'app.component.html',
 	styleUrls: ['app.component.scss']
 })
-export class AppComponent { appName = 'Setting up Angular 2 Webpack 2 Application'; }
+export class AppComponent { appName = 'Setting up Angular 5 Webpack 4 Application'; }
+console.log('prueba');

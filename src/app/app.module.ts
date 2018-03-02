@@ -24,3 +24,5 @@ import { APP_BASE_HREF } from '@angular/common';
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+console.log('jorge');

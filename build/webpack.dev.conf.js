@@ -19,6 +19,7 @@ Object.keys(baseWebpackConfig.entry).forEach(function(name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(
     baseWebpackConfig.entry[name]
   );
+  console.log(`Esto es el name: ${name}`);
 });
 
 module.exports = webpackMerge(baseWebpackConfig, {

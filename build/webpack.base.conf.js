@@ -24,7 +24,7 @@ Object.assign(ngcWebpackConfig.plugin, {
 
 module.exports = {
   entry: builder.entry,
- 
+
   output: builder.output,
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -186,6 +186,11 @@ module.exports = {
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: ['vendor']
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({
       minChunks: Infinity,
       name: 'inline'
     }),
@@ -209,19 +214,19 @@ module.exports = {
       jquery: 'jquery'
     }),
 
-     /**
-       * Plugin: ScriptExtHtmlWebpackPlugin
-       * Description: Enhances html-webpack-plugin functionality
-       * with different deployment options for your scripts including:
-       *
-       * See: https://github.com/numical/script-ext-html-webpack-plugin
-       */
-      new ScriptExtHtmlWebpackPlugin({
-        sync: /inline|polyfills|vendor/,
-        defaultAttribute: 'async',
-        preload: [/polyfills|vendor|main/],
-        prefetch: [/chunk/]
-      }),
+    /**
+     * Plugin: ScriptExtHtmlWebpackPlugin
+     * Description: Enhances html-webpack-plugin functionality
+     * with different deployment options for your scripts including:
+     *
+     * See: https://github.com/numical/script-ext-html-webpack-plugin
+     */
+    new ScriptExtHtmlWebpackPlugin({
+      sync: /inline|polyfills|vendor|main/,
+      defaultAttribute: 'async',
+      preload: [/polyfills|vendor|main/],
+      prefetch: [/chunk/]
+    }),
 
     new ngcWebpack.NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
