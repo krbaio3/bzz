@@ -11,7 +11,6 @@ const ENV = (process.env.NODE_ENV = config.dev.env.NODE_ENV);
 const APP_CONFIG = {
   API_URL: 'dev.api.local'
 };
-const isProd = ENV == 'production';
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function(name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(
