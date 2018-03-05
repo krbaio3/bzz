@@ -129,12 +129,13 @@ module.exports = {
       minChunks: 2
     }),
 
-    new CopyWebpackPlugin([
-      {
-        from: 'src/assets',
-        to: 'assets'
-      }
-    ]),
+    //Con la nueva configuracion de desarrollo no hace falta
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: 'src/assets',
+    //     to: 'assets'
+    //   }
+    // ]),
 
     new webpack.ProvidePlugin({
       jQuery: 'jquery',

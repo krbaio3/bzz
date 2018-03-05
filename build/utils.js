@@ -198,7 +198,12 @@ exports.preAssetsLoader = isProduction => {
       test: /\.(gif|png|jpe?g)(\?.*)?$/,
       enforce: 'pre',
       use: [
-        'file-loader',
+        {
+          loader: 'file-loader',
+          options: {
+            name: assetsPath('img/[name].[hash:7].[ext]')
+          }
+        },
         {
           loader: 'image-webpack-loader',
           options: {
