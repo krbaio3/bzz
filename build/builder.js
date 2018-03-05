@@ -44,7 +44,7 @@ const output = {
   // See: https://webpack.js.org/configuration/output/#output-library
   library: 'ac_[name]',
   // See: https://webpack.js.org/configuration/output/#output-library-target
-  libraryTarget: 'var',
+  libraryTarget: 'var'
 };
 
 const METADATOS_DEFECTO = {
@@ -52,7 +52,7 @@ const METADATOS_DEFECTO = {
   baseUrl: '/',
   // HMR: helpers.hasProcessFlag('hot'),
   AOT: process.env.BUILD_AOT || helpers.hasNpmFlag('aot'),
-  WATCH: process.env.WATCH || helpers.hasProcessFlag('watch'),
+  WATCH: helpers.hasFlag('watch'),
   E2E: !!process.env.BUILD_E2E,
   // WATCH: helpers.hasProcessFlag('watch'),
   tsConfigPath: 'tsconfig.json',

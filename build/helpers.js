@@ -12,3 +12,5 @@ exports.removeWarning = __path => path.join(__dirname, __path);
 exports.resolve = dir => path.join(__dirname, '..', dir);
 
 exports.hasNpmFlag = flag => EVENT.includes(flag);
+
+exports.hasFlag = (flag) => process.argv.join('').indexOf(flag) > -1;
