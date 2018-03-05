@@ -111,14 +111,28 @@ function getEnvFile(suffix) {
 // metadatos
 // configuracion de ngc-webpack, transforma los ts de angular
 exports.ngcWebpackSetup = (prod, metadata) => {
+
   if (!metadata) {
     metadata = DEFAULT_METADATA;
   }
 
+  console.log(`metadata ${JSON.stringify(metadata, null, 4)}`);
+  console.log(`prod ${JSON.stringify(prod, null, 4)}`);
+
   const buildOptimizer = prod && metadata.AOT;
+
   console.log(`Optimizacion: ${buildOptimizer}`);
+
+  console.log(
+    `prod ${JSON.stringify(prod, null, 4)}  metadata.AOT ${JSON.stringify(
+      metadata.AOT,
+      null,
+      4
+    )}`
+  );
+
   const sourceMap = true; // TODO: apply based on tsconfig value?
-  const ngcWebpackPluginOptions = {
+  let ngcWebpackPluginOptions = {
     skipCodeGeneration: !metadata.AOT,
     sourceMap
   };
@@ -153,6 +167,11 @@ exports.ngcWebpackSetup = (prod, metadata) => {
     },
     ...(buildOptimizer ? [{ test: /\.js$/, use: [buildOptimizerLoader] }] : [])
   ];
+
+  console.log(
+    `buildOptimizerLoader ${JSON.stringify(buildOptimizerLoader, null, 4)}`
+  );
+  console.log(`loaders ${JSON.stringify(loaders, null, 4)}`);
 
   return {
     loaders,

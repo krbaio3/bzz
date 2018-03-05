@@ -64,6 +64,7 @@ module.exports = webpackMerge(baseWebpackConfig, {
         APP_CONFIG: JSON.stringify(APP_CONFIG)
       }
     }),
+
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin

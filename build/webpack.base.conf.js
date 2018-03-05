@@ -18,6 +18,10 @@ console.log(`Variable de entorno: ${config.dev.env.NODE_ENV}`);
 
 const isProduction = config.dev.env.NODE_ENV == 'production';
 
+console.log(`is production: ${isProduction}`);
+
+console.log(`builder.Metadatos: ${builder.METADATOS}`);
+
 const ngcWebpackConfig = utils.ngcWebpackSetup(isProduction, builder.METADATOS);
 
 const assetsLoader = utils.assetsLoader(10 * 1024);
@@ -113,11 +117,7 @@ module.exports = {
       chunks: ['polyfills']
     }),
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['vendor']
-    }),
-
+    
     new webpack.optimize.CommonsChunkPlugin({
       minChunks: Infinity,
       name: 'inline'
@@ -128,7 +128,11 @@ module.exports = {
       children: true,
       minChunks: 2
     }),
-
+    
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: ['vendor']
+    }),
     //Con la nueva configuracion de desarrollo no hace falta
     // new CopyWebpackPlugin([
     //   {

@@ -13,7 +13,7 @@ const entry = {
 };
 
 const output = {
-   /**
+  /**
    * The output directory as absolute path (required).
    * See: https://webpack.js.org/configuration/output/#output-path
    */
@@ -52,6 +52,7 @@ const METADATOS_DEFECTO = {
   baseUrl: '/',
   // HMR: helpers.hasProcessFlag('hot'),
   AOT: process.env.BUILD_AOT || helpers.hasNpmFlag('aot'),
+  WATCH: process.env.WATCH || helpers.hasProcessFlag('watch'),
   E2E: !!process.env.BUILD_E2E,
   // WATCH: helpers.hasProcessFlag('watch'),
   tsConfigPath: 'tsconfig.json',
