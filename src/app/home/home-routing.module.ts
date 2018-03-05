@@ -20,3 +20,5 @@ export class HomeRoutingModule { }
 export const routedComponents = [
 	HomeComponent
 ];
+
+console.log('prueba');
