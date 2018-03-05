@@ -4,7 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.conf.js');
 const helpers = require('./helpers');
 const config = require('../config');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const EvalSourceMapDevToolPlugin = require('webpack/lib/EvalSourceMapDevToolPlugin');
 
@@ -67,21 +66,6 @@ module.exports = webpackMerge(baseWebpackConfig, {
 
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      // template: 'src/index.html',
-      template: 'index.html',
-      inject: 'body',
-      xhtml: true,
-      minify: isProd
-        ? {
-            caseSensitive: true,
-            collapseWhitespace: true,
-            keepClosingSlash: true
-          }
-        : false
-    }),
     new FriendlyErrorsPlugin()
   ],
   // cheap-module-eval-source-map is faster for development

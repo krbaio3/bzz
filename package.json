@@ -5,10 +5,15 @@
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "start": "node build/dev-server.js",
+    "start:prod": "NODE_ENV=production node build/dev-server.js",
+    "prod":
+      "NODE_ENV=production webpack --config build/webpack.prod.conf.js --progress --profile",
     "server": "http-server dist --cors",
-    "build:dev": "rimraf dist && webpack --config build/webpack.dev.conf.js --progress --profile",
+    "build:dev":
+      "rimraf dist && webpack --config build/webpack.dev.conf.js --progress --profile",
     "clean": "rimraf dist",
-    "debug": "node --nolazy --inspect-brk=9229 build/webpack.dev.conf.j"
+    "debug":
+      "node --nolazy --inspect-brk=9229 build/dev-server.js"
   },
   "keywords": ["pruebas", "conceptos"],
   "repository": {

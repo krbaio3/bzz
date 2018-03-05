@@ -4,37 +4,45 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-//REVUISARLO
-const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
-
 const ngcWebpack = require('ngc-webpack');
 const path = require('path');
+
 const helpers = require('./helpers');
 const utils = require('./utils');
 const config = require('../config');
 const builder = require('./builder');
 
-console.log(`Variable de entorno: ${config.dev.env.NODE_ENV}`);
+const NODE_ENV =
+  process.env.NODE_ENV == 'production'
+    ? config.build.env.NODE_ENV
+    : config.dev.env.NODE_ENV;
 
-const isProduction = config.dev.env.NODE_ENV == 'production';
+console.log(`Variable de entorno: ${NODE_ENV}`);
+
+const isProduction = NODE_ENV == config.build.env.NODE_ENV ? true : false;
+
+const METADATOS = Object.assign({}, builder.METADATOS_DEFECTO, {
+  ENV: NODE_ENV,
+  envFileSuffix: isProduction ? 'prod' : ''
+});
 
 console.log(`is production: ${isProduction}`);
 
-console.log(`builder.Metadatos: ${builder.METADATOS}`);
+console.log(`builder.Metadatos: ${JSON.stringify(METADATOS, null, 2)}`);
 
-const ngcWebpackConfig = utils.ngcWebpackSetup(isProduction, builder.METADATOS);
+const ngcWebpackConfig = utils.ngcWebpackSetup(isProduction, METADATOS);
 
 const assetsLoader = utils.assetsLoader(10 * 1024);
 
 const tsLintLoader = utils.tsLintLoader(
   [helpers.resolve('src'), helpers.resolve('test')],
-  builder.METADATOS
+  METADATOS
 );
 
 const preAssetsLoader = utils.preAssetsLoader(isProduction);
 
 Object.assign(ngcWebpackConfig.plugin, {
-  tsConfigPath: builder.METADATOS.tsConfigPath,
+  tsConfigPath: METADATOS.tsConfigPath,
   mainPath: builder.entry.main
 });
 
@@ -117,7 +125,6 @@ module.exports = {
       chunks: ['polyfills']
     }),
 
-    
     new webpack.optimize.CommonsChunkPlugin({
       minChunks: Infinity,
       name: 'inline'
@@ -128,7 +135,7 @@ module.exports = {
       children: true,
       minChunks: 2
     }),
-    
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       chunks: ['vendor']
@@ -162,6 +169,21 @@ module.exports = {
     }),
 
     new ngcWebpack.NgcWebpackPlugin(ngcWebpackConfig.plugin),
+
+    // https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: 'body',
+      xhtml: true,
+      minify: isProduction
+        ? {
+            caseSensitive: true,
+            collapseWhitespace: true,
+            keepClosingSlash: true
+          }
+        : false
+    }),
 
     /**
      * LLevarlo a utils
