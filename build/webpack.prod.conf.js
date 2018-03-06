@@ -85,8 +85,8 @@ module.exports = webpackMerge(baseWebpackConfig, {
       hashDigest: 'base64',
       hashDigestLength: 20
     }),
-
-    new webpack.optimize.ModuleConcatenationPlugin(),
+    //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios
+    // new webpack.optimize.ModuleConcatenationPlugin(),
 
     new webpack.DefinePlugin({
       'process.env': {
