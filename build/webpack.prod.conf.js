@@ -7,7 +7,6 @@ const helpers = require('./helpers');
 const config = require('../config');
 const utils = require('./utils');
 
-
 const ENV =
   process.env.NODE_ENV == 'production'
     ? config.build.env.NODE_ENV
@@ -56,7 +55,7 @@ module.exports = webpackMerge(baseWebpackConfig, {
     ]
   },
 
-  devtool: 'source-map',
+  // devtool: 'source-map',
 
   plugins: [
     /**
@@ -68,22 +67,29 @@ module.exports = webpackMerge(baseWebpackConfig, {
      *
      * NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
      */
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      uglifyOptions: utils.getUglifyOptions,
-      // https://github.com/angular/angular/issues/10618
-      mangle: {
-        keep_fnames: true
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   sourceMap: true,
+    //   uglifyOptions: utils.getUglifyOptions,
+    //   // https://github.com/angular/angular/issues/10618
+    //   // mangle: {
+    //   //   keep_fnames: true
+    //   // }
+    // }),
     new ExtractTextPlugin('[name].[hash].css'),
 
     new PurifyPlugin() /* buildOptimizer */,
 
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map[query]',
+      moduleFilenameTemplate: '[resource-path]',
+      fallbackModuleFilenameTemplate: '[resource-path]?[hash]',
+      sourceRoot: 'webpack:///'
+    }),
+    
     new webpack.HashedModuleIdsPlugin({
-      hashFunction: 'md5',
-      hashDigest: 'base64',
-      hashDigestLength: 20
+      // hashFunction: 'md5',
+      // hashDigest: 'base64',
+      // hashDigestLength: 20
     }),
     //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios
     // new webpack.optimize.ModuleConcatenationPlugin(),
@@ -94,5 +100,19 @@ module.exports = webpackMerge(baseWebpackConfig, {
         APP_CONFIG: JSON.stringify(APP_CONFIG)
       }
     })
-  ]
+  ],
+  /**
+     * Include polyfills or mocks for various node stuff
+     * Description: Node configuration
+     *
+     * See: https://webpack.github.io/docs/configuration.html#node
+     */
+    node: {
+      global: true,
+      crypto: 'empty',
+      process: false,
+      module: false,
+      clearImmediate: false,
+      setImmediate: false
+    }
 });

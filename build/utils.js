@@ -312,7 +312,6 @@ exports.getUglifyOptions = () => {
   };
 
   return {
-    // ecma: supportES2015 ? 6 : 5,
     ecma: 6,
     warnings: false, // TODO verbose based on option?
     ie8: false,
