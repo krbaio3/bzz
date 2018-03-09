@@ -48,7 +48,6 @@ Object.assign(ngcWebpackConfig.plugin, {
 
 module.exports = {
   entry: builder.entry,
-
   output: builder.output,
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -139,19 +138,6 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       chunks: ['vendor']
-    }),
-    //Con la nueva configuracion de desarrollo no hace falta
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: 'src/assets',
-    //     to: 'assets'
-    //   }
-    // ]),
-
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery',
-      jquery: 'jquery'
     }),
 
     /**
