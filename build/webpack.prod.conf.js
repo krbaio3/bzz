@@ -39,23 +39,14 @@ module.exports = webpackMerge(baseWebpackConfig, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader!sass-loader'
-
-          /**use: [
-            {
-              loader: 'css-loader',
-            },    
-            {
-            'sass-loader'
-            },
-          ] */
+          use: [{loader: 'css-loader',},{loader: 'sass-loader'},]
         }),
         include: [helpers.root('src', 'styles')]
       }
     ]
   },
 
-  // devtool: 'source-map',
+  devtool: 'source-map',
 
   plugins: [
     /**
@@ -67,29 +58,22 @@ module.exports = webpackMerge(baseWebpackConfig, {
      *
      * NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
      */
-    // new webpack.optimize.UglifyJsPlugin({
-    //   sourceMap: true,
-    //   uglifyOptions: utils.getUglifyOptions,
-    //   // https://github.com/angular/angular/issues/10618
-    //   // mangle: {
-    //   //   keep_fnames: true
-    //   // }
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      uglifyOptions: utils.getUglifyOptions,
+      // https://github.com/angular/angular/issues/10618
+      mangle: {
+        keep_fnames: true
+      }
+    }),
     new ExtractTextPlugin('[name].[hash].css'),
 
     new PurifyPlugin() /* buildOptimizer */,
 
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map[query]',
-      moduleFilenameTemplate: '[resource-path]',
-      fallbackModuleFilenameTemplate: '[resource-path]?[hash]',
-      sourceRoot: 'webpack:///'
-    }),
-    
     new webpack.HashedModuleIdsPlugin({
-      // hashFunction: 'md5',
-      // hashDigest: 'base64',
-      // hashDigestLength: 20
+      hashFunction: 'md5',
+      hashDigest: 'base64',
+      hashDigestLength: 20
     }),
     //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios
     // new webpack.optimize.ModuleConcatenationPlugin(),
