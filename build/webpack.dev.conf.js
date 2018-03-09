@@ -7,12 +7,19 @@ const config = require('../config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const EvalSourceMapDevToolPlugin = require('webpack/lib/EvalSourceMapDevToolPlugin');
+const shell = require('shelljs');
 
 const ENV = (process.env.NODE_ENV = config.dev.env.NODE_ENV);
 const APP_CONFIG = {
   API_URL: 'dev.api.local'
 };
-const isProd = ENV == 'production';
+
+// Generate vendor-manifest.js
+if (shell.exec('webpack --config build/vendor.webpack.config.js').code !== 0) {
+  shell.echo('Error: vendor-manifest.json build failed');
+  shell.exit(1);
+}
+
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function(name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(
@@ -67,22 +74,13 @@ module.exports = webpackMerge(baseWebpackConfig, {
 
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      // template: 'src/index.html',
-      template: 'index.html',
-      inject: 'body',
-      xhtml: true,
-      minify: isProd
-        ? {
-            caseSensitive: true,
-            collapseWhitespace: true,
-            keepClosingSlash: true
-          }
-        : false
-    }),
-    new FriendlyErrorsPlugin()
+    new FriendlyErrorsPlugin(),
+
+    // Revisar la construccion con DLL
+
+    new webpack.DllReferencePlugin({
+      manifest: require('../dist/vendor-manifest.json')
+    })
   ],
   // cheap-module-eval-source-map is faster for development
   // https://webpack.js.org/configuration/devtool/#devtool

@@ -4,10 +4,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-//REVUISARLO
 const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
 
 const ngcWebpack = require('ngc-webpack');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const path = require('path');
 const helpers = require('./helpers');
 const utils = require('./utils');
@@ -133,20 +133,7 @@ module.exports = {
       name: 'vendor',
       chunks: ['vendor']
     }),
-    //Con la nueva configuracion de desarrollo no hace falta
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: 'src/assets',
-    //     to: 'assets'
-    //   }
-    // ]),
-
-    new webpack.ProvidePlugin({
-      jQuery: 'jquery',
-      $: 'jquery',
-      jquery: 'jquery'
-    }),
-
+   
     /**
      * Plugin: ScriptExtHtmlWebpackPlugin
      * Description: Enhances html-webpack-plugin functionality
@@ -162,6 +149,27 @@ module.exports = {
     }),
 
     new ngcWebpack.NgcWebpackPlugin(ngcWebpackConfig.plugin),
+
+    // https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: 'body',
+      xhtml: true,
+      minify: isProduction
+        ? {
+            caseSensitive: true,
+            collapseWhitespace: true,
+            keepClosingSlash: true
+          }
+        : false
+    }),
+
+    // Revisar construccion DLL
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, '../dist/library/vendor.dll.js'),
+      includeSourcemap: false,
+    }),
 
     /**
      * LLevarlo a utils
