@@ -6,7 +6,7 @@
     "lint": "tslint src/**/*.ts",
     "start": "node build/dev-server.js",
     "start:prod": "NODE_ENV=production node build/dev-server.js",
-    "prod":
+    "build":
       "NODE_ENV=production webpack --config build/webpack.prod.conf.js --progress --profile",
     "server": "http-server dist --cors",
     "build:dev":
