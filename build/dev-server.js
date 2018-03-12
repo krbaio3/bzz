@@ -77,7 +77,7 @@ const staticPath = path.posix.join(
 
 console.log(`Este es el staticPath => ${staticPath}`);
 
-app.use(staticPath, express.static('./static'));
+app.use(staticPath, express.static('./public'));
 
 const uri = 'http://localhost:' + port;
 
