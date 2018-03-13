@@ -1,25 +1,51 @@
-'use strict'
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ContextReplacementPlugin } = require('webpack');
 
-// Webpack for testing
+const test = require('../config/test.env');
+const config = require('../config');
 
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const utils = require('./utils')
-const webpackBaseConfig = require('./webpack.base.conf')
+console.log(JSON.stringify(config.dev));
 
-const webpackConfig = merge(webpackBaseConfig, {
-  // use inline sourcemap for karma-sourcemap-loader
-  module: {
-    rules: utils.styleLoaders()
+console.log(JSON.stringify(test));
+
+module.exports = {
+  entry: {
+    main: './src/unit-tests.ts'
   },
-  devtool: '#inline-source-map',
+  output: {
+    path: path.join(__dirname, '../out-test/'),
+    filename: '[name].bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.ts', '.html']
+  },
+  devServer: {
+    contentBase: path.join(__dirname, '../dist/'),
+    port: 9000
+  },
+  devtool: 'inline-source-map',
+  module: {
+    loaders: [
+      {
+        test: /.ts$/,
+        use: ['awesome-typescript-loader', 'angular2-template-loader']
+      },
+      { test: /.html$/, use: 'raw-loader' }
+    ]
+  },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': require('../config/test.env')
-    })
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      filename: 'index.html',
+      showErrors: true,
+      title: 'Webpack App',
+      path: path.join(__dirname, '../dist/'),
+      hash: true
+    }),
+    new ContextReplacementPlugin(
+      /angular(\\|\/)core(\\|\/)@angular/,
+      path.resolve(__dirname, '../src')
+    )
   ]
-})
-
-delete webpackConfig.entry
-
-module.exports = webpackConfig
+};
