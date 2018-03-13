@@ -10,6 +10,15 @@ https://github.com/nguyentk90/angular4-webpack3-seed
 https://github.com/gdi2290/angular-starter
 
 
+https://medium.com/developing-an-angular-4-web-app/setting-up-unit-tests-for-the-root-app-component-f56e6bb72b30
+
+https://github.com/jsified-brains/momentz4ever-web-ng4/tree/seed-ng4-and-unit-tests
+
+http://www.thinksincode.com/2016/07/07/karma-jasmine-webpack.html
+
+
+
+
 # MIS NOTAS
 
 * Saco el index.html al raíz, considero que es una buena practica. Se comenta las lineas en webpack base y dev para cambiarlo dentro de src
