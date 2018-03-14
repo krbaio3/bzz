@@ -17,6 +17,12 @@ https://github.com/jsified-brains/momentz4ever-web-ng4/tree/seed-ng4-and-unit-te
 http://www.thinksincode.com/2016/07/07/karma-jasmine-webpack.html
 
 
+https://github.com/aurelia/webpack-plugin/wiki/Using-Webpack-DLL
+
+https://medium.com/@emilycoco/how-to-use-the-dll-plugin-to-speed-up-your-webpack-build-dbf330d3b13c
+
+
+
 
 
 # MIS NOTAS
