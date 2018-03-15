@@ -10,6 +10,14 @@ https://github.com/nguyentk90/angular4-webpack3-seed
 https://github.com/gdi2290/angular-starter
 
 
+
+-----------
+
+ngrx
+
+https://appdividend.com/2018/01/31/angular-ngrx-store-tutorial-example-scratch/?utm_source=hashnode.com
+
+
 # MIS NOTAS
 
 * Saco el index.html al raíz, considero que es una buena practica. Se comenta las lineas en webpack base y dev para cambiarlo dentro de src
