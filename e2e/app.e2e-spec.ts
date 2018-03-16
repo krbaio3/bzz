@@ -1,14 +1,14 @@
-import { AppPage } from './app.po';
+import { BzzWipPage } from './app.po';
 
-describe('bzz App', () => {
-  let page: AppPage;
+describe('bzz-wip App', function() {
+  let page: BzzWipPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new BzzWipPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });

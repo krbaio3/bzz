@@ -1,21 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
-import { ReactiveFormsModule } from '@angular/forms';
-import { addCoinReducer } from './reducers/blockchain.reducer';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { BlockchainComponent } from './blockchain/blockchain.component';
-import { DisplayComponent } from './display/display.component';
+import { EmpleadoComponent } from './empleado/empleado.component';
 
 @NgModule({
-  declarations: [AppComponent, BlockchainComponent, DisplayComponent],
+  declarations: [
+    AppComponent,
+    EmpleadoComponent
+  ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ blockchain: addCoinReducer }),
-    ReactiveFormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
