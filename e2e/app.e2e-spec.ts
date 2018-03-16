@@ -1,7 +1,7 @@
 import { BzzWipPage } from './app.po';
 
-describe('bzz-wip App', function() {
-  let page: BzzWipPage;
+describe('ng5 App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
     page = new BzzWipPage();
