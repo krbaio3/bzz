@@ -67,7 +67,7 @@ export class HeroesService {
     console.log('servicio listo!!!');
   }
 
-  getHeroes() {
+  getHeroes(): Heroe[] {
     return this.heroes;
   }
 }
