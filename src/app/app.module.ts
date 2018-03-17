@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Rutas
-import { APP_ROUTING } from './app.routes';
+import { AppRoutingModule } from './app-routing.module';
 
 // Servicios
-
+import { HeroesService } from './service/heroes.service';
 // Componentes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
@@ -21,10 +21,10 @@ import { HeroesComponent } from './components/heroes/heroes.component';
     NavbarComponent,
     HomeComponent,
     AboutComponent,
-    HeroesComponent
+    HeroesComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpModule, APP_ROUTING],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
+  providers: [HeroesService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
