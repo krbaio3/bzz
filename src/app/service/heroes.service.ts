@@ -70,4 +70,21 @@ export class HeroesService {
   getHeroes(): Heroe[] {
     return this.heroes;
   }
+
+  getHeroe(ind: string): Heroe {
+    return this.heroes[ind];
+  }
+
+  searchHeroes(name: string): Heroe[] {
+    let heroesArr: Heroe[] = [];
+    name = name.toLocaleLowerCase();
+
+    for (const heroe of this.heroes) {
+      const nombre = heroe.nombre.toLocaleLowerCase();
+      if (nombre.indexOf(name) >= 0) {
+        heroesArr.push(heroe);
+      }
+    }
+    return heroesArr;
+  }
 }
