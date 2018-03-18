@@ -1,3 +1,16 @@
+<h1>Heroe Buscado:
+  <small>{{buscado | uppercase}}</small>
+</h1>
+<hr>
+
+<div class="row animated fadeIn fast" *ngIf="heroes.length == 0">
+  <div class="col-md-12">
+    <div class="alert alert-info" role="alert">
+      No se ha encontrado ningun resultado con: {{ buscado | uppercase }}
+    </div>
+  </div>
+</div>
+
 <div class="card-columns">
   <div class="card fadeIn animated fast" *ngFor="let heroe of heroes; let indice = index">
     <img class="card-img-top" [src]="heroe.img" [alt]="heroe.nombre">

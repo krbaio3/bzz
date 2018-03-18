@@ -10,6 +10,7 @@ import { Heroe } from '../../models/heroe.model';
 })
 export class SearchComponent implements OnInit {
   heroes: Heroe[] = [];
+  buscado: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,6 +21,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       console.log(params['name']);
+      this.buscado = params['name'];
       this.heroes = this._heroeService.searchHeroes(params['name']);
       console.log(this.heroes);
     });
