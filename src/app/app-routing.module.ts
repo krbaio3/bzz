@@ -7,30 +7,18 @@ import {
   NbRegisterComponent,
   NbLogoutComponent,
   NbRequestPasswordComponent,
-  NbResetPasswordComponent
+  NbResetPasswordComponent,
 } from '@nebular/auth';
 
 import { SpotyRoutingModule } from './spoty/spoty-routing.module';
+import { HeroesRoutingModule } from './heroes/heroes-routing.module';
 
-import { HomeComponent } from './components/home/home.component';
-import { HeroesComponent } from './components/heroes/heroes.component';
-import { AboutComponent } from './components/about/about.component';
-import { HeroeComponent } from './components/heroe/heroe.component';
-import { SearchComponent } from './components/search/search.component';
-import { PipesComponent } from './components/pipes/pipes.component';
-
-import { NebularComponent } from './nebular/login/login.component';
+// import { NebularComponent } from './nebular/login/login.component';
 
 import { AppComponent } from './app.component';
 
 const APP_ROUTES: Routes = [
-  { path: 'avenger', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'heroes', component: HeroesComponent },
-  { path: 'pipes', component: PipesComponent },
-  { path: 'nebular', component: NebularComponent },
-  { path: 'heroe/:id', component: HeroeComponent },
-  { path: 'search/:name', component: SearchComponent },
+  { path: '', component: AppComponent },
   { path: '**', pathMatch: 'full', redirectTo: '' },
   {
     path: 'auth',
@@ -38,30 +26,30 @@ const APP_ROUTES: Routes = [
     children: [
       {
         path: '',
-        component: NbLoginComponent
+        component: NbLoginComponent,
       },
       {
         path: 'login',
-        component: NbLoginComponent
+        component: NbLoginComponent,
       },
       {
         path: 'register',
-        component: NbRegisterComponent
+        component: NbRegisterComponent,
       },
       {
         path: 'logout',
-        component: NbLogoutComponent
+        component: NbLogoutComponent,
       },
       {
         path: 'request-password',
-        component: NbRequestPasswordComponent
+        component: NbRequestPasswordComponent,
       },
       {
         path: 'reset-password',
-        component: NbResetPasswordComponent
-      }
-    ]
-  }
+        component: NbResetPasswordComponent,
+      },
+    ],
+  },
 ];
 
 //   imports: [RouterModule.forRoot(
@@ -74,8 +62,9 @@ const APP_ROUTES: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(APP_ROUTES, { useHash: true }),
-    SpotyRoutingModule
+    SpotyRoutingModule,
+    HeroesRoutingModule
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

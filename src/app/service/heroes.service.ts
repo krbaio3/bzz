@@ -78,11 +78,13 @@ export class HeroesService {
   searchHeroes(name: string): Heroe[] {
     let heroesArr: Heroe[] = [];
     name = name.toLocaleLowerCase();
-
+    let count = 0;
     for (const heroe of this.heroes) {
+      count++;
       const nombre = heroe.nombre.toLocaleLowerCase();
       if (nombre.indexOf(name) >= 0) {
-        heroesArr.push(heroe);
+        let miHeroe = Object.assign(heroe, { indice: count});
+        heroesArr.push(miHeroe);
       }
     }
     return heroesArr;

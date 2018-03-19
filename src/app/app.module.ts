@@ -13,35 +13,17 @@ import { HeroesService } from './service/heroes.service';
 // Componentes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { HeroesComponent } from './components/heroes/heroes.component';
-import { HeroeComponent } from './components/heroe/heroe.component';
-import { SearchComponent } from './components/search/search.component';
-import { PipesComponent } from './components/pipes/pipes.component';
-import { CapitalizePipe } from './pipes/capitalizado.pipe';
-import { DomseguroPipe } from './pipes/dom-seguro.pipe';
-import { PasswordPipe } from './pipes/password.pipe';
 
 // Modulos
 import { NebularModule } from './nebular/nebular.module';
 import { SpotyModule } from './spoty/spoty.module';
-
+import { HeroesModule } from './heroes/heroes.module';
 registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent,
-    AboutComponent,
-    HeroesComponent,
-    HeroeComponent,
-    SearchComponent,
-    PipesComponent,
-    CapitalizePipe,
-    DomseguroPipe,
-    PasswordPipe,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +31,10 @@ registerLocaleData(localeEs);
     HttpModule,
     AppRoutingModule,
     NebularModule,
-    SpotyModule
+    SpotyModule,
+    HeroesModule
   ],
   providers: [HeroesService, { provide: LOCALE_ID, useValue: 'es' }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
