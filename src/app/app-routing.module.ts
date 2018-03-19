@@ -10,6 +10,8 @@ import {
   NbResetPasswordComponent
 } from '@nebular/auth';
 
+import { SpotyRoutingModule } from './spoty/spoty-routing.module';
+
 import { HomeComponent } from './components/home/home.component';
 import { HeroesComponent } from './components/heroes/heroes.component';
 import { AboutComponent } from './components/about/about.component';
@@ -17,20 +19,12 @@ import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
 
-import { SpotyComponent } from './spoty/spoty/spoty.component';
-import { HomeSpotyComponent } from './spoty/home-spoty/home-spoty.component';
-import { SearchSpotyComponent } from './spoty/search-spoty/search-spoty.component';
-
 import { NebularComponent } from './nebular/login/login.component';
 
 import { AppComponent } from './app.component';
 
 const APP_ROUTES: Routes = [
-  { path: '', component: AppComponent },
   { path: 'avenger', component: HomeComponent },
-  { path: 'spoty', component: SpotyComponent },
-  { path: 'spoty_home', component: HomeSpotyComponent },
-  { path: 'spoty_search', component: SearchSpotyComponent },
   { path: 'about', component: AboutComponent },
   { path: 'heroes', component: HeroesComponent },
   { path: 'pipes', component: PipesComponent },
@@ -78,7 +72,7 @@ const APP_ROUTES: Routes = [
 //   exports: [RouterModule]
 // })
 @NgModule({
-  imports: [RouterModule.forRoot(APP_ROUTES)],
+  imports: [RouterModule.forRoot(APP_ROUTES), SpotyRoutingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

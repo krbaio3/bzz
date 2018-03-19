@@ -12,6 +12,9 @@ import { NbEmailPassAuthProvider, NbAuthModule } from '@nebular/auth';
 // Componentes
 import { NebularComponent } from './login/login.component';
 
+// styles
+import './nebular.styles.scss';
+
 @NgModule({
   imports: [
     NbThemeModule.forRoot({ name: 'default' }), // this will enable the default theme, you can change this to `cosmic` to enable the dark theme.
