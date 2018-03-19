@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeroesService } from './service/heroes.service';
 // Componentes
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 // Modulos
 import { NebularModule } from './nebular/nebular.module';
@@ -23,7 +22,6 @@ registerLocaleData(localeEs);
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
   ],
   imports: [
     BrowserModule,

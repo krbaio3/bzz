@@ -37,7 +37,8 @@ import { PasswordPipe } from '../pipes/password.pipe';
     PipesComponent,
     CapitalizePipe,
     DomseguroPipe,
-    PasswordPipe
+    PasswordPipe,
+    NavbarComponent
   ]
 })
 export class HeroesModule {}
