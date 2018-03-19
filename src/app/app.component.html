@@ -1,6 +1,30 @@
-<app-navbar></app-navbar>
+<!-- Avengers -->
+<div *ngIf="option">
+  <app-navbar></app-navbar>
 
-<div class="container main-container">
-  <router-outlet></router-outlet>
-  
+  <div class="container main-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Spoty -->
+<div *ngIf="spoty" id="spotyApp">
+  <app-nav-bar-spoty></app-nav-bar-spoty>
+  <div class="container main-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Nebular -->
+<div *ngIf="nebular">
+  <div class="container main-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Botonera Opciones -->
+<div class="container main-container" *ngIf="!option && !spoty && !nebular">
+  <button class="btn btn-outline-primary btn-block" (click)="goToAvengers()" [routerLink]="['avenger']">Avenger</button>
+  <button class="btn btn-outline-primary btn-block" (click)="goToSpoty()" [routerLink]="['spoty']">Spoty</button>
+  <button class="btn btn-outline-primary btn-block" (click)="goToNebular()" [routerLink]="['nebular']">Nebular</button>
 </div>

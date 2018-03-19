@@ -23,6 +23,10 @@ import { CapitalizePipe } from './pipes/capitalizado.pipe';
 import { DomseguroPipe } from './pipes/dom-seguro.pipe';
 import { PasswordPipe } from './pipes/password.pipe';
 
+// Modulos
+import { NebularModule } from './nebular/nebular.module';
+import { SpotyModule } from './spoty/spoty.module';
+
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -39,8 +43,15 @@ registerLocaleData(localeEs);
     DomseguroPipe,
     PasswordPipe,
   ],
-  imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
-  providers: [HeroesService, {provide: LOCALE_ID, useValue: 'es'}],
-  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule,
+    NebularModule,
+    SpotyModule
+  ],
+  providers: [HeroesService, { provide: LOCALE_ID, useValue: 'es' }],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
