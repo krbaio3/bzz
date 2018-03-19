@@ -32,7 +32,7 @@ registerLocaleData(localeEs);
     SpotyModule,
     HeroesModule
   ],
-  providers: [HeroesService, { provide: LOCALE_ID, useValue: 'es' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

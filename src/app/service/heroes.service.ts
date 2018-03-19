@@ -84,6 +84,7 @@ export class HeroesService {
       const nombre = heroe.nombre.toLocaleLowerCase();
       if (nombre.indexOf(name) >= 0) {
         let miHeroe = Object.assign(heroe, { indice: count});
+        console.log(miHeroe);
         heroesArr.push(miHeroe);
       }
     }

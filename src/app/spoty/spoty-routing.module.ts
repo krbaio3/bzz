@@ -12,14 +12,6 @@ const SPOTY_ROUTES: Routes = [
   { path: 'search', component: SearchSpotyComponent }
 ];
 
-//   imports: [RouterModule.forRoot(
-// @NgModule({
-//     APP_ROUTES,
-//     { enableTracing: true } // <-- debugging purposes only
-//   )],
-//   exports: [RouterModule]
-// })
-
 @NgModule({
   imports: [RouterModule.forRoot(SPOTY_ROUTES)],
   exports: [RouterModule]
