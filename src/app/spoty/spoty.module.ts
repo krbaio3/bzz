@@ -8,6 +8,7 @@ import { SearchSpotyComponent } from './search-spoty/search-spoty.component';
 import { NavBarSpotyComponent } from './shared/nav-bar-spoty/nav-bar-spoty.component';
 
 import './spoty.styles.scss';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -22,7 +23,8 @@ import './spoty.styles.scss';
   declarations: [
     HomeSpotyComponent,
     NavBarSpotyComponent,
-    SearchSpotyComponent
+    SearchSpotyComponent,
+    AboutComponent
   ]
 })
 export class SpotyModule {}

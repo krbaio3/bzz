@@ -3,12 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeSpotyComponent } from './home-spoty/home-spoty.component';
 import { SearchSpotyComponent } from './search-spoty/search-spoty.component';
+import { AboutComponent } from './about/about.component';
 
 const SPOTY_ROUTES: Routes = [
-  { path: '', component: SearchSpotyComponent },
-  { path: 'spoty', component: HomeSpotyComponent },
-  { path: 'home_spoty', component: HomeSpotyComponent },
-  { path: 'spoty_search', component: SearchSpotyComponent }
+  { path: 'spoty', component: AboutComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'home', component: HomeSpotyComponent },
+  { path: 'search', component: SearchSpotyComponent }
 ];
 
 //   imports: [RouterModule.forRoot(

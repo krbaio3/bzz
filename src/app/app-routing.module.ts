@@ -72,7 +72,10 @@ const APP_ROUTES: Routes = [
 //   exports: [RouterModule]
 // })
 @NgModule({
-  imports: [RouterModule.forRoot(APP_ROUTES), SpotyRoutingModule],
+  imports: [
+    RouterModule.forRoot(APP_ROUTES, { useHash: true }),
+    SpotyRoutingModule
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
