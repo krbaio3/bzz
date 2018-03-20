@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { SpotyRoutingModule } from './spoty-routing.module';
 
@@ -14,19 +15,28 @@ import { SpotifyService } from '../service/spotify.service';
 
 import './spoty.styles.scss';
 
+import { SpotyService } from './services/spoty.service';
+import { WithOutPicturePipe } from './pipes/with-out-picture.pipe';
+import { ArtistComponent } from './artist/artist.component';
+
 @NgModule({
-  imports: [CommonModule, SpotyRoutingModule, HttpClientModule],
+  imports: [CommonModule,
+    FormsModule,
+    SpotyRoutingModule
+  ],
   exports: [
-    NavBarSpotyComponent,
+    NavBarSpotyComponent
   ],
   declarations: [
     HomeSpotyComponent,
     NavBarSpotyComponent,
     SearchSpotyComponent,
     AboutComponent,
+    WithOutPicturePipe,
+    ArtistComponent
   ],
   providers: [
-    // SpotifyService
-  ],
+    SpotyService
+  ]
 })
 export class SpotyModule {}

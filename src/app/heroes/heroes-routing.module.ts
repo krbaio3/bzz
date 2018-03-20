@@ -14,21 +14,10 @@ const APP_ROUTES: Routes = [
   { path: 'heroes', component: HeroesComponent },
   { path: 'pipes', component: PipesComponent },
   { path: 'heroe/:id', component: HeroeComponent },
-  { path: 'search/:name', component: SearchComponent },
-  { path: '**', pathMatch: 'full', redirectTo: '' },
+  { path: 'search/:name', component: SearchComponent }
 ];
-
-//   imports: [RouterModule.forRoot(
-// @NgModule({
-//     APP_ROUTES,
-//     { enableTracing: true } // <-- debugging purposes only
-//   )],
-//   exports: [RouterModule]
-// })
 @NgModule({
-  imports: [
-    RouterModule.forRoot(APP_ROUTES, { useHash: true })
-  ],
+  imports: [RouterModule.forRoot(APP_ROUTES)],
   exports: [RouterModule]
 })
 export class HeroesRoutingModule {}

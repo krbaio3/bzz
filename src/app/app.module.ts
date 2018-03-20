@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 
@@ -9,7 +10,7 @@ import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 
 // Servicios
-import { HeroesService } from './service/heroes.service';
+
 // Componentes
 import { AppComponent } from './app.component';
 
@@ -17,12 +18,11 @@ import { AppComponent } from './app.component';
 import { NebularModule } from './nebular/nebular.module';
 import { SpotyModule } from './spoty/spoty.module';
 import { HeroesModule } from './heroes/heroes.module';
+
 registerLocaleData(localeEs);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -30,9 +30,10 @@ registerLocaleData(localeEs);
     AppRoutingModule,
     NebularModule,
     SpotyModule,
-    HeroesModule
+    HeroesModule,
+    HttpClientModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

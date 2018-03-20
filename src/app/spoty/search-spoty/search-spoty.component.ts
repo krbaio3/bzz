@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SpotifyService } from '../../service/spotify.service';
+import { SpotyService } from '../services/spoty.service';
 
 @Component({
   selector: 'app-search-spoty',
@@ -8,8 +8,19 @@ import { SpotifyService } from '../../service/spotify.service';
   styleUrls: ['./search-spoty.component.scss'],
 })
 export class SearchSpotyComponent implements OnInit {
-  constructor(public _spotifyService: SpotifyService) {
-    this._spotifyService.getArtistas();
+  artista: string = '';
+
+  constructor(public _spotifyService: SpotyService) {}
+
+  buscarArtista() {
+
+    if (this.artista.length == 0) {
+      return;
+    }
+
+    this._spotifyService.getArtistas(this.artista).subscribe(response => {
+      // console.log('Informacion: ', JSON.stringify(response, null, 4));
+    });
   }
 
   ngOnInit() {
