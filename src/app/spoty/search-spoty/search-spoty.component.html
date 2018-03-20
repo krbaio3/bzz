@@ -11,7 +11,17 @@
     <div class="col-md-9" *ngIf="artista.length > 1">
       <h1 class="text-capitalize">{{ artista }}</h1>
       <hr>
-      
+      <div class="row">
+        <div  *ngFor="let artista of _spotifyService.artistas"
+              class="col-md-3 text-center puntero"
+              [routerLink]="['/artist', artista.id]">
+          <img [src]="artista.images | withOutPicture" class="img-thumbnail">
+          <p>
+            {{ artista.name }}
+          </p>
+        </div>
+      </div>
+
       <!-- <ul>
         <li *ngFor="let artista of _spotifyService.artistas">
           {{artista.name}}

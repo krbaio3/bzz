@@ -19,7 +19,7 @@ export class SearchSpotyComponent implements OnInit {
     }
 
     this._spotifyService.getArtistas(this.artista).subscribe(response => {
-      console.log('Informacion: ', JSON.stringify(response, null, 4));
+      // console.log('Informacion: ', JSON.stringify(response, null, 4));
     });
   }
 

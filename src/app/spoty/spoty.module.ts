@@ -14,6 +14,8 @@ import { AboutComponent } from './about/about.component';
 import './spoty.styles.scss';
 
 import { SpotyService } from './services/spoty.service';
+import { WithOutPicturePipe } from './pipes/with-out-picture.pipe';
+import { ArtistComponent } from './artist/artist.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -27,7 +29,9 @@ import { SpotyService } from './services/spoty.service';
     HomeSpotyComponent,
     NavBarSpotyComponent,
     SearchSpotyComponent,
-    AboutComponent
+    AboutComponent,
+    WithOutPicturePipe,
+    ArtistComponent
   ],
   providers: [
     SpotyService
