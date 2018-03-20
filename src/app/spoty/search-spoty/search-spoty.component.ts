@@ -8,8 +8,17 @@ import { SpotyService } from '../services/spoty.service';
   styleUrls: ['./search-spoty.component.scss']
 })
 export class SearchSpotyComponent implements OnInit {
-  constructor(public _spotifyService: SpotyService) {
-    this._spotifyService.getArtistas().subscribe(response => {
+  artista: string = '';
+
+  constructor(public _spotifyService: SpotyService) {}
+
+  buscarArtista() {
+
+    if (this.artista.length == 0) {
+      return;
+    }
+
+    this._spotifyService.getArtistas(this.artista).subscribe(response => {
       console.log('Informacion: ', JSON.stringify(response, null, 4));
     });
   }

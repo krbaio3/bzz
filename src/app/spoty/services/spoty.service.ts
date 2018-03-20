@@ -13,13 +13,12 @@ export class SpotyService {
 
   getToken() {}
 
-  getArtistas() {
-    const url =
-      'https://api.spotify.com/v1/search?query=nickelback&type=artist&limit=20';
+  getArtistas(artista: string) {
+    const url = `https://api.spotify.com/v1/search?query=${artista}&type=artist&limit=20`;
 
     const headers = new HttpHeaders({
       authorization:
-        'Bearer BQDyppX_Kupnyq6_UNNq_4mpTXsDxBVFlSVCSKr49O_SgScRqsjmoVH4KWUP-xhplOV8Tm3p6KyaxAUiFiI'
+        'Bearer BQCHxN6RuhuzqK0iuYpyQqGxVirgV1HfUSmt9SorxMADRi0SA6T_6HUPShV5u-WVvpF_dDBUVBi0P0phR_A'
     });
 
     return this.http.get(url, { headers }).map((response: any) => {
