@@ -7,7 +7,7 @@ import {
   NbRegisterComponent,
   NbLogoutComponent,
   NbRequestPasswordComponent,
-  NbResetPasswordComponent
+  NbResetPasswordComponent,
 } from '@nebular/auth';
 
 import { SpotyRoutingModule } from './spoty/spoty-routing.module';
@@ -20,8 +20,6 @@ import { HeroesRoutingModule } from './heroes/heroes-routing.module';
 // import { SearchComponent } from './components/search/search.component';
 // import { PipesComponent } from './components/pipes/pipes.component';
 
-import { NebularComponent } from './nebular/login/login.component';
-
 import { AppComponent } from './app.component';
 
 const APP_ROUTES: Routes = [
@@ -29,40 +27,40 @@ const APP_ROUTES: Routes = [
   // { path: 'about', component: AboutComponent },
   // { path: 'heroes', component: HeroesComponent },
   // { path: 'pipes', component: PipesComponent },
-  { path: 'nebular', component: NebularComponent },
+  // { path: 'nebular', component: NebularComponent },
   // { path: 'heroe/:id', component: HeroeComponent },
   // { path: 'search/:name', component: SearchComponent },
   { path: '**', pathMatch: 'full', redirectTo: '' },
-  {
-    path: 'auth',
-    component: NbAuthComponent,
-    children: [
-      {
-        path: '',
-        component: NbLoginComponent
-      },
-      {
-        path: 'login',
-        component: NbLoginComponent
-      },
-      {
-        path: 'register',
-        component: NbRegisterComponent
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent
-      },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent
-      }
-    ]
-  }
+  // {
+  //   path: 'auth',
+  //   component: NbAuthComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: NbLoginComponent,
+  //     },
+  //     {
+  //       path: 'login',
+  //       component: NbLoginComponent,
+  //     },
+  //     {
+  //       path: 'register',
+  //       component: NbRegisterComponent,
+  //     },
+  //     {
+  //       path: 'logout',
+  //       component: NbLogoutComponent,
+  //     },
+  //     {
+  //       path: 'request-password',
+  //       component: NbRequestPasswordComponent,
+  //     },
+  //     {
+  //       path: 'reset-password',
+  //       component: NbResetPasswordComponent,
+  //     },
+  //   ],
+  // },
 ];
 
 //   imports: [RouterModule.forRoot(
@@ -78,6 +76,6 @@ const APP_ROUTES: Routes = [
     SpotyRoutingModule,
     HeroesRoutingModule
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

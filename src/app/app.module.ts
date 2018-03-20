@@ -12,16 +12,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Componentes
 import { AppComponent } from './app.component';
-// import { NavbarComponent } from './components/shared/navbar/navbar.component';
-// import { HomeComponent } from './components/home/home.component';
-// import { AboutComponent } from './components/about/about.component';
-// import { HeroesComponent } from './components/heroes/heroes.component';
-// import { HeroeComponent } from './components/heroe/heroe.component';
-// import { SearchComponent } from './components/search/search.component';
-// import { PipesComponent } from './components/pipes/pipes.component';
-// import { CapitalizePipe } from './pipes/capitalizado.pipe';
-// import { DomseguroPipe } from './pipes/dom-seguro.pipe';
-// import { PasswordPipe } from './pipes/password.pipe';
 
 // Modulos
 import { NebularModule } from './nebular/nebular.module';
@@ -33,8 +23,6 @@ registerLocaleData(localeEs);
 @NgModule({
   declarations: [
     AppComponent,
-    // NavbarComponent,
-    // HomeComponent
   ],
   imports: [
     BrowserModule,
