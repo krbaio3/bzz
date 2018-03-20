@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HeroesService } from '../../../service/heroes.service';
+import { HeroesService } from '../../service/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Heroe } from '../../../models/heroe.model';
 
@@ -26,8 +26,9 @@ export class SearchComponent implements OnInit {
       console.log(this.heroes);
     });
   }
-  verHeroe(indice: number) {
-    console.log(indice);
-    this.router.navigate(['/heroe', indice]);
+
+  verHeroe(heroe: any) {
+    console.log(heroe.indice);
+    this.router.navigate(['/heroe', heroe.indice - 1]);
   }
 }

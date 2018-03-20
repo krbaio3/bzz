@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HeroesRoutingModule } from './heroes-routing.module';
 
 // Servicios
-import { HeroesService } from '../service/heroes.service';
+import { HeroesService } from './service/heroes.service';
 // Componentes
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
@@ -18,8 +18,18 @@ import { DomseguroPipe } from '../pipes/dom-seguro.pipe';
 import { PasswordPipe } from '../pipes/password.pipe';
 
 @NgModule({
-  imports: [CommonModule,
-    HeroesRoutingModule
+  imports: [CommonModule, HeroesRoutingModule],
+  exports: [
+    NavbarComponent,
+    HomeComponent,
+    AboutComponent,
+    HeroesComponent,
+    HeroeComponent,
+    SearchComponent,
+    PipesComponent,
+    CapitalizePipe,
+    DomseguroPipe,
+    PasswordPipe
   ],
   declarations: [
     NavbarComponent,
@@ -32,6 +42,7 @@ import { PasswordPipe } from '../pipes/password.pipe';
     CapitalizePipe,
     DomseguroPipe,
     PasswordPipe
-  ]
+  ],
+  providers: [HeroesService],
 })
 export class HeroesModule {}

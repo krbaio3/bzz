@@ -6,10 +6,9 @@ import { SearchSpotyComponent } from './search-spoty/search-spoty.component';
 import { AboutComponent } from './about/about.component';
 
 const SPOTY_ROUTES: Routes = [
-  { path: 'spoty', component: AboutComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'home', component: HomeSpotyComponent },
-  { path: 'search', component: SearchSpotyComponent }
+  { path: 'about_spoty', component: AboutComponent },
+  { path: 'home_spoty', component: HomeSpotyComponent },
+  { path: 'search_spoty', component: SearchSpotyComponent }
 ];
 
 //   imports: [RouterModule.forRoot(

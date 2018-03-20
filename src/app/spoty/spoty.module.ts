@@ -10,10 +10,10 @@ import { NavBarSpotyComponent } from './shared/nav-bar-spoty/nav-bar-spoty.compo
 import './spoty.styles.scss';
 import { AboutComponent } from './about/about.component';
 
+import { SpotyService } from './services/spoty.service';
+
 @NgModule({
-  imports: [CommonModule,
-    SpotyRoutingModule
-  ],
+  imports: [CommonModule, SpotyRoutingModule],
   exports: [
     HomeSpotyComponent,
     NavBarSpotyComponent,
@@ -25,6 +25,7 @@ import { AboutComponent } from './about/about.component';
     NavBarSpotyComponent,
     SearchSpotyComponent,
     AboutComponent
-  ]
+  ],
+  providers: [SpotyService]
 })
 export class SpotyModule {}
