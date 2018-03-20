@@ -10,6 +10,8 @@ import { SearchSpotyComponent } from './search-spoty/search-spoty.component';
 import { NavBarSpotyComponent } from './shared/nav-bar-spoty/nav-bar-spoty.component';
 import { AboutComponent } from './about/about.component';
 
+import { SpotifyService } from '../service/spotify.service';
+
 import './spoty.styles.scss';
 
 import { SpotyService } from './services/spoty.service';
