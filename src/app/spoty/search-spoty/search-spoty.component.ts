@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SpotifyService } from '../../service/spotify.service';
+import { SpotyService } from '../services/spoty.service';
 
 @Component({
   selector: 'app-search-spoty',
@@ -8,8 +8,8 @@ import { SpotifyService } from '../../service/spotify.service';
   styleUrls: ['./search-spoty.component.scss'],
 })
 export class SearchSpotyComponent implements OnInit {
-  constructor(public _spotifyService: SpotifyService) {
-    this._spotifyService.getArtistas();
+  constructor(public _spotifyService: SpotyService) {
+    // this._spotifyService.getArtistas();
   }
 
   ngOnInit() {
