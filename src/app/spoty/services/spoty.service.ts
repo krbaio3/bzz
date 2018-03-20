@@ -6,9 +6,13 @@ import 'rxjs/add/operator/map';
 export class SpotyService {
   artistas: any[] = [];
 
+  tracks: any[] = [];
+
   urlSpotyfy = 'https://api.spotify.com/v1/';
 
   token = 'BQA-j6KTgcSHjIR3FguzuPbfG5-NN9kFBTz5bqrA11n92l0l3W1jTh5L4N8DQrakYti60-J1KvJgjEoKlU8';
+
+  country = 'US';
 
   constructor(public http: HttpClient) {
     console.log('constructor Service');
@@ -49,25 +53,35 @@ export class SpotyService {
       .get(url, { headers: this.getHeaders() })
       .map((response: any) => {
         if (response.error && response.error.error.status === '401') {
+          // if (response.hasOwnProperty('error') && response.error.error.status === '401') {
           // this.getToken();
           return console.error(`Error: ${JSON.stringify(response, null, 4)}`);
         }
         this.artistas = response.artists.items;
         return this.artistas;
       });
-    // .subscribe(response => {
-    //   console.log('response!!');
-    //   console.log(JSON.stringify(response, null, 4));
-    // });
   }
 
   getArtista(id: string) {
-    const url = `${this.urlSpotyfy}artists/${id}`;
 
+    const url = `${this.urlSpotyfy}artists/${id}`;
     return this.http.get(url, { headers: this.getHeaders() });
-    // .map((response: any) => {
-    //   this.artistas = response.artists.items;
-    //   return this.artistas;
-    // });
+  }
+
+  getTop(id: string) {
+
+    const url = `${this.urlSpotyfy}artists/${id}/top-tracks?country=${this.country}`;
+
+    return this.http
+      .get(url, { headers: this.getHeaders() })
+      .map((response: any) => {
+        if (response.error && response.error.error.status === '401') {
+          // if (response.hasOwnProperty('error') && response.error.error.status === '401') {
+          // this.getToken();
+          return console.error(`Error: ${JSON.stringify(response, null, 4)}`);
+        }
+        this.tracks = response.tracks;
+        return this.tracks;
+      });
   }
 }

@@ -11,6 +11,8 @@ export class ArtistComponent implements OnInit {
 
   artista: any = [];
 
+  tracks: any [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private _spotifySrv: SpotyService
@@ -23,11 +25,16 @@ export class ArtistComponent implements OnInit {
       .map(params => params['id'])
       .subscribe(id => {
         console.log(id);
-        this._spotifySrv.getArtista(id)
-          .subscribe((artista:any) => {
-            console.log(artista);
-            this.artista = artista;
-          });
+        this._spotifySrv.getArtista(id).subscribe((artista: any) => {
+          console.log(artista);
+          this.artista = artista;
+        });
+        this._spotifySrv.getTop(id)
+        // .map( (response:any) => response.tracks)
+        .subscribe((tracks: any) => {
+          console.log(tracks);
+          this.tracks = tracks;
+        });
       });
   }
 }
