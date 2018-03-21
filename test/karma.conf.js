@@ -1,72 +1,177 @@
-// Karma configuration
-// Generated on Mon Mar 12 2018 22:39:13 GMT+0100 (CET)
-
-// This is a karma config file. For more details see
-//   http://karma-runner.github.io/0.13/config/configuration-file.html
-// we are also using it with karma-webpack
-//   https://github.com/webpack/karma-webpack
-
-const testWebpackConfig = require('../build/webpack.test.conf');
-// Karma configuration
-// Generated on Sun Jun 04 2017 19:05:24 GMT-0500 (Central Daylight Time)
-// var testWebpackConfig = require('./webpack/webpack-test.config.js');
+/**
+ * @author: @AngularClass
+ */
 
 module.exports = function(config) {
-  config.set({
-    // base path that will be used to resolve all patterns (eg. files, exclude)
+  var testWebpackConfig = require('../build/webpack.test.conf.js')({
+    env: 'test'
+  });
+
+  var configuration = {
+    /**
+     * Base path that will be used to resolve all patterns (e.g. files, exclude).
+     */
     basePath: '',
 
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    /**
+     * Frameworks to use
+     *
+     * available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+     */
     frameworks: ['jasmine'],
 
-    // list of files / patterns to load in the browser
-    files: [{ pattern: './index.ts', watched: false }],
+    /**
+     * List of files to exclude.
+     */
+    exclude: [''],
 
-    // list of files to exclude
-    exclude: [],
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      './index.ts': ['webpack', 'sourcemap']
+    client: {
+      captureConsole: false
     },
 
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    /**
+     * List of files / patterns to load in the browser
+     *
+     * we are building the test environment in ./spec-bundle.js
+     */
+    files: [
+      { pattern: './test/index.ts', watched: false },
+      {
+        pattern: './src/assets/**/*',
+        watched: false,
+        included: false,
+        served: true,
+        nocache: false
+      }
+    ],
+
+    /**
+     * By default all assets are served at http://localhost:[PORT]/base/
+     */
+    proxies: {
+      '/assets/': '/base/src/assets/'
+    },
+
+    /**
+     * Preprocess matching files before serving them to the browser
+     * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+     */
+    preprocessors: {
+      './test/index.ts': ['webpack', 'sourcemap']
+    },
+
+    /**
+     * Webpack Config at ./webpack.test.js
+     */
+    webpack: testWebpackConfig,
+
+    // coverageReporter: {
+    //   type: 'in-memory'
+    // },
+
+    // remapCoverageReporter: {
+    //   'text-summary': null,
+    //   json: './coverage/coverage.json',
+    //   html: './coverage/html'
+    // },
+
+    /**
+     * Webpack please don't spam the console when running in karma!
+     //  */
+    webpackMiddleware: {
+      //   /**
+      //    * webpack-dev-middleware configuration
+      //    * i.e.
+      //    */
+      //   noInfo: true,
+      //   /**
+      //    * and use stats to turn off verbose output
+      //    */
+      //   stats: {
+      //     /**
+      //      * options i.e.
+      //      */
+      //     chunks: false
+      //   }
+      stats: 'errors-only'
+    },
+
+    /**
+     * Test results reporter to use
+     *
+     * possible values: 'dots', 'progress'
+     * available reporters: https://npmjs.org/browse/keyword/karma-reporter
+     */
     reporters: ['progress'],
 
-    // web server port
+    /**
+     * Web server port.
+     */
     port: 9876,
 
-    // enable / disable colors in the output (reporters and logs)
+    /**
+     * enable / disable colors in the output (reporters and logs)
+     */
     colors: true,
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    /**
+     * Level of logging
+     * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+     */
+    logLevel: config.LOG_DEBUG,
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    /**
+     * enable / disable watching file and executing tests whenever any file changes
+     */
+    autoWatch: false,
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    /**
+     * start these browsers
+     * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+     */
+    browsers: ['Chrome'],
 
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    // customLaunchers: {
+    //   ChromeTravisCi: {
+    //     base: 'ChromeHeadless',
+    //     flags: ['--no-sandbox', '--disable-gpu']
+    //   }
+    // },
 
-    // Concurrency level
-    // how many browser should be started simultaneous
-    concurrency: Infinity,
+    /**
+     * Continuous Integration mode
+     * if true, Karma captures browsers, runs the tests and exits
+     */
+    singleRun: true
+    /**
+     * For slower machines you may need to have a longer browser
+     * wait time . Uncomment the line below if required.
+     */
+    // browserNoActivityTimeout: 30000
+  };
 
-    // Set Webpack configuration, but set the entry to spec files
-    webpack: {
-      module: testWebpackConfig.module,
-      resolve: testWebpackConfig.resolve,
-      plugins: testWebpackConfig.plugins
-    }
-  });
+  // Optional Sonar Qube Reporter
+  // if (process.env.SONAR_QUBE) {
+  //   // SonarQube reporter plugin configuration
+  //   configuration.sonarQubeUnitReporter = {
+  //     sonarQubeVersion: '5.x',
+  //     outputFile: 'reports/ut_report.xml',
+  //     overrideTestDescription: true,
+  //     testPath: 'src/app',
+  //     testFilePattern: '.spec.ts',
+  //     useBrowserName: false
+  //   };
+
+  //   // Additional lcov format required for
+  //   // sonarqube
+  //   configuration.remapCoverageReporter.lcovonly = './coverage/coverage.lcov';
+
+  //   configuration.reporters.push('sonarqubeUnit');
+  // }
+
+  // if (process.env.TRAVIS) {
+  //   configuration.browsers = ['ChromeTravisCi'];
+  // }
+
+  config.set(configuration);
 };
