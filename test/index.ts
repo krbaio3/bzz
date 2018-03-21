@@ -15,7 +15,9 @@ import {
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-// declare const require: any;
+declare var require: any;
+
+// Prevent Karma from running prematurely.
 
 // // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
@@ -24,6 +26,10 @@ getTestBed().initTestEnvironment(
 );
 // require all modules ending in "_test" from the
 // current directory and all subdirectories
-var testsContext = require.context('../src/app', true, /\.spec\.ts$/);
+const testsContext = require.context('../src/app', true, /\.spec\.ts$/);
 
-testsContext.keys().forEach(testsContext);
+console.log('holllllllaaaaaaaaaaaaaaaaaaaaaaaa');
+
+console.log(JSON.stringify(testsContext.keys().map(testsContext)));
+
+testsContext.keys().map(testsContext);

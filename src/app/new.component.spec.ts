@@ -14,6 +14,7 @@ describe('NewComponent', () => {
   it(
     'should create the app',
     async(() => {
+      console.log('entraaaaa');
       const fixture = TestBed.createComponent(NewComponent);
       const app = fixture.debugElement.componentInstance;
       expect(app).toBeTruthy();
