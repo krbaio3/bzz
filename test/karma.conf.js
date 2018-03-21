@@ -1,11 +1,6 @@
-/**
- * @author: @AngularClass
- */
 
 module.exports = function(config) {
-  var testWebpackConfig = require('../build/webpack.test.conf.js')({
-    env: 'test'
-  });
+  var testWebpackConfig = require('../build/webpack.test.conf.js');
 
   var configuration = {
     /**
@@ -23,7 +18,7 @@ module.exports = function(config) {
     /**
      * List of files to exclude.
      */
-    exclude: [''],
+    exclude: ['./node_modules'],
 
     client: {
       captureConsole: false
@@ -107,7 +102,7 @@ module.exports = function(config) {
     /**
      * Web server port.
      */
-    port: 9876,
+    port: 8888,
 
     /**
      * enable / disable colors in the output (reporters and logs)
@@ -129,7 +124,7 @@ module.exports = function(config) {
      * start these browsers
      * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
      */
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
     // customLaunchers: {
     //   ChromeTravisCi: {

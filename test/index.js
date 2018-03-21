@@ -24,8 +24,6 @@ getTestBed().initTestEnvironment(
 );
 // require all modules ending in "_test" from the
 // current directory and all subdirectories
-const testsContext = require.context('../src/app', true, /\.spec\.ts$/);
-
-console.log('holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+var testsContext = require.context('../src/app', true, /\.spec\.ts$/);
 
 testsContext.keys().forEach(testsContext);
