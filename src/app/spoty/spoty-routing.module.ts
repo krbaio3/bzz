@@ -11,8 +11,8 @@ const SPOTY_ROUTES: Routes = [
   { path: 'home_spoty', component: HomeSpotyComponent },
   { path: 'search_spoty', component: SearchSpotyComponent },
   { path: 'artist/:id', component: ArtistComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'home_spoty' },
-  { path: '**', pathMatch: 'full', redirectTo: 'home_spoty' }
+  // { path: '', pathMatch: 'full', redirectTo: 'home_spoty' },
+  // { path: '**', pathMatch: 'full', redirectTo: 'home_spoty' }
 ];
 
 @NgModule({
