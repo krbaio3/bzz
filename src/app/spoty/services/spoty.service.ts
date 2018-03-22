@@ -10,7 +10,7 @@ export class SpotyService {
 
   urlSpotyfy = 'https://api.spotify.com/v1/';
 
-  token = 'BQA-j6KTgcSHjIR3FguzuPbfG5-NN9kFBTz5bqrA11n92l0l3W1jTh5L4N8DQrakYti60-J1KvJgjEoKlU8';
+  token = 'BQBLFoi0-fUrls0OCeBcmjXtMqeGjJHwYih_wP_jWZPa9_AQHpgDgXTBWgEEtjIs2Vy8kScDoNGDqXh0OQc';
 
   country = 'US';
 
@@ -63,14 +63,14 @@ export class SpotyService {
   }
 
   getArtista(id: string) {
-
     const url = `${this.urlSpotyfy}artists/${id}`;
     return this.http.get(url, { headers: this.getHeaders() });
   }
 
   getTop(id: string) {
-
-    const url = `${this.urlSpotyfy}artists/${id}/top-tracks?country=${this.country}`;
+    const url = `${this.urlSpotyfy}artists/${id}/top-tracks?country=${
+      this.country
+    }`;
 
     return this.http
       .get(url, { headers: this.getHeaders() })

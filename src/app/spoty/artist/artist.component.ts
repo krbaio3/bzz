@@ -8,10 +8,9 @@ import { SpotyService } from '../services/spoty.service';
   styleUrls: ['./artist.component.scss']
 })
 export class ArtistComponent implements OnInit {
-
   artista: any = [];
 
-  tracks: any [];
+  tracks: any[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,15 +25,17 @@ export class ArtistComponent implements OnInit {
       .subscribe(id => {
         console.log(id);
         this._spotifySrv.getArtista(id).subscribe((artista: any) => {
-          console.log(artista);
           this.artista = artista;
+          console.log(artista);
+          console.log(`prueba ${artista.external_urls.spotify}`);
         });
-        this._spotifySrv.getTop(id)
-        // .map( (response:any) => response.tracks)
-        .subscribe((tracks: any) => {
-          console.log(tracks);
-          this.tracks = tracks;
-        });
+        this._spotifySrv
+          .getTop(id)
+          // .map( (response:any) => response.tracks)
+          .subscribe((tracks: any) => {
+            console.log(tracks);
+            this.tracks = tracks;
+          });
       });
   }
 }
