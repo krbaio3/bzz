@@ -12,6 +12,8 @@ export class ArtistComponent implements OnInit {
 
   tracks: any[];
 
+  // uri
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private _spotifySrv: SpotyService

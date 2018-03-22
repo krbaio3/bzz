@@ -6,9 +6,9 @@
     <div class="col-md-8">
       <h1 class="text-center">{{ artista.name | uppercase }}</h1>
       <hr>
-        <br/>
-        <a class="btn btn-outline-success btn-block" target="_blank" [href]="artista.external_urls?.spotify">Abrir en Spoty</a>
-        <button class="btn btn-outline-danger btn-block" [routerLink]="['/search_spoty']">Volver</button>
+      <br/>
+      <a class="btn btn-outline-success btn-block" target="_blank" [href]="artista.external_urls?.spotify">Abrir en Spoty</a>
+      <button class="btn btn-outline-danger btn-block" [routerLink]="['/search_spoty']">Volver</button>
     </div>
   </div>
 
@@ -50,9 +50,12 @@
             <label for="track.popularity">{{track.popularity}}</label>
           </td>
           <td>
-           <audio controls>
+            <!-- <audio controls>
              <source [src]="track.preview_url" >
-             El navegador no lo soporta</audio>
+             El navegador no lo soporta</audio> -->
+            <!-- <iframe [src]="track.uri | domseguro: 'https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0"
+              allowtransparency="true">
+            </iframe> -->
           </td>
         </tr>
       </tbody>

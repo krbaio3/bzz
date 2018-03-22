@@ -9,7 +9,9 @@ import { registerLocaleData } from '@angular/common';
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
-// Servicios
+// Pipes
+// import { PasswordPipe, CapitalizePipe, DomseguroPipe } from './pipes/index';
+// import { PipesModule } from './pipes/pipes.module';
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -34,6 +36,6 @@ registerLocaleData(localeEs);
     HttpClientModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

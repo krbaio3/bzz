@@ -10,7 +10,7 @@ export class SpotyService {
 
   urlSpotyfy = 'https://api.spotify.com/v1/';
 
-  token = 'BQBLFoi0-fUrls0OCeBcmjXtMqeGjJHwYih_wP_jWZPa9_AQHpgDgXTBWgEEtjIs2Vy8kScDoNGDqXh0OQc';
+  token = 'BQCZ-_MGnBPz01gb2smO3FSSucXY-QXBi0RcjCcNA5ybQ5MKUSTazGW4vYQjupCJBjjtS5jyYLrzE8Ej6hA';
 
   country = 'US';
 

@@ -1,4 +1,4 @@
-import { ComponentsPipe } from './components.pipe';
+import { CapitalizePipe } from './capitalizado.pipe';
 
 describe('ComponentsPipe', () => {
   it('create an instance', () => {

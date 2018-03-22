@@ -1,4 +1,4 @@
-import { DomseguroPipe } from './domseguro.pipe';
+import { DomseguroPipe } from './dom-seguro.pipe';
 
 describe('DomseguroPipe', () => {
   it('create an instance', () => {

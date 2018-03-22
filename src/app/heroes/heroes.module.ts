@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HeroesRoutingModule } from './heroes-routing.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 // Servicios
 import { HeroesService } from './service/heroes.service';
@@ -13,12 +14,10 @@ import { HeroesComponent } from './components/heroes/heroes.component';
 import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
-import { CapitalizePipe } from '../pipes/capitalizado.pipe';
-import { DomseguroPipe } from '../pipes/dom-seguro.pipe';
-import { PasswordPipe } from '../pipes/password.pipe';
+// import {}
 
 @NgModule({
-  imports: [CommonModule, HeroesRoutingModule],
+  imports: [CommonModule, HeroesRoutingModule, PipesModule],
   exports: [
     NavbarComponent,
     HomeComponent,
@@ -27,9 +26,6 @@ import { PasswordPipe } from '../pipes/password.pipe';
     HeroeComponent,
     SearchComponent,
     PipesComponent,
-    CapitalizePipe,
-    DomseguroPipe,
-    PasswordPipe
   ],
   declarations: [
     NavbarComponent,
@@ -39,9 +35,6 @@ import { PasswordPipe } from '../pipes/password.pipe';
     HeroeComponent,
     SearchComponent,
     PipesComponent,
-    CapitalizePipe,
-    DomseguroPipe,
-    PasswordPipe
   ],
   providers: [HeroesService],
 })
