@@ -12,7 +12,9 @@
     "clean": "rimraf dist",
     "debug": "node --nolazy --inspect-brk=9229 build/dev-server.js",
     "test": "node ./node_modules/karma/bin/karma start test/karma.conf.js",
-    "test2": "rm -rf coverage && node node_modules/.bin/karma start myConf.js"
+    "test2": "rm -rf coverage && node node_modules/.bin/karma start myConf.js",
+    "protractor": "protractor e2e/protractor.conf.js",
+    "preprotractor": "node ./node_modules/protractor/bin/webdriver-manager update"
   },
   "keywords": [
     "pruebas",
@@ -73,6 +75,7 @@
     "inline-manifest-webpack-plugin": "3.0.1",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jasmine-core": "~2.99.1",
+    "jasmine-spec-reporter": "^4.2.1",
     "karma": "^2.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage": "^1.1.1",
@@ -87,8 +90,10 @@
     "node-sass": "4.1.1",
     "opn": "5.2.0",
     "ora": "^2.0.0",
+    "protractor": "^5.3.0",
+    "protractor-html-reporter-2": "^1.0.2",
     "raw-loader": "0.5.1",
-    "rimraf": "2.5.4",
+    "rimraf": "^2.6.2",
     "sass-loader": "6.0.6",
     "script-ext-html-webpack-plugin": "1.8.8",
     "semver": "5.5.0",
@@ -97,6 +102,7 @@
     "style-loader": "0.20.2",
     "svg-url-loader": "2.3.1",
     "to-string-loader": "1.1.5",
+    "ts-node": "^5.0.1",
     "tslint": "5.9.1",
     "tslint-loader": "3.5.3",
     "typescript": "~2.6.0",

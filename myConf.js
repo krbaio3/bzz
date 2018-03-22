@@ -31,11 +31,12 @@ module.exports = function(config) {
     exclude: ['node_modules'],
 
     // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    // available preprocessors: http://karma-runner.github.io/2.0/config/preprocessors.html
     // Add 'coverage' for config Coverage
     preprocessors: {
       './test/index.ts': ['webpack', 'sourcemap'],
-      './src/**/*.ts': ['webpack', 'sourcemap', 'coverage']
+      'src/app/**/!(*.spec).ts': ['webpack', 'sourcemap', 'coverage']
+      // './src/**/*.ts': ['webpack', 'sourcemap', 'coverage']
     },
 
     // For Chrome, see https://stackoverflow.com/a/41737178/7961940
@@ -154,7 +155,7 @@ module.exports = function(config) {
 
     // reporter options
     mochaReporter: {
-      output: 'autowatch',
+      output: 'autowatch'
       // colors: {
       //   success: 'green',
       //   info: 'yellow',
