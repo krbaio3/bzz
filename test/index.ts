@@ -17,19 +17,13 @@ import {
 
 declare var require: any;
 
-// Prevent Karma from running prematurely.
-
 // // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting()
 );
-// require all modules ending in "_test" from the
+// require all modules ending in ".spec" from the
 // current directory and all subdirectories
 const testsContext = require.context('../src/app', true, /\.spec\.ts$/);
-
-console.log('holllllllaaaaaaaaaaaaaaaaaaaaaaaa');
-
-console.log(JSON.stringify(testsContext.keys().map(testsContext)));
 
 testsContext.keys().map(testsContext);
