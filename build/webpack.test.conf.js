@@ -16,14 +16,23 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     loaders: [
+      // See: https://github.com/webpack/source-map-loader
       {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
         exclude: [
-          /**
-           * These packages have problems with their sourcemaps
-           */
+          // These packages have problems with their sourcemaps
+          helpers.root('node_modules/rxjs'),
+          helpers.root('node_modules/@angular')
+        ]
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader',
+        exclude: [
+          // These packages have problems with their sourcemaps
           helpers.root('node_modules/rxjs'),
           helpers.root('node_modules/@angular')
         ]
@@ -34,16 +43,12 @@ module.exports = {
           {
             loader: 'awesome-typescript-loader',
             query: {
-              /**
-               * Use inline sourcemaps for "karma-remap-coverage" reporter
-               */
+              // Use inline sourcemaps for "karma-remap-coverage" reporter
               sourceMap: false,
               inlineSourceMap: true,
               compilerOptions: {
-                /**
-                 * Remove TypeScript helpers to be injected
-                 * below by DefinePlugin
-                 */
+                // Remove TypeScript helpers to be injected
+                // below by DefinePlugin
                 removeComments: true
               }
             }
@@ -56,6 +61,16 @@ module.exports = {
         test: /\.html$/,
         loader: 'raw-loader',
         exclude: [helpers.root('src/index.html')]
+      },
+      {
+        enforce: 'post',
+        test: /\.(js|ts)$/,
+        loader: 'istanbul-instrumenter-loader',
+        include: helpers.root('src'),
+        // exclude: [/\.(e2e|spec)\.ts$/, /node_modules/],
+        query: {
+          esModules: true
+        }
       }
     ]
   },

@@ -40,7 +40,7 @@ module.exports = function(config) {
     // https://github.com/webpack/webpack-dev-middleware
     webpackMiddleware: {
       //webpack-dev-middleware configuration
-      noInfo: true,
+      noInfo: false,
       // This property defines the level of messages that the module will log. Valid levels include: trace, debug, info, warn, error, silent
       logLevel: 'info',
       // and use stats to turn off verbose output

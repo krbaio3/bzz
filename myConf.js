@@ -12,15 +12,30 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
-    files: [{ pattern: './test/index.ts', watched: false }],
+    files: [
+      { pattern: './test/index.ts', watched: false },
+      {
+        pattern: './src/assets/**/*',
+        watched: false,
+        included: false,
+        served: true,
+        nocache: false
+      }
+    ],
+
+    client: {
+      captureConsole: false
+    },
 
     // list of files / patterns to exclude
     exclude: ['node_modules'],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    // Add 'coverage' for config Coverage
     preprocessors: {
-      './test/index.ts': ['webpack', 'sourcemap']
+      './test/index.ts': ['webpack', 'sourcemap'],
+      './src/**/*.ts': ['webpack', 'sourcemap', 'coverage']
     },
 
     // For Chrome, see https://stackoverflow.com/a/41737178/7961940
@@ -37,9 +52,9 @@ module.exports = function(config) {
     // https://github.com/webpack/webpack-dev-middleware
     webpackMiddleware: {
       //webpack-dev-middleware configuration
-      noInfo: true,
+      noInfo: false,
       // This property defines the level of messages that the module will log. Valid levels include: trace, debug, info, warn, error, silent
-      logLevel: 'info',
+      logLevel: 'debug',
       // and use stats to turn off verbose output
       stats: {
         // options i.e.
@@ -50,7 +65,8 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    // coverage reporter generates the coverage
+    reporters: ['mocha', 'coverage', 'remap-coverage'],
 
     // web server port
     port: 9876,
@@ -74,9 +90,9 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    // browsers: ['Chrome'],
+    browsers: ['Chrome'],
     // browsers: ['Chrome', 'Chrome_without_security', 'PhantomJS'],
-    browsers: ['Chrome', 'PhantomJS'],
+    // browsers: ['Chrome', 'PhantomJS'],
     // you can define custom flags
     // customLaunchers: {
     //   Chrome_without_security: {
@@ -91,6 +107,66 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    /**
+     * Custom config to Coverage
+     */
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/',
+      subdir: browser => {
+        // normalization process to keep a consistent browser name across different
+        return browser.toLowerCase().split(/[ /-]/)[0];
+      },
+      check: {
+        global: {
+          statements: 75,
+          branches: 75,
+          functions: 75,
+          lines: 75
+          // excludes: ['foo/bar/**/*.js']
+        },
+        each: {
+          statements: 75,
+          branches: 75,
+          functions: 75,
+          lines: 75
+          // excludes: ['other/directory/**/*.js'],
+          // overrides: {
+          //   'baz/component/**/*.js': {
+          //     statements: 98
+          //   }
+          // }
+        }
+      }
+    },
+
+    // define where to save final remaped coverage reports
+    remapCoverageReporter: {
+      'text-summary': null,
+      html: 'coverage/',
+      cobertura: 'coverage/cobertura.xml',
+      json: 'coverage/coverage.json'
+    },
+
+    // reporter options
+    mochaReporter: {
+      output: 'autowatch',
+      // colors: {
+      //   success: 'green',
+      //   info: 'yellow',
+      //   warning: 'orange',
+      //   error: 'red'
+      // }
+      // symbols: {
+      //   success: '+',
+      //   info: '#',
+      //   warning: '!',
+      //   error: 'x'
+      // }
+    }
   });
 };
