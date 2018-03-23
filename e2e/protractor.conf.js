@@ -3,15 +3,16 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 const HTMLReport = require('protractor-html-reporter-2');
-const jasmineReporters = require('jasmine-reporters');
+const { JUnitXmlReporter } = require('jasmine-reporters');
 const rimraf = require('rimraf');
 const fs = require('fs');
-const root = require('./.protractor.root.json');
+const root = require('./protractor.root.json');
 
 exports.config = {
+  seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: root.baseUrl,
   specs: root.specs,
-  exclude:[],
+  exclude: [],
   framework: root.framework,
   allScriptsTimeout: root.allScriptsTimeout,
   jasmineNodeOpts: {
@@ -20,35 +21,35 @@ exports.config = {
     showTiming: root.jasmineNodeOpts.showTiming,
     isVerbose: root.jasmineNodeOpts.isVerbose,
     includeStackTrace: root.jasmineNodeOpts.includeStackTrace,
-    print: function() {},
+    print: function() {}
   },
   capabilities: root.capabilities,
   directConnect: root.directConnect,
   // custom config
   beforeLaunch() {
-    try {
-      if (fs.existsSync(root.report)) {
-        rimraf(root.report, () => {});
-      }
-      if (fs.existsSync(root.protractorReport)) {
-        rimraf(root.protractorReport, () => {});
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   if (fs.existsSync(root.report)) {
+    //     rimraf(root.report, () => {});
+    //   }
+    //   if (fs.existsSync(root.protractorReport)) {
+    //     rimraf(root.protractorReport, () => {});
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   },
   onPrepare() {
     require('ts-node').register({
-      project: 'e2e/tsconfig.e2e.json'
+      project: './e2e/tsconfig.e2e.json'
     });
     jasmine
       .getEnv()
       .addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
     jasmine.getEnv().addReporter(
-      new jasmineReporters.JUnitXmlReporter({
+      new JUnitXmlReporter({
         consolidateAll: true,
         savePath: './',
-        filePrefix: 'report'
+        filePrefix: 'reports'
       })
     );
   },
@@ -73,7 +74,13 @@ exports.config = {
       };
       new HTMLReport().from(root.report, testConfig);
     });
-    rimraf(root.report, () => {});
+  },
+  onCleanUp(exitCode) {
+    if (!exitCode) {
+      console.log(exitCode);
+      rimraf(root.report, () => {});
+      rimraf('./e2e/spec/**/*.js', () => {});
+    }
   }
   // end custom config
 };

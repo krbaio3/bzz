@@ -1,8 +1,11 @@
 {
   "allScriptsTimeout": 11000,
-  "specs": ["./e2e/**/*.e2e-spec.ts"],
+  "specs": ["spec/*.e2e-spec.js"],
   "capabilities": {
-    "browserName": "chrome"
+    "browserName": "chrome",
+    "chromeOptions": {
+      "args": ["--headless", "--disable-gpu", "--window-size=800,600"]
+    }
   },
   "directConnect": true,
   "baseUrl": "http: //localhost:4200/",
@@ -14,7 +17,7 @@
     "isVerbose": false,
     "includeStackTrace": false
   },
-  "report": "report.xml",
+  "report": "reports.xml",
   "protractorReport": "./protractorReport",
   "screenshots": "./screenshots"
 }
