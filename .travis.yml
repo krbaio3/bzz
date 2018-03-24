@@ -1,0 +1,17 @@
+#.travis.yml
+
+language: node_js
+node_js:
+  - "6.11.1"
+
+branches:
+  only:
+    - ng5
+
+script:
+  - ng build --prod
+
+notifications:
+  email:
+    on_failure: krbaio3@gmail.com
+    on_success: krbaio3@gmail.com
