@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="0" tests="1" time="1305">
- <testsuite name="my-demo App" timestamp="2018-03-23T14:06:17" hostname="localhost" time="1.305" errors="0" tests="1" skipped="0" disabled="0" failures="0">
-  <testcase classname="my-demo App" name="should display welcome message" time="1.304" />
- </testsuite>
-</testsuites>

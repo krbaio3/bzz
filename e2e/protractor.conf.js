@@ -6,37 +6,41 @@ const HTMLReport = require('protractor-html-reporter-2');
 const { JUnitXmlReporter } = require('jasmine-reporters');
 const rimraf = require('rimraf');
 const fs = require('fs');
-const root = require('./protractor.root.json');
+const glob = require('glob');
+const dir = require('./protractor.root.json');
 
 exports.config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
-  baseUrl: root.baseUrl,
-  specs: root.specs,
+  // seleniumAddress: 'http://localhost:4444/wd/hub',
+  baseUrl: dir.baseUrl,
+  specs: dir.specs,
   exclude: [],
-  framework: root.framework,
-  allScriptsTimeout: root.allScriptsTimeout,
+  framework: dir.framework,
+  allScriptsTimeout: dir.allScriptsTimeout,
   jasmineNodeOpts: {
-    showColors: root.jasmineNodeOpts.showColors,
-    defaultTimeoutInterval: root.jasmineNodeOpts.defaultTimeoutInterval,
-    showTiming: root.jasmineNodeOpts.showTiming,
-    isVerbose: root.jasmineNodeOpts.isVerbose,
-    includeStackTrace: root.jasmineNodeOpts.includeStackTrace,
+    showColors: dir.jasmineNodeOpts.showColors,
+    defaultTimeoutInterval: dir.jasmineNodeOpts.defaultTimeoutInterval,
+    showTiming: dir.jasmineNodeOpts.showTiming,
+    isVerbose: dir.jasmineNodeOpts.isVerbose,
+    includeStackTrace: dir.jasmineNodeOpts.includeStackTrace,
     print: function() {}
   },
-  capabilities: root.capabilities,
-  directConnect: root.directConnect,
+  capabilities: dir.capabilities,
+  directConnect: dir.directConnect,
   // custom config
   beforeLaunch() {
-    // try {
-    //   if (fs.existsSync(root.report)) {
-    //     rimraf(root.report, () => {});
-    //   }
-    //   if (fs.existsSync(root.protractorReport)) {
-    //     rimraf(root.protractorReport, () => {});
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      if (fs.existsSync(dir.report)) {
+        rimraf.sync(dir.report, {}, () => {});
+      }
+      if (fs.existsSync(dir.protractorReport)) {
+        rimraf.sync(dir.protractorReport, {}, () => {});
+      }
+      if (fs.existsSync('e2e/spec/**.js')) {
+        rimraf.sync('e2e/spec/**.js', {}, () => {});
+      }
+    } catch (error) {
+      console.error(error);
+    }
   },
   onPrepare() {
     require('ts-node').register({
@@ -63,23 +67,33 @@ exports.config = {
       platform = caps.get('platform');
       let testConfig = {
         reportTitle: 'Protractor Test Execution Report',
-        outputPath: root.protractorReport,
+        outputPath: dir.protractorReport,
         outputFilename: 'index',
-        screenshotPath: root.screenshots,
+        screenshotPath: dir.screenshots,
         testBrowser: browserName,
         browserVersion: browserVersion,
         modifiedSuiteName: false,
         screenshotsOnlyOnFailure: true,
         testPlatform: platform
       };
-      new HTMLReport().from(root.report, testConfig);
+      new HTMLReport().from(dir.report, testConfig);
     });
   },
   onCleanUp(exitCode) {
     if (!exitCode) {
-      console.log(exitCode);
-      rimraf(root.report, () => {});
-      rimraf('./e2e/spec/**/*.js', () => {});
+      try {
+        if (fs.existsSync(dir.report)) {
+          rimraf.sync(dir.report, {}, () => {});
+        }
+        if (fs.existsSync(dir.protractorReport)) {
+          rimraf.sync(dir.protractorReport, {}, () => {});
+        }
+        if (glob('e2e/spec/**.js')) {
+          rimraf.sync('e2e/spec/**.js', {}, () => {});
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
   // end custom config

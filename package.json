@@ -12,10 +12,8 @@
     "clean": "rimraf dist",
     "debug": "node --nolazy --inspect-brk=9229 build/dev-server.js",
     "test": "node ./node_modules/karma/bin/karma start test/karma.conf.js",
-    "test2": "rm -rf coverage && node node_modules/.bin/karma start myConf.js",
     "protractor": "protractor e2e/protractor.conf.js",
-    "preprotractor":
-      "node node_modules/typescript/bin/tsc --project e2e/tsconfig.e2e.json && node ./node_modules/protractor/bin/webdriver-manager update"
+    "preprotractor": "node node_modules/typescript/bin/tsc --project e2e/tsconfig.e2e.json && node ./node_modules/protractor/bin/webdriver-manager update"
   },
   "keywords": [
     "pruebas",
@@ -70,6 +68,7 @@
     "extract-text-webpack-plugin": "3.0.0",
     "file-loader": "1.1.10",
     "friendly-errors-webpack-plugin": "1.6.1",
+    "glob": "7.1.2",
     "html-webpack-plugin": "2.24.1",
     "http-proxy-middleware": "0.17.4",
     "http-server": "0.11.1",

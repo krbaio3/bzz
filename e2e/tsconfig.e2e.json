@@ -15,5 +15,8 @@
   },
   "include": [
     "spec/**/*e2e-spec.ts"
+  ],
+  "exclude": [
+    ""
   ]
 }

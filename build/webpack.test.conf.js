@@ -55,7 +55,7 @@ module.exports = {
           },
           'angular2-template-loader'
         ],
-        exclude: [/\.e2e\.ts$/]
+        exclude: [helpers.root('e2e'), /node_modules/]
       },
       {
         test: /\.html$/,
@@ -67,7 +67,7 @@ module.exports = {
         test: /\.(js|ts)$/,
         loader: 'istanbul-instrumenter-loader',
         include: helpers.root('src'),
-        // exclude: [/\.(e2e|spec)\.ts$/, /node_modules/],
+        exclude: [/\.(e2e|spec)\.ts$/, /node_modules/],
         query: {
           esModules: true
         }
