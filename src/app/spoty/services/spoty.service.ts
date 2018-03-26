@@ -10,9 +10,11 @@ export class SpotyService {
 
   urlSpotyfy = 'https://api.spotify.com/v1/';
 
-  token = 'BQCZ-_MGnBPz01gb2smO3FSSucXY-QXBi0RcjCcNA5ybQ5MKUSTazGW4vYQjupCJBjjtS5jyYLrzE8Ej6hA';
+  token = 'BQBB257FDHEivhOBbVtRVyuPwY2HCYq_VuMTpNEG1GyrPXG7t0yZWFLGvjJYB9-qZDLP0HFKMP6kWUYaBf';
 
   country = 'US';
+
+  cambiado = false;
 
   constructor(public http: HttpClient) {
     console.log('constructor Service');
@@ -21,27 +23,9 @@ export class SpotyService {
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      authorization: `Bearer ${this.token}`
+      authorization: `Bearer ${this.token}`,
     });
     // return headers;
-  }
-
-  getToken() {
-    let urlToken = 'https://accounts.spotify.com/api/token';
-
-    let headersToken = new HttpHeaders({
-      grant_type: 'client_credentials',
-      client_id: '94b5ad27c9b5400a9044a8728339df3b',
-      client_secret: '7ecd9ce9604941c9a31b87977a91bb70'
-    });
-
-    this.http.post(urlToken, { headers: headersToken }).map((response: any) => {
-      if (response.error) {
-        return console.error(`Error: ${JSON.stringify(response, null, 4)}`);
-      }
-      this.token = response.access_token;
-      console.log('Token Cambiado: ', this.token);
-    });
   }
 
   getArtistas(artista: string) {
@@ -55,7 +39,10 @@ export class SpotyService {
         if (response.error && response.error.error.status === '401') {
           // if (response.hasOwnProperty('error') && response.error.error.status === '401') {
           // this.getToken();
-          return console.error(`Error: ${JSON.stringify(response, null, 4)}`);
+          return {
+            error: true,
+            msg: console.error(`Error: ${JSON.stringify(response, null, 4)}`),
+          };
         }
         this.artistas = response.artists.items;
         return this.artistas;
