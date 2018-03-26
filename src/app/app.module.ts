@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { NebularModule } from './nebular/nebular.module';
 import { SpotyModule } from './spoty/spoty.module';
 import { HeroesModule } from './heroes/heroes.module';
+import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
 
 registerLocaleData(localeEs);
 
@@ -34,6 +35,7 @@ registerLocaleData(localeEs);
     SpotyModule,
     HeroesModule,
     HttpClientModule,
+    MiscelaneosModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],

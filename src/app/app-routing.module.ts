@@ -12,6 +12,7 @@ import {
 
 import { SpotyRoutingModule } from './spoty/spoty-routing.module';
 import { HeroesRoutingModule } from './heroes/heroes-routing.module';
+import { MiscelaneosRoutingModule } from './miscelaneos/miscelaneos-routing.module';
 
 // import { HomeComponent } from './components/home/home.component';
 // import { HeroesComponent } from './components/heroes/heroes.component';
@@ -74,7 +75,8 @@ const APP_ROUTES: Routes = [
   imports: [
     RouterModule.forRoot(APP_ROUTES, { useHash: true }),
     SpotyRoutingModule,
-    HeroesRoutingModule
+    HeroesRoutingModule,
+    MiscelaneosRoutingModule,
   ],
   exports: [RouterModule],
 })

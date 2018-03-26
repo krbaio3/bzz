@@ -9,6 +9,7 @@ export class AppComponent {
   option: boolean;
   spoty: boolean;
   nebular: boolean;
+  miscelaneos: boolean;
 
   constructor() {
     // this.spoty = true;
@@ -32,5 +33,10 @@ export class AppComponent {
   goToNebular() {
     console.log('entra Nebular');
     this.nebular = true;
+  }
+
+  goToMiscelaneos() {
+    console.log('entra Miscelaneos');
+    this.miscelaneos = true;
   }
 }

@@ -1,7 +1,6 @@
-<!-- Avengers -->
+<!-- Heroes -->
 <div *ngIf="option">
   <app-navbar></app-navbar>
-
   <div class="container main-container">
     <router-outlet></router-outlet>
   </div>
@@ -22,9 +21,18 @@
   </div>
 </div>
 
+<!-- Miscelaneos -->
+<div *ngIf="miscelaneos">
+  <!-- <app-nav-bar-miscelaneos></app-nav-bar-miscelaneos> -->
+  <!-- <div class="container main-container"> -->
+    <router-outlet></router-outlet>
+  <!-- </div> -->
+</div>
+
 <!-- Botonera Opciones -->
-<div class="container main-container" *ngIf="!option && !spoty && !nebular">
+<div class="container main-container" *ngIf="!option && !spoty && !nebular && !miscelaneos">
   <button class="btn btn-outline-primary btn-block" (click)="goToAvengers()" [routerLink]="['avenger']">Avenger</button>
   <button class="btn btn-outline-primary btn-block" (click)="goToSpoty()" [routerLink]="['about_spoty']">Spoty</button>
   <button class="btn btn-outline-primary btn-block" (click)="goToNebular()" [routerLink]="['nebular']">Nebular</button>
+  <button class="btn btn-outline-primary btn-block" (click)="goToMiscelaneos()" [routerLink]="['miscelaneos']">Miscelaneos</button>
 </div>

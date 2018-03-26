@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+$fa-font-path : '../node_modules/font-awesome/fonts';
+@import '../node_modules/font-awesome/scss/font-awesome.scss';
 
 body {
   padding-bottom: 50px;
@@ -41,14 +43,14 @@ body {
 
 /* You can add global styles to this file, and also import other style files */
 
-body {
-  background-color: black;
-  color: white !important;
-}
+// body {
+//   background-color: black;
+//   color: white !important;
+// }
 
-hr {
-  border-color: white;
-}
+// hr {
+//   border-color: white;
+// }
 
 .jumbotron-spoty {
   background-color: #171717;
