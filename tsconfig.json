@@ -18,8 +18,8 @@
   "exclude": [
     "node_modules",
     "dist",
-    "src/**/*.spec.ts",
-    "src/**/*.e2e.ts",
+    "test/**/*.ts",
+    "e2e/**/*.ts",
     "typescript.ts",
     "vue.vue"
   ],
