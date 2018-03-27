@@ -7,6 +7,7 @@ import { PipesModule } from '../pipes/pipes.module';
 // Servicios
 import { HeroesService } from './service/heroes.service';
 // Componentes
+import { AvengerComponent } from './avenger.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
@@ -19,6 +20,7 @@ import { PipesComponent } from './components/pipes/pipes.component';
 @NgModule({
   imports: [CommonModule, HeroesRoutingModule, PipesModule],
   exports: [
+    AvengerComponent,
     NavbarComponent,
     HomeComponent,
     AboutComponent,
@@ -28,6 +30,7 @@ import { PipesComponent } from './components/pipes/pipes.component';
     PipesComponent,
   ],
   declarations: [
+    AvengerComponent,
     NavbarComponent,
     HomeComponent,
     AboutComponent,
