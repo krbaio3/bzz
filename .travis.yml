@@ -1,33 +1,33 @@
-#.travis.yml
 language: node_js
 node_js:
-  - "stable"
+- stable
 dist: trusty
 sudo: true
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 addons:
   chrome: stable
-
 branches:
   only:
-    - ng5
-
+  - ng5
 before_install:
-  - npm install npm@5 -g
-  - npm cache verify
-  - npm prune
-  - npm update
-
+- npm install npm@5 -g
+- npm cache verify
+- npm prune
+- npm update
 install:
-  - npm install
-
+- npm install
+after_script:
+- chmod +x publish-gh-pages.sh && ./publish-gh-pages.sh
 script:
-  - npm run ci:travis
-
+- npm run ci:travis
 notifications:
   email:
     on_failure: krbaio3@gmail.com
     on_success: krbaio3@gmail.com
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_API_KEY
+    app: bzz-ng5
