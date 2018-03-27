@@ -6,8 +6,6 @@ sudo: true
 cache:
   directories:
   - node_modules
-addons:
-  chrome: stable
 branches:
   only:
   - ng5
@@ -28,3 +26,5 @@ deploy:
   api_key:
     secure: $HEROKU_API_KEY
   app: bzz-ng5
+  local_dir: dist
+  skip_cleanup: true
