@@ -16,10 +16,9 @@ before_install:
 - npm cache verify
 - npm prune
 - npm update
+- npm install @angular/cli@~1.7.3,
 install:
 - npm install
-after_script:
-- chmod +x publish-gh-pages.sh && ./publish-gh-pages.sh
 script:
 - npm run ci:travis
 notifications:
@@ -30,4 +29,4 @@ deploy:
   provider: heroku
   api_key:
     secure: $HEROKU_API_KEY
-    app: bzz-ng5
+  app: bzz-ng5
