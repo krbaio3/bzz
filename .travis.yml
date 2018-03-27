@@ -12,10 +12,9 @@ branches:
   only:
   - ng5
 before_install:
-- npm install npm@5 -g
 - npm cache verify
 - npm prune
-- npm install @angular/cli,
+- npm install -g @angular/cli
 install:
 - npm install
 script:
