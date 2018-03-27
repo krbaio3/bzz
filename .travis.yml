@@ -25,6 +25,4 @@ deploy:
   api_key:
     secure: $HEROKU_API_KEY
   app: bzz-ng5
-  local_dir: dist
-  skip_cleanup: true
-  branch: ng5
+  on: ng5
