@@ -15,19 +15,11 @@ import { HeroesComponent } from './components/heroes/heroes.component';
 import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
-// import {}
 
 @NgModule({
   imports: [CommonModule, HeroesRoutingModule, PipesModule],
   exports: [
-    AvengerComponent,
-    NavbarComponent,
-    HomeComponent,
-    AboutComponent,
-    HeroesComponent,
-    HeroeComponent,
-    SearchComponent,
-    PipesComponent,
+    // AvengerComponent,
   ],
   declarations: [
     AvengerComponent,
