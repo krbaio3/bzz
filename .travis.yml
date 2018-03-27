@@ -27,4 +27,7 @@ deploy:
   app: bzz-ng5
     on:
       repo: krbaio3/bzz
-  branch: ng5
+      branches:    # ← new!
+      only:      # ← new!
+        - ng5 # ← new!
+        
