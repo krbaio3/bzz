@@ -1,15 +1,31 @@
 #.travis.yml
-
 language: node_js
 node_js:
-  - "6.11.1"
+  - "stable"
+dist: trusty
+sudo: true
+cache:
+  directories:
+    - node_modules
+
+addons:
+  chrome: stable
 
 branches:
   only:
     - ng5
 
+before_install:
+  - npm install npm@5 -g
+  - npm cache verify
+  - npm prune
+  - npm update
+
+install:
+  - npm install
+
 script:
-  - ng build --prod
+  - npm run ci:travis
 
 notifications:
   email:
