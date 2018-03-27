@@ -4,6 +4,8 @@ const serveStatic = require('serve-static');
 const dirWebRoot = (__dirname + '/dist');
 const port = Number(process.env.PORT || 5000);
 
+console.log(`Este es el dirWebRoot ${dirWebRoot}`);
+
 const app = connect();
 // Por partes más claro:
 // Decimos a serverStatic que use el directorio dirWebRoot
