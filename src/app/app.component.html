@@ -1,36 +1,12 @@
 <!-- Heroes -->
 <div *ngIf="option">
-  <app-navbar></app-navbar>
-  <div class="container main-container">
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </div>
 
-<!-- Spoty -->
-<div *ngIf="spoty" id="spotyApp">
-  <app-nav-bar-spoty></app-nav-bar-spoty>
-  <!-- <div class="container main-container"> -->
-    <router-outlet></router-outlet>
-  <!-- </div> -->
-</div>
 
-<!-- Nebular -->
-<div *ngIf="nebular">
-  <div class="container main-container">
-    <router-outlet></router-outlet>
-  </div>
-</div>
-
-<!-- Miscelaneos -->
-<div *ngIf="miscelaneos">
-  <!-- <app-nav-bar-miscelaneos></app-nav-bar-miscelaneos> -->
-  <!-- <div class="container main-container"> -->
-    <router-outlet></router-outlet>
-  <!-- </div> -->
-</div>
 
 <!-- Botonera Opciones -->
-<div class="container main-container" *ngIf="!option && !spoty && !nebular && !miscelaneos">
+<div class="container main-container" *ngIf="!option">
   <button class="btn btn-outline-primary btn-block" (click)="goToAvengers()" [routerLink]="['avenger']">Avenger</button>
   <button class="btn btn-outline-primary btn-block" (click)="goToSpoty()" [routerLink]="['about_spoty']">Spoty</button>
   <button class="btn btn-outline-primary btn-block" (click)="goToNebular()" [routerLink]="['nebular']">Nebular</button>

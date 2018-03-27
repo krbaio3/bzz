@@ -27,11 +27,10 @@
     "@nebular/auth": "~2.0.0-rc.6",
     "@nebular/theme": "~2.0.0-rc.6",
     "bootstrap": "~4.0.0",
-    "connect": "~3.6.6",
     "core-js": "~2.5.3",
+    "express": "^4.16.3",
     "font-awesome": "~4.7.0",
     "rxjs": "~5.5.6",
-    "serve-static": "~1.13.2",
     "zone.js": "~0.8.20"
   },
   "devDependencies": {

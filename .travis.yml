@@ -3,8 +3,6 @@ node_js:
 - stable
 dist: trusty
 sudo: true
--branches:
-  only: ng5
 cache:
   directories:
   - node_modules
@@ -18,9 +16,10 @@ script:
 - npm run ci:travis
 notifications:
   email:
-    - krbaio3@gmail.com
-    on_failure: always
-    on_success: never
+    recipients:
+      - krbaio3@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
 deploy:
   provider: heroku
   api_key:
@@ -28,3 +27,4 @@ deploy:
   app: bzz-ng5
   local_dir: dist
   skip_cleanup: true
+  on: ng5
