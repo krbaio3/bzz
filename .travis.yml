@@ -1,14 +1,11 @@
 language: node_js
 node_js:
-- stable
+- "stable"
 dist: trusty
 sudo: true
 cache:
   directories:
   - node_modules
-branches:
-  only:
-  - ng5
 before_install:
 - npm cache verify
 - npm prune
@@ -19,12 +16,14 @@ script:
 - npm run ci:travis
 notifications:
   email:
-    on_failure: krbaio3@gmail.com
-    on_success: krbaio3@gmail.com
+    - krbaio3@gmail.com
+    on_failure: always
+    on_success: never
 deploy:
-  provider: heroku
-  api_key:
-    secure: $HEROKU_API_KEY
-  app: bzz-ng5
-  local_dir: dist
-  skip_cleanup: true
+  - provider: heroku
+    api_key:
+      secure: $HEROKU_API_KEY
+    app: bzz-ng5
+    local_dir: dist
+    skip_cleanup: true
+    branch: ng5
