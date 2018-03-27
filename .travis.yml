@@ -3,6 +3,8 @@ node_js:
 - stable
 dist: trusty
 sudo: true
+-branches:
+  only: ng5
 cache:
   directories:
   - node_modules
@@ -26,4 +28,3 @@ deploy:
   app: bzz-ng5
   local_dir: dist
   skip_cleanup: true
-  branch: ng5
