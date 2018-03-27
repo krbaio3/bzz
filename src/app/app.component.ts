@@ -27,16 +27,16 @@ export class AppComponent {
 
   goToSpoty() {
     console.log('entra Spoty');
-    this.spoty = true;
+    this.option = true;
   }
 
   goToNebular() {
     console.log('entra Nebular');
-    this.nebular = true;
+    this.option = true;
   }
 
   goToMiscelaneos() {
     console.log('entra Miscelaneos');
-    this.miscelaneos = true;
+    this.option = true;
   }
 }
