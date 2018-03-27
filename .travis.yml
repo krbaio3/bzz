@@ -6,9 +6,6 @@ sudo: true
 cache:
   directories:
   - node_modules
-branches:
-  only:
-  - ng5
 before_install:
 - npm cache verify
 - npm prune
@@ -17,6 +14,12 @@ install:
 - npm install
 script:
 - npm run ci:travis
+notifications:
+  email:
+    recipients:
+      - krbaio3@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
 deploy:
   provider: heroku
   api_key:
@@ -24,3 +27,4 @@ deploy:
   app: bzz-ng5
   local_dir: dist
   skip_cleanup: true
+  branch: ng5
