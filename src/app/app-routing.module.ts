@@ -17,8 +17,17 @@ import { MiscelaneosRoutingModule } from './miscelaneos/miscelaneos-routing.modu
 import { AppComponent } from './app.component';
 
 const APP_ROUTES: Routes = [
-  { path: '', component: AppComponent },
-  { path: '**', pathMatch: 'full', redirectTo: '' }
+  {
+    path: '',
+    component: AppComponent,
+    data: { option: false }
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: '',
+    data: { option: false }
+  }
   // {
   //   path: 'auth',
   //   component: NbAuthComponent,
@@ -62,7 +71,7 @@ const APP_ROUTES: Routes = [
   imports: [
     RouterModule.forRoot(APP_ROUTES, {
       useHash: true,
-      enableTracing: true,
+      enableTracing: true
     }),
     SpotyRoutingModule,
     HeroesRoutingModule,

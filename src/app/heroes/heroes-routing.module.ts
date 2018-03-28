@@ -41,13 +41,14 @@ const APP_ROUTES: Routes = [
       {
         path: 'search/:name',
         component: SearchComponent
+      },
+      {
+        path: '**',
+        pathMatch: 'full',
+        redirectTo: 'home'
       }
     ]
   },
-  {
-    path: '',
-    component: AvengerComponent
-  }
 ];
 
 @NgModule({
