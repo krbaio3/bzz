@@ -1,7 +1,6 @@
 import { UserService } from '../../core/service/user.service';
 import { HomeService } from './../service/home.service';
 import { Component, OnInit } from '@angular/core';
-declare var $: any;
 
 @Component({
   selector: 'home',
@@ -15,9 +14,6 @@ export class HomeComponent implements OnInit {
   }
 
   public ngOnInit() {
-    console.log('esto es una prueba');
-    $(() => {
-    console.log('JQuery ready!');
-    });
+    console.log('esto HomeComponent y es una prueba');
   }
 }

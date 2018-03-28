@@ -14,16 +14,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
-	imports: [
-		BrowserModule,
-		/* Core Module */
-		CoreModule.forRoot( new UserServiceConfig('Nguyen Tran') ),
-		AppRoutingModule,
-	],
-	declarations: [AppComponent],
-	providers: [{ provide: AppConfig, useValue: process.env.APP_CONFIG }, { provide: APP_BASE_HREF, useValue: '/' }],
-	bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    /* Core Module */
+    CoreModule.forRoot(new UserServiceConfig('Nguyen Tran')),
+    AppRoutingModule
+  ],
+  declarations: [AppComponent],
+  providers: [
+    { provide: AppConfig, useValue: process.env.APP_CONFIG },
+    { provide: APP_BASE_HREF, useValue: '/' }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 
 console.log('jorge');
