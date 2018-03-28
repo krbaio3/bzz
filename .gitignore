@@ -107,3 +107,7 @@ package-lock.json
 
 # Error
 yarn-error.log
+
+# Show language GitHub
+vue.vue
+typescript.ts

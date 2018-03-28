@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['shop.component.scss']
 })
 export class ShopComponent implements OnInit {
-    userName: string;
+    public userName: string;
     constructor(userService: UserService) {
         this.userName = userService.userName;
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 }
