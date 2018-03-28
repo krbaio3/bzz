@@ -30,29 +30,28 @@ const APP_ROUTES: Routes = [
         path: 'about',
         component: AboutComponent
       },
-        {
-          path: 'pipes',
-          component: PipesComponent
-        },
-        {
-          path: 'heroe/:id',
-          component: HeroeComponent
-        },
-        {
-          path: 'search/:name',
-          component: SearchComponent
-        },
+      {
+        path: 'pipes',
+        component: PipesComponent
+      },
+      {
+        path: 'heroe/:id',
+        component: HeroeComponent
+      },
+      {
+        path: 'search/:name',
+        component: SearchComponent
+      }
     ]
   },
   {
-    path: '**',
-    pathMatch: 'full',
-    redirectTo: 'avenger'
-  },
+    path: '',
+    component: AvengerComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(APP_ROUTES)],
   exports: [RouterModule]
 })
-export class HeroesRoutingModule { }
+export class HeroesRoutingModule {}

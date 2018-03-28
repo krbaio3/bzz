@@ -7,7 +7,7 @@ import {
   NbRegisterComponent,
   NbLogoutComponent,
   NbRequestPasswordComponent,
-  NbResetPasswordComponent,
+  NbResetPasswordComponent
 } from '@nebular/auth';
 
 import { SpotyRoutingModule } from './spoty/spoty-routing.module';
@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 
 const APP_ROUTES: Routes = [
   { path: '', component: AppComponent },
-  { path: '**', pathMatch: 'full', redirectTo: '' },
+  { path: '**', pathMatch: 'full', redirectTo: '' }
   // {
   //   path: 'auth',
   //   component: NbAuthComponent,
@@ -51,8 +51,8 @@ const APP_ROUTES: Routes = [
   // },
 ];
 
-//   imports: [RouterModule.forRoot(
 // @NgModule({
+//     imports: [RouterModule.forRoot(
 //     APP_ROUTES,
 //     { enableTracing: true } // <-- debugging purposes only
 //   )],
@@ -60,11 +60,14 @@ const APP_ROUTES: Routes = [
 // })
 @NgModule({
   imports: [
-    RouterModule.forRoot(APP_ROUTES, { useHash: true }),
+    RouterModule.forRoot(APP_ROUTES, {
+      useHash: true,
+      enableTracing: true,
+    }),
     SpotyRoutingModule,
     HeroesRoutingModule,
-    MiscelaneosRoutingModule,
+    MiscelaneosRoutingModule
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}
