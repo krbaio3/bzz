@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
+<a class="navbar-brand" [routerLink]="['']">
+
     <img src="/assets/img/A-64.png" alt width="30" height="30">
   </a>
   <button class="navbar-toggler" data-target="#navbarTogglerDemo02" data-toggle="collapse" type="button" aria-controls="navbarTogglerDemo02"
@@ -28,10 +29,9 @@
 
     </ul>
 
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Buscar Heroe" (keyup.enter)="buscarHeroe(buscarTexto.value)"
-        #buscarTexto>
+    <div class="form-inline my-2 my-lg-0">
+      <input #buscarTexto class="form-control mr-sm-2" type="search" placeholder="Buscar Heroe" (keyup.enter)="buscarHeroe(buscarTexto.value)">
       <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="buscarHeroe(buscarTexto.value)">Buscar...</button>
-    </form>
+    </div>
   </div>
 </nav>

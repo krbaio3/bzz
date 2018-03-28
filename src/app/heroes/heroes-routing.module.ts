@@ -30,24 +30,24 @@ const APP_ROUTES: Routes = [
         path: 'about',
         component: AboutComponent
       },
-        {
-          path: 'pipes',
-          component: PipesComponent
-        },
-        {
-          path: 'heroe/:id',
-          component: HeroeComponent
-        },
-        {
-          path: 'search/:name',
-          component: SearchComponent
-        },
+      {
+        path: 'pipes',
+        component: PipesComponent
+      },
+      {
+        path: 'heroe/:id',
+        component: HeroeComponent
+      },
+      {
+        path: 'search/:name',
+        component: SearchComponent
+      },
+      {
+        path: '**',
+        pathMatch: 'full',
+        redirectTo: 'home'
+      }
     ]
-  },
-  {
-    path: '**',
-    pathMatch: 'full',
-    redirectTo: 'avenger'
   },
 ];
 

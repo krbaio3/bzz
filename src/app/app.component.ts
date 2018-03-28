@@ -6,10 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  option: boolean;
-  spoty: boolean;
-  nebular: boolean;
-  miscelaneos: boolean;
+  option: boolean = false;
 
   constructor() {
     // this.spoty = true;

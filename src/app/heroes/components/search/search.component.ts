@@ -29,6 +29,8 @@ export class SearchComponent implements OnInit {
 
   verHeroe(heroe: any) {
     console.log(heroe.indice);
-    this.router.navigate(['/heroe', heroe.indice - 1]);
+    this.router.navigate(['../../heroe', heroe.indice - 1], {
+      relativeTo: this.activatedRoute
+    });
   }
 }
