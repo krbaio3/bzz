@@ -26,9 +26,11 @@
     "@angular/router": "~5.2.9",
     "@nebular/auth": "~2.0.0-rc.6",
     "@nebular/theme": "~2.0.0-rc.6",
+    "angularfire2": "^5.0.0-rc.6",
     "bootstrap": "~4.0.0",
     "core-js": "~2.5.3",
     "express": "^4.16.3",
+    "firebase": "^4.12.0",
     "font-awesome": "~4.7.0",
     "rxjs": "~5.5.6",
     "zone.js": "~0.8.20"
@@ -56,7 +58,7 @@
     "typescript": "~2.5.3"
   },
   "engines": {
-    "node": "9.8.0",
-    "npm": "5.7.1"
+    "node": ">=6.0.0",
+    "npm": ">=5.2.0"
   }
 }

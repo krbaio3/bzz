@@ -3,8 +3,23 @@
 </h1>
 <hr>
 
+{{ miPrueba | async | json}}
+<div class="text-center">
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary active">
+      <input type="radio" name="options" id="option1" autocomplete="off" checked> Create
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" name="options" id="option2" autocomplete="off"> Update
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" name="options" id="option3" autocomplete="off"> Delete
+    </label>
+  </div>
+</div>
+<hr>
 <div class="card-columns">
-  <div class="card fadeIn animated fast" *ngFor="let heroe of heroes; let indice = index">
+  <div class="card fadeIn animated fast" *ngFor="let heroe of heroes | async; let indice = index">
     <img class="card-img-top" [src]="heroe.img" [alt]="heroe.nombre">
     <div class="card-body">
       <h5 class="card-title">{{ heroe.nombre }}</h5>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 import { HeroesService } from '../../service/heroes.service';
 import { Heroe } from '../../../models/heroe.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { PruebaSrv } from '../../../service/service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-heroes',
@@ -10,19 +11,23 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./heroes.component.scss']
 })
 export class HeroesComponent implements OnInit {
-  heroes: Heroe[] = [];
-
+  // heroes: Heroe[] = [];
+  miPrueba;
+  heroes: Observable<Heroe[]>;
   constructor(
     private _heroesSrv: HeroesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private pruebaSrv: PruebaSrv
   ) {
     console.log('constructor Heroes');
   }
 
   ngOnInit() {
     console.log('ngOninit');
-    this.heroes = this._heroesSrv.getHeroes();
+    this.miPrueba = this.pruebaSrv.getHeroes();
+    this.heroes = this.pruebaSrv.getHeroes();
+    // this.heroes = this._heroesSrv.getHeroes();
     console.log(this.heroes);
   }
 
