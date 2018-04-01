@@ -4,3 +4,10 @@
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis dolorum soluta molestiae cumque, adipisci nisi iste
   ut nihil nam ipsam repudiandae nulla amet sequi in, nostrum magni voluptatem optio ratione?
 </p>
+
+
+<ul>
+  <li class="text" *ngFor="let item of items | async">
+    {{ item.nombre }} is {{ item.bio }}
+  </li>
+</ul>

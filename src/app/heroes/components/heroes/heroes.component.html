@@ -3,11 +3,13 @@
 </h1>
 <hr>
 
-{{ miPrueba | async | json}}
 <div class="text-center">
   <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-primary">
+      <input type="radio" name="options" id="option1" autocomplete="off"> Create
+    </label>
     <label class="btn btn-primary active">
-      <input type="radio" name="options" id="option1" autocomplete="off" checked> Create
+      <input type="radio" name="options" id="option3" autocomplete="off" checked> Read
     </label>
     <label class="btn btn-primary">
       <input type="radio" name="options" id="option2" autocomplete="off"> Update
@@ -27,12 +29,13 @@
       <p class="card-text">
         <small class="text-muted">{{ heroe.aparicion }}</small>
       </p>
-      <button 
-        type="button"
-        class="btn btn-outline-primary btn-block"
-        [routerLink]="['../heroe', indice]">
+      <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../heroe', indice]">
         Ver mas...
       </button>
+      <button type="button" name="editar" id="editar" class="btn btn-outline-warning btn-block" [routerLink]="['../heroe', indice]">Editar</button>
+      <button type="button" name="editar" id="editar" class="btn btn-outline-danger btn-block" [routerLink]="['../heroe', indice]">Borrar</button>
+
+
 
       <!-- Tambien se puede usar como función click, quitando el routerLink y añadiendo esto:
         (click)="verHeroe(indice)"
@@ -40,3 +43,20 @@
     </div>
   </div>
 </div>
+
+<div class="card-columns">
+  <div class="card fadeIn animated fast">
+    <img class="card-img-top" src="assets/img/sinFoto.jpg" alt="heroe.nombre">
+    <div class="card-body">
+      <h5 class="card-title">Add Heroe</h5>
+      <p class="card-text">Bio from Heroe</p>
+      <p class="card-text">
+        <small class="text-muted">Heroe Date</small>
+      </p>
+      <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../addHeroe']">
+        Add Heroe
+      </button>
+    </div>
+  </div>
+</div>
+

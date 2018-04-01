@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SpotyService } from '../services/spoty.service';
+import { SpotyService } from '../../services/spoty.service';
 
 @Component({
-  selector: 'app-search-spoty',
-  templateUrl: './search-spoty.component.html',
-  styleUrls: ['./search-spoty.component.scss'],
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchSpotyComponent implements OnInit {
   artista = '';

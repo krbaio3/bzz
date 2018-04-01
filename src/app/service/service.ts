@@ -37,7 +37,7 @@ export class PruebaSrv {
         return this.heroes;
     }
 
-    addTask(heroe: Heroe) {
+    addHeroe(heroe: Heroe) {
         this.heroeCollection.add(heroe);
     }
 

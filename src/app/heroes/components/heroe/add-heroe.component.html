@@ -1,0 +1,30 @@
+<form>
+  <div class="form-group">
+    <label for="nombreInput">Nombre</label>
+    <input type="text" class="form-control" id="nombreInput" aria-describedby="nombreHelp" placeholder="Introduce nombre" #nombre>
+    <small id="nombreHelp" class="form-text text-muted">Introduce el nombre del super-héroe o anti-héroe.</small>
+  </div>
+  <div class="form-group">
+    <label for="inputBiografia">Biografía</label>
+    <textarea class="form-control" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia" #bio></textarea>
+    <small id="biografiaHelp" class="form-text text-muted">Introduce una pequeña biografía.</small>
+  </div>
+  <div class="form-group">
+    <label for="inputImg">Img</label>
+    <input type="text" class="form-control" id="inputImg" placeholder="Aparición" #img>
+  </div>
+  <div class="form-group">
+    <label for="inputAparicion">Fecha</label>
+    <input type="text" class="form-control" id="inputAparicion" placeholder="Aparición" #aparicion>
+  </div>
+  <div class="form-group">
+    <label for="inputCasa">Casa</label>
+    <input type="text" class="form-control" id="inputCasa" placeholder="Casa a la que pertenece" #casa>
+  </div>
+  <!-- <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div> -->
+  <button type="button" class="btn btn-outline-primary btn-block" (click)="onSubmit(nombre.value, bio.value, img.value, aparicion.value, casa.value)">Submit</button>
+  <button type="button" class="btn btn-outline-danger btn-block" [routerLink]="['../../heroes']">Volver</button>
+</form>

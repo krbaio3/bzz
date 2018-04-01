@@ -8,6 +8,7 @@ import { AboutComponent } from './components/about/about.component';
 import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
+import { AddHeroeComponent } from './components/heroe/add-heroe.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -37,6 +38,10 @@ const APP_ROUTES: Routes = [
       {
         path: 'heroe/:id',
         component: HeroeComponent
+      },
+      {
+        path: 'addHeroe',
+        component: AddHeroeComponent
       },
       {
         path: 'search/:name',

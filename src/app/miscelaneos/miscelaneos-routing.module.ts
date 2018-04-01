@@ -7,24 +7,48 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuarioDetalleComponent } from './components/usuario/detalle/usuario-detalle.component';
 import { UsuarioEditarComponent } from './components/usuario/editar/usuario-editar.component';
 import { UsuarioNuevoComponent } from './components/usuario/nuevo/usuario-nuevo.component';
+import { AboutComponent } from './components/about/about.component';
 
 const MISCELANEOS_ROUTES: Routes = [
-  // { path: 'about_spoty', component: AboutComponent },
-  { path: 'miscelaneos', component: MiscelaneosComponent },
-  { path: 'usuario/:id',
-    component: UsuarioComponent,
+  {
+    path: 'miscelaneos',
+    component: MiscelaneosComponent,
     children: [
-      { path: 'nuevo', component: UsuarioNuevoComponent },
-      { path: 'editar', component: UsuarioEditarComponent },
-      { path: 'detalle', component: UsuarioDetalleComponent },
-    ]},
-  { path: 'home', component: HomeComponent },
-  // { path: '', pathMatch: 'full', redirectTo: 'home_spoty' },
-  // { path: '**', pathMatch: 'full', redirectTo: 'miscelaneos' }
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'nuevo',
+        component: UsuarioNuevoComponent
+      },
+      {
+        path: 'about',
+        component: AboutComponent
+      },
+      {
+        path: 'editar',
+        component: UsuarioEditarComponent
+      },
+      {
+        path: 'detalle',
+        component: UsuarioDetalleComponent
+      },
+    ]
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: 'home'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(MISCELANEOS_ROUTES)],
   exports: [RouterModule],
 })
-export class MiscelaneosRoutingModule {}
+export class MiscelaneosRoutingModule { }

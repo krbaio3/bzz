@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SpotyService } from '../services/spoty.service';
+import { SpotyService } from '../../services/spoty.service';
 
 @Component({
   selector: 'app-artist',

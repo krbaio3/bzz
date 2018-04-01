@@ -14,6 +14,7 @@ export class HeroesComponent implements OnInit {
   // heroes: Heroe[] = [];
   miPrueba;
   heroes: Observable<Heroe[]>;
+  input: string = 'read';
   constructor(
     private _heroesSrv: HeroesService,
     private router: Router,
@@ -34,5 +35,9 @@ export class HeroesComponent implements OnInit {
   verHeroe(indice: number) {
     console.log(indice);
     this.router.navigate(['../heroe', indice], { relativeTo: this.route });
+  }
+
+  changeInput(input: string) {
+    this.input = input;
   }
 }

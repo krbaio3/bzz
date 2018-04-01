@@ -29,11 +29,14 @@ import { NebularModule } from './nebular/nebular.module';
 import { SpotyModule } from './spoty/spoty.module';
 import { HeroesModule } from './heroes/heroes.module';
 import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
+import { PruebaSrv } from './service/service';
 
 registerLocaleData(localeEs);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -47,7 +50,7 @@ registerLocaleData(localeEs);
     AngularFireModule.initializeApp(environment.fireConfig, 'bzz-poc'),
     AngularFirestoreModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }, PruebaSrv],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

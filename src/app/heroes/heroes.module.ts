@@ -15,9 +15,16 @@ import { HeroesComponent } from './components/heroes/heroes.component';
 import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
+import { AddHeroeComponent } from './components/heroe/add-heroe.component';
+import { RemoveHeroeComponent } from './components/heroe/remove-heroe.component';
+import { EditHeroeComponent } from './components/heroe/edit-heroe.component';
 
 @NgModule({
-  imports: [CommonModule, HeroesRoutingModule, PipesModule],
+  imports: [
+    CommonModule,
+    HeroesRoutingModule,
+    PipesModule
+  ],
   exports: [
     // AvengerComponent,
   ],
@@ -30,6 +37,9 @@ import { PipesComponent } from './components/pipes/pipes.component';
     HeroeComponent,
     SearchComponent,
     PipesComponent,
+    AddHeroeComponent,
+    RemoveHeroeComponent,
+    EditHeroeComponent,
   ],
   providers: [HeroesService],
 })
