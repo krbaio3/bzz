@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { USUARIO_ROUTES } from './components/usuario/usuario.routes';
 
 import { MiscelaneosComponent } from './miscelaneos.component';
 import { HomeComponent } from './components/home/home.component';
@@ -16,39 +17,32 @@ const MISCELANEOS_ROUTES: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'nuevo',
-        component: UsuarioNuevoComponent
+        component: HomeComponent,
       },
       {
         path: 'about',
-        component: AboutComponent
+        component: AboutComponent,
       },
       {
-        path: 'editar',
-        component: UsuarioEditarComponent
+        path: 'usuario',
+        component: UsuarioComponent,
+        children: USUARIO_ROUTES,
       },
-      {
-        path: 'detalle',
-        component: UsuarioDetalleComponent
-      },
-    ]
+    ],
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'home'
-  }
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(MISCELANEOS_ROUTES)],
   exports: [RouterModule],
 })
-export class MiscelaneosRoutingModule { }
+export class MiscelaneosRoutingModule {}
