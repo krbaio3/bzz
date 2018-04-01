@@ -8,7 +8,9 @@ import { AboutComponent } from './components/about/about.component';
 import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
-import { AddHeroeComponent } from './components/heroe/add-heroe.component';
+import { AddHeroeComponent } from './components/heroe/addHeroe/add-heroe.component';
+import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-heroe.component';
+import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -17,47 +19,57 @@ const APP_ROUTES: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'heroes',
-        component: HeroesComponent
+        component: HeroesComponent,
       },
       {
         path: 'about',
-        component: AboutComponent
+        component: AboutComponent,
       },
       {
         path: 'pipes',
-        component: PipesComponent
+        component: PipesComponent,
       },
       {
         path: 'heroe/:id',
-        component: HeroeComponent
+        component: HeroeComponent,
+        children: [
+          {
+            path: 'edit',
+            component: AddHeroeComponent,
+          },
+          {
+            path: 'remove',
+            component: AddHeroeComponent,
+          },
+        ],
       },
       {
         path: 'addHeroe',
-        component: AddHeroeComponent
+        component: AddHeroeComponent,
       },
       {
         path: 'search/:name',
-        component: SearchComponent
+        component: SearchComponent,
       },
       {
         path: '**',
         pathMatch: 'full',
-        redirectTo: 'home'
-      }
-    ]
+        redirectTo: 'home',
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(APP_ROUTES)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HeroesRoutingModule { }
+export class HeroesRoutingModule {}

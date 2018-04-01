@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PruebaSrv} from '../../../service/service';
+import {PruebaSrv} from '../../../../service/service';
 
 @Component({
   selector: 'app-add-heroe',

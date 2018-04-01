@@ -15,9 +15,9 @@ import { HeroesComponent } from './components/heroes/heroes.component';
 import { HeroeComponent } from './components/heroe/heroe.component';
 import { SearchComponent } from './components/search/search.component';
 import { PipesComponent } from './components/pipes/pipes.component';
-import { AddHeroeComponent } from './components/heroe/add-heroe.component';
-import { RemoveHeroeComponent } from './components/heroe/remove-heroe.component';
-import { EditHeroeComponent } from './components/heroe/edit-heroe.component';
+import { AddHeroeComponent } from './components/heroe/addHeroe/add-heroe.component';
+import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-heroe.component';
+import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
 
 @NgModule({
   imports: [
