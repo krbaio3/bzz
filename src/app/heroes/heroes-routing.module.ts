@@ -11,6 +11,9 @@ import { PipesComponent } from './components/pipes/pipes.component';
 import { AddHeroeComponent } from './components/heroe/addHeroe/add-heroe.component';
 import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-heroe.component';
 import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
+import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
+
+import { HEROE_ROUTES } from './components/heroe/heroe.router';
 
 const APP_ROUTES: Routes = [
   {
@@ -38,22 +41,9 @@ const APP_ROUTES: Routes = [
         component: PipesComponent,
       },
       {
-        path: 'heroe/:id',
+        path: 'heroe',
         component: HeroeComponent,
-        children: [
-          {
-            path: 'edit',
-            component: AddHeroeComponent,
-          },
-          {
-            path: 'remove',
-            component: AddHeroeComponent,
-          },
-        ],
-      },
-      {
-        path: 'addHeroe',
-        component: AddHeroeComponent,
+        children: HEROE_ROUTES,
       },
       {
         path: 'search/:name',

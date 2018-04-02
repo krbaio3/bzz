@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HeroesService } from '../../../service/heroes.service';
 
 @Component({
-  selector: 'app-remove-heroe',
-  templateUrl: './remove-heroe.component.html',
-  styleUrls: ['./remove-heroe.component.scss'],
+  selector: 'app-show-heroe',
+  templateUrl: './show-heroe.component.html',
+  styleUrls: ['./show-heroe.component.scss'],
 })
-export class RemoveHeroeComponent implements OnInit {
+export class ShowHeroeComponent implements OnInit {
   heroe: any = {};
 
   constructor(
