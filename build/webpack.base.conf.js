@@ -80,7 +80,11 @@ module.exports = {
        */
       {
         test: /\.css$/,
-        use: ['to-string-loader', 'css-loader'],
+        use: [
+          { loader: 'to-string-loader' },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'postcss-loader', options: { sourceMap: true } }
+        ],
         exclude: [helpers.root('src', 'styles')]
       },
 
@@ -91,7 +95,13 @@ module.exports = {
        */
       {
         test: /\.scss$/,
-        use: ['to-string-loader', 'css-loader', 'sass-loader'],
+        use: [
+          { loader: 'to-string-loader' },
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'postcss-loader', options: { sourceMap: true } },
+          { loader: 'resolve-url-loader' },
+          { loader: 'sass-loader', options: { sourceMap: true } }
+        ],
         exclude: [helpers.root('src', 'styles')]
       },
 

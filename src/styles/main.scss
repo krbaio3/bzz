@@ -7,8 +7,13 @@ nav {
   margin-top: 16px;
 }
 
+:root {
+  --blue: #00838F;
+
+}
+
 nav a {
-  background-color: #00838F;
+  background-color: var(--blue);
   color: white;
   padding: 8px 16px;
   margin: 8px;
