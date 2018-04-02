@@ -1,2 +1,2 @@
-// // jquery
-import 'jquery';
+// jquery
+// import 'jquery';
