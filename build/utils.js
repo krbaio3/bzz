@@ -16,66 +16,28 @@ function assetsPath(_path) {
 
 exports.assetsPath = assetsPath;
 
-exports.cssLoaders = (options, include, exclude) => {
-  options = options || {};
-  include = include || {};
-  exclude = exclude || {};
+// Generate scssLoader in order for postCSS
+exports.scssLoaders = isProduction => {
+  let scss = [{
+    test: /\.scss$/,
+    use: [
+      { loader: 'to-string-loader' },
+      { loader: 'css-loader', options: { sourceMap: isProduction } },
+      { loader: 'postcss-loader', options: { sourceMap: isProduction } },
+      { loader: 'sass-loader', options: { sourceMap: isProduction } }
+    ],
+    exclude: [helpers.root('src', 'styles')]
+  }];
 
-  const cssLoader = {
-    loader: 'raw-loader',
-    include: helpers.root('src', 'app')
-  };
-
-  // generate loader string to be used with extract text plugin
-  function generateLoaders(loader, loaderOptions) {
-    const loaders = [cssLoader];
-    console.log('loaders =>', loaders);
-    if (loader) {
-      // console.log('loader =>', loader);
-      loaders.push({
-        loader: loader + '-loader',
-        options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap
-        })
-      });
-      // console.log('loaders dentro if =>', loaders);
-    }
-    // (which is the case during production build)
-    if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'style-loader'
-      });
-    } else {
-      return ['style-loader'].concat(loaders);
-    }
+  if(isProduction){
+    let sassLoader = scss[0].use.pop();
+    let resolveUrlLoader = [...scss[0].use, { loader: 'resolve-url-loader' }, sassLoader];
+    scss[0].use = resolveUrlLoader;
   }
 
-  return {
-    css: generateLoaders(),
-    postcss: generateLoaders(),
-    less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
-    stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
-  };
-};
+  console.log(`scssLoaders => ${JSON.stringify(scss, null, 4)}`)
 
-// Generate loaders for standalone style files
-exports.styleLoaders = (options, include, exclude) => {
-  const output = [];
-  const loaders = exports.cssLoaders(options);
-  console.log('results =>', loaders);
-  for (const extension in loaders) {
-    const loader = loaders[extension];
-    output.push({
-      test: new RegExp('\\.' + extension + '$'),
-      use: loader
-    });
-  }
-  console.log('output => ', output);
-  return output;
+  return scss;
 };
 
 /* ======================================================== */
@@ -136,7 +98,13 @@ exports.ngcWebpackSetup = (prod, metadata) => {
     sourceMap
   };
 
-  console.log(`metadata.envFileSuffix => ${JSON.stringify(metadata.envFileSuffix, null, 2)}`);
+  console.log(
+    `metadata.envFileSuffix => ${JSON.stringify(
+      metadata.envFileSuffix,
+      null,
+      2
+    )}`
+  );
 
   const environment = getEnvFile(metadata.envFileSuffix);
   if (environment) {
@@ -280,7 +248,7 @@ exports.assetsLoader = limit => {
       test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
       loader: 'url-loader',
       options: {
-        limit: limit,
+        limit,
         name: assetsPath('media/[name].[hash:7].[ext]')
       }
     }
@@ -291,7 +259,7 @@ exports.assetsLoader = limit => {
       test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
       loader: 'url-loader',
       options: {
-        limit: limit,
+        limit,
         name: assetsPath('fonts/[name].[hash:7].[ext]')
       }
     }

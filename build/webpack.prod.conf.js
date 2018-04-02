@@ -27,7 +27,10 @@ module.exports = webpackMerge(baseWebpackConfig, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
+          use: [
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: { sourceMap: true } }
+          ]
         }),
         include: [helpers.root('src', 'styles')]
       },
@@ -39,7 +42,12 @@ module.exports = webpackMerge(baseWebpackConfig, {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [{loader: 'css-loader',},{loader: 'sass-loader'},]
+          use: [
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: { sourceMap: true } },
+            { loader: 'resolve-url-loader' },
+            { loader: 'sass-loader', options: { sourceMap: true } }
+          ]
         }),
         include: [helpers.root('src', 'styles')]
       }
@@ -84,5 +92,5 @@ module.exports = webpackMerge(baseWebpackConfig, {
         APP_CONFIG: JSON.stringify(APP_CONFIG)
       }
     })
-  ],
+  ]
 });

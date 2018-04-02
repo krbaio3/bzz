@@ -30,7 +30,11 @@ module.exports = webpackMerge(baseWebpackConfig, {
        */
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader', options: { sourceMap: false } },
+          { loader: 'postcss-loader', options: { sourceMap: false } }
+        ],
         include: [helpers.root('src', 'styles')]
       },
 
@@ -41,7 +45,12 @@ module.exports = webpackMerge(baseWebpackConfig, {
        */
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          { loader: 'style-loader', options: { sourceMap: false } },
+          { loader: 'css-loader', options: { sourceMap: false } },
+          { loader: 'postcss-loader', options: { sourceMap: false } },
+          { loader: 'sass-loader', options: { sourceMap: false } }
+        ],
         include: [helpers.root('src', 'styles')]
       }
     ]
