@@ -41,6 +41,8 @@ const tsLintLoader = utils.tsLintLoader(
 
 const preAssetsLoader = utils.preAssetsLoader(isProduction);
 
+const scssLoaders = utils.scssLoaders(isProduction);
+
 Object.assign(ngcWebpackConfig.plugin, {
   tsConfigPath: METADATOS.tsConfigPath,
   mainPath: builder.entry.main
@@ -82,8 +84,8 @@ module.exports = {
         test: /\.css$/,
         use: [
           { loader: 'to-string-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'postcss-loader', options: { sourceMap: true } }
+          { loader: 'css-loader', options: { sourceMap: isProduction } },
+          { loader: 'postcss-loader', options: { sourceMap: isProduction } }
         ],
         exclude: [helpers.root('src', 'styles')]
       },
@@ -93,17 +95,19 @@ module.exports = {
        * Returns compiled css content as string
        *
        */
-      {
-        test: /\.scss$/,
-        use: [
-          { loader: 'to-string-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'postcss-loader', options: { sourceMap: true } },
-          { loader: 'resolve-url-loader' },
-          { loader: 'sass-loader', options: { sourceMap: true } }
-        ],
-        exclude: [helpers.root('src', 'styles')]
-      },
+      // {
+      //   test: /\.scss$/,
+      //   use: [
+      //     { loader: 'to-string-loader' },
+      //     { loader: 'css-loader', options: { sourceMap: true } },
+      //     { loader: 'postcss-loader', options: { sourceMap: true } },
+      //     { loader: 'resolve-url-loader' },
+      //     { loader: 'sass-loader', options: { sourceMap: true } }
+      //   ],
+      //   exclude: [helpers.root('src', 'styles')]
+      // },
+
+      ...scssLoaders,
 
       /**
        * Raw loader support for *.html
