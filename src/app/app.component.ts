@@ -36,4 +36,8 @@ export class AppComponent {
     console.log('entra Miscelaneos');
     this.option = true;
   }
+  goToAuth0() {
+    console.log('entra Auth0');
+    this.option = true;
+  }
 }
