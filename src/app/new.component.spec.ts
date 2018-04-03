@@ -8,9 +8,9 @@ describe('NewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [NewComponent],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
-    })
+    }),
   );
 
   it(
@@ -19,6 +19,6 @@ describe('NewComponent', () => {
       const fixture = TestBed.createComponent(NewComponent);
       const app = fixture.debugElement.componentInstance;
       expect(app).toBeTruthy();
-    })
+    }),
   );
 });

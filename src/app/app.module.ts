@@ -23,14 +23,14 @@ import { reducers, metaReducers } from './reducers/reducers';
     /* Core Module */
     CoreModule.forRoot(new UserServiceConfig('Nguyen Tran')),
     StoreModule.forRoot(reducers, { metaReducers }),
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [AppComponent, ArticleComponent],
   providers: [
     { provide: AppConfig, useValue: process.env.APP_CONFIG },
-    { provide: APP_BASE_HREF, useValue: '/' }
+    { provide: APP_BASE_HREF, useValue: '/' },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 

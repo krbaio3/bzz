@@ -1,18 +1,18 @@
-$color-h1: #E74C3C;
+$color-h1: #e74c3c;
 
 header {
-    background-color: fuchsia !important;
-    h1 {
-        margin-left: 20px;
-        color: $color-h1;
-        background-image: url('../assets/img/angular.png');
-        background-position: left center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        padding-left: 40px;
-    }
+  background-color: fuchsia !important;
+  h1 {
+    margin-left: 20px;
+    color: $color-h1;
+    background-image: url('../assets/img/angular.png');
+    background-position: left center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-left: 40px;
+  }
 }
 
 section {
-    padding: 15px 20px;
+  padding: 15px 20px;
 }
