@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HeroesRoutingModule } from './heroes-routing.module';
+import { HeroesRoutingModule } from './heroes.routing';
 import { PipesModule } from '../pipes/pipes.module';
 
 // Servicios

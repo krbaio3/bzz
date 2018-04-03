@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AuthappRoutingModule } from './authapp-routing.module';
+import { AuthappRoutingModule } from './authapp.routing';
 import { AuthappComponent } from './authapp.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';

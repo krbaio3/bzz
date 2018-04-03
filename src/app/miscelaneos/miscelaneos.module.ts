@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import './miscelaneos.component.scss';
 
-import { MiscelaneosRoutingModule } from './miscelaneos-routing.module';
+import { MiscelaneosRoutingModule } from './miscelaneos.routing';
 
 import { NavBarMiscelaneosComponent } from './shared/navBar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';

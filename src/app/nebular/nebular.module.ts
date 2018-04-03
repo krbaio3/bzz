@@ -3,21 +3,24 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; // we also need angular router for Nebular to function properly
 // 3rd Party
 import {
-  NbThemeModule,
   NbSidebarModule,
   NbLayoutModule,
-  NbSidebarService
+  NbSidebarService,
+  NbThemeModule
 } from '@nebular/theme';
+
 import { NbEmailPassAuthProvider, NbAuthModule } from '@nebular/auth';
 // Componentes
-import { NebularComponent } from './login/login.component';
+import { NebularComponent } from './nebular.component';
+import { GridComponent } from './grid/grid.component';
+import { LoginComponent } from './login/login.component';
 
-// styles
-import './nebular.styles.scss';
+import { NebularRoutingModule } from './nebular.routing';
 
 @NgModule({
   imports: [
-    NbThemeModule.forRoot({ name: 'default' }), // this will enable the default theme, you can change this to `cosmic` to enable the dark theme.
+    // this will enable the default theme, you can change this to `cosmic` to enable the dark theme.
+    NbThemeModule.forRoot({ name: 'default' }),
     NbAuthModule.forRoot({
       providers: {
         email: {
@@ -30,11 +33,12 @@ import './nebular.styles.scss';
       forms: {}
     }),
     RouterModule, // RouterModule.forRoot(routes, { useHash: true }), if this is your app.module
+    CommonModule,
+    NebularRoutingModule,
     NbLayoutModule,
-    NbSidebarModule,
-    CommonModule
+    NbSidebarModule
   ],
-  declarations: [NebularComponent],
+  declarations: [NebularComponent, GridComponent, LoginComponent],
   providers: [NbSidebarService] // we need this service for the sidebar
 })
 export class NebularModule {}

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-import { SpotyRoutingModule } from './spoty-routing.module';
+import { SpotyRoutingModule } from './spoty.routing';
 // Pipes
 import { WithOutPicturePipe } from './pipes/with-out-picture.pipe';
 import { PipesModule } from '../pipes/pipes.module';
