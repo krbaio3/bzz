@@ -49,6 +49,10 @@ const routes: Routes = [
           {
             path: 'reset-password',
             component: NbResetPasswordComponent
+          },
+          {
+            path: 'sign-in',
+            component: GridComponent
           }
         ]
       }

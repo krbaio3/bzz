@@ -6,7 +6,7 @@ import {
   NbSidebarModule,
   NbLayoutModule,
   NbSidebarService,
-  NbThemeModule
+  NbThemeModule,
 } from '@nebular/theme';
 
 import { NbEmailPassAuthProvider, NbAuthModule } from '@nebular/auth';
@@ -24,21 +24,36 @@ import { NebularRoutingModule } from './nebular.routing';
     NbAuthModule.forRoot({
       providers: {
         email: {
-          service: NbEmailPassAuthProvider
-          //  config: {
-          //   ...
-          //  },
-        }
+          service: NbEmailPassAuthProvider,
+          config: {
+            baseEndpoint: 'localhost:4200',
+            login: {
+              endpoint: '/auth/sign-in',
+            },
+            register: {
+              endpoint: '/auth/sign-up',
+            },
+            logout: {
+               endpoint: '/auth/sign-out',
+             },
+             requestPass: {
+               endpoint: '/auth/request-pass',
+             },
+             resetPass: {
+               endpoint: '/auth/reset-pass',
+             },
+           }
+        },
       },
-      forms: {}
+      forms: {},
     }),
     RouterModule, // RouterModule.forRoot(routes, { useHash: true }), if this is your app.module
     CommonModule,
     NebularRoutingModule,
     NbLayoutModule,
-    NbSidebarModule
+    NbSidebarModule,
   ],
   declarations: [NebularComponent, GridComponent, LoginComponent],
-  providers: [NbSidebarService] // we need this service for the sidebar
+  providers: [NbSidebarService], // we need this service for the sidebar
 })
 export class NebularModule {}

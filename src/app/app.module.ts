@@ -30,6 +30,8 @@ import { SpotyModule } from './spoty/spoty.module';
 import { HeroesModule } from './heroes/heroes.module';
 import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
 import { AuthappModule } from './authapp/authapp.module';
+import { FormulariosModule } from './formularios/formularios.module';
+
 import { PruebaSrv } from './service/service';
 
 registerLocaleData(localeEs);
@@ -49,6 +51,7 @@ registerLocaleData(localeEs);
     AuthappModule,
     AngularFireModule.initializeApp(environment.fireConfig, 'bzz-poc'),
     AngularFirestoreModule,
+    FormulariosModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }, PruebaSrv],
   bootstrap: [AppComponent],
