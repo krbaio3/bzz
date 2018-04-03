@@ -1,25 +1,18 @@
-'use strict';
-
 require('./check-versions')();
 
 const config = require('../config');
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV);
 }
-debugger;
 
 const opn = require('opn');
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
-// const webpackConfig =
-//   process.env.NODE_ENV === 'testing'
-//     ? require('./webpack.prod.conf')
-//     : require('./webpack.dev.conf');
 
 const webpackConfig =
-  process.env.NODE_ENV === 'production'
+  process.env.NODE_ENV === 'testing'
     ? require('./webpack.prod.conf')
     : require('./webpack.dev.conf');
 

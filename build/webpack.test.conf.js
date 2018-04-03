@@ -2,12 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ContextReplacementPlugin, DefinePlugin } = require('webpack');
 
-const config = require('../config');
+const configTest = require('../config/test.env');
 const helpers = require('./helpers');
-const ENV = (process.env.NODE_ENV = config.dev.env.NODE_ENV);
+const ENV = (process.env.NODE_ENV = configTest);
 const APP_CONFIG = {
   API_URL: 'test.api.local'
 };
+
+console.log(`Testing ENV => ${JSON.stringify(ENV, null, 4)}`);
 
 module.exports = {
   resolve: {
