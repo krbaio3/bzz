@@ -3,52 +3,49 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Components
 import { AuthappComponent } from './authapp.component';
+import { HomeComponent } from './components/home/home.component';
+import { PrecioComponent } from './components/precio/precio.component';
+import { ProtegidaComponent } from './components/protegida/protegida.component';
+
+import { AuthGuardService } from './service/auth-guard.service';
 
 const routes: Routes = [
   {
     path: 'auth',
     component: AuthappComponent,
-    // children: [
-    //   {
-    //     path: '',
-    //     component: HomeComponent,
-    //   },
-    //   {
-    //     path: 'home',
-    //     component: HomeComponent,
-    //   },
-    //   {
-    //     path: 'heroes',
-    //     component: HeroesComponent,
-    //   },
-    //   {
-    //     path: 'about',
-    //     component: AboutComponent,
-    //   },
-    //   {
-    //     path: 'pipes',
-    //     component: PipesComponent,
-    //   },
-    //   {
-    //     path: 'heroe',
-    //     component: HeroeComponent,
-    //     children: HEROE_ROUTES,
-    //   },
-    //   {
-    //     path: 'search/:name',
-    //     component: SearchComponent,
-    //   },
-    //   {
-    //     path: '**',
-    //     pathMatch: 'full',
-    //     redirectTo: 'home',
-    //   },
-    // ],
-  },
+    children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'precio',
+        component: PrecioComponent
+      },
+      {
+        path: 'protegida',
+        component: ProtegidaComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: '**',
+        pathMatch: 'full',
+        redirectTo: 'home'
+      }
+    ]
+  }
+  // {
+  //   path: 'acess_token',
+  //   redirectTo: 'auth'
+  // }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AuthappRoutingModule {}

@@ -7,7 +7,7 @@ import {
   NbRegisterComponent,
   NbLogoutComponent,
   NbRequestPasswordComponent,
-  NbResetPasswordComponent,
+  NbResetPasswordComponent
 } from '@nebular/auth';
 
 import { SpotyRoutingModule } from './spoty/spoty-routing.module';
@@ -21,13 +21,13 @@ const APP_ROUTES: Routes = [
   {
     path: '',
     component: AppComponent,
-    data: { option: false },
+    data: { option: false }
   },
   {
     path: '**',
     pathMatch: 'full',
     redirectTo: '',
-    data: { option: false },
+    data: { option: false }
   },
   // {
   //   path: 'auth',
@@ -79,6 +79,6 @@ const APP_ROUTES: Routes = [
     MiscelaneosRoutingModule,
     AuthappRoutingModule
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}
