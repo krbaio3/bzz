@@ -3,28 +3,33 @@ import { Routes, RouterModule } from '@angular/router';
 import { ArticleComponent } from './components/article/article.component';
 
 const routes: Routes = [
-  { path: '',
-    loadChildren: './home/home.module#HomeModule'
+  {
+    path: '',
+    loadChildren: './home/home.module#HomeModule',
   },
-  { path: 'shop',
-    loadChildren: './shop/shop.module#ShopModule'
+  {
+    path: 'shop',
+    loadChildren: './shop/shop.module#ShopModule',
   },
-  { path: 'articles',
+  {
+    path: 'articles',
     component: ArticleComponent,
-    children: [{
-      path: '',
-      component: ArticleComponent },
+    children: [
+      {
+        path: '',
+        component: ArticleComponent,
+      },
     ],
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: '/'
-  }
+    redirectTo: '/',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
