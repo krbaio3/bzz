@@ -81,19 +81,11 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">Gender</label>
     <div class="col-md-10">
-      <div class="form-check form-check-inline">
-          <input [(ngModel)]="usuario.gender" class="form-check-input" id="inlineRadio1" name="gender" type="radio" value="man">
-          <label class="form-check-label" for="inlineRadio1">Man</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input [(ngModel)]="usuario.gender" class="form-check-input" id="inlineRadio2" name="gender" type="radio" value="women">
-          <label class="form-check-label" for="inlineRadio2">Women</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input [(ngModel)]="usuario.gender" class="form-check-input" id="inlineRadio3" name="gender" type="radio" value="nc">
-          <label class="form-check-label" for="inlineRadio3">N/C</label>
-        </div>
+      <div class="form-check form-check-inline" *ngFor="let gender of genders">
+        <input [(ngModel)]="usuario.gender" class="form-check-input" id="inlineRadio1" name="gender" type="radio" [value]="gender.value">
+        <label class="form-check-label" for="inlineRadio1">{{gender.name}}</label>
       </div>
+    </div>
   </div>
 
   <br class="mt-4">

@@ -7,7 +7,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./template.component.scss']
 })
 export class TemplateComponent {
-  usuario: object = {
+
+  usuario: Object = {
     nombre: null,
     apellido: null,
     email: null,
@@ -15,7 +16,7 @@ export class TemplateComponent {
     gender: null
   };
 
-  paises: object[] = [
+  paises: Object[] = [
     {
       codigo: 'ESP',
       nombre: 'España'
@@ -30,11 +31,22 @@ export class TemplateComponent {
     }
   ];
 
-  gender: string[] = [
-
+  genders: Object[] = [
+    {
+      value: 'm',
+      name: 'Man'
+    },
+    {
+      value: 'w',
+      name: 'Women'
+    },
+    {
+      value: 'nc',
+      name: 'N/C'
+    }
   ];
 
-  constructor() {}
+  constructor() { }
 
   guardar(forma: NgForm) {
     console.log('post');
