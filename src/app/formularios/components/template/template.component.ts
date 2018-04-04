@@ -4,14 +4,35 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-template',
   templateUrl: './template.component.html',
-  styleUrls: ['./template.component.scss'],
+  styleUrls: ['./template.component.scss']
 })
 export class TemplateComponent {
-
   usuario: Object = {
     nombre: null,
     apellido: null,
+    email: null,
+    pais: '',
+    gender: null
   };
+
+  paises: Object[] = [
+    {
+      codigo: 'ESP',
+      nombre: 'España'
+    },
+    {
+      codigo: 'AND',
+      nombre: 'Andorra'
+    },
+    {
+      codigo: 'USA',
+      nombre: 'United Stated'
+    }
+  ];
+
+  gender: string[] = [
+
+  ];
 
   constructor() {}
 

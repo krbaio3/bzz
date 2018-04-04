@@ -1,14 +1,14 @@
 <h4>Formularios <small>template</small></h4>
 <hr>
-<form (ngSubmit)="guardar(forma)" #forma="ngForm">
+<form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate>
 
   <div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
-      <div class="col-8">
+      <div class="col-10">
 
-        <input class="form-control"
+        <input class="form-control" [ngClass]="{'is-invalid': nombre.errors?.minlength || (nombre.errors?.required && nombre.touched)}"
                type="text"
                placeholder="Nombre"
                name="nombre"
@@ -18,18 +18,16 @@
                autocomplete="name"
                #nombre="ngModel">
 
-       <div class="alert alert-danger text-center mt-2" role="alert">
-          <span *ngIf="nombre.errors?.required">Este campo es required</span>  
-          <span *ngIf="nombre.errors?.minlength">Tiene que tener al menos {{nombre.errors?.minlength.requiredLength}} caracteres y tiene {{nombre.errors?.minlength.actualLength}}</span>
-        </div>
+          <div [ngClass]="{'invalid-feedback': nombre.errors?.required && nombre.touched}" class="text-center mt-2" role="alert" *ngIf="nombre.errors?.required && nombre.touched">Este campo es required</div>  
+          <div [ngClass]="{'invalid-feedback': nombre.errors?.minlength}" class="text-center mt-2" role="alert" *ngIf="nombre.errors?.minlength">Tiene que tener al menos {{nombre.errors?.minlength.requiredLength}} caracteres y tiene {{nombre.errors?.minlength.actualLength}}</div>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Apellido</label>
-      <div class="col-8">
+      <div class="col-10">
 
-        <input class="form-control"
+        <input class="form-control" [ngClass]="{'is-invalid': apellido.errors?.minlength || (apellido.errors?.required && apellido.touched)}"
                type="text"
                placeholder="Apellido"
                name="apellido"
@@ -39,20 +37,17 @@
                autocomplete="cc-family-name"
                #apellido="ngModel">
         
-       <div class="alert alert-danger text-center mt-2" role="alert">
-          <span *ngIf="apellido.errors?.required">Este campo es required</span>  
-          <span *ngIf="apellido.errors?.minlength">Tiene que tener al menos {{apellido.errors?.minlength.requiredLength}} caracteres y tiene {{apellido.errors?.minlength.actualLength}}</span>
-        </div>
-      </div>
+          <div [ngClass]="{'invalid-feedback': apellido.errors?.required && apellido.touched}" class="text-center mt-2" role="alert" *ngIf="apellido.errors?.required && apellido.touched">Este campo es required</div>  
+          <div [ngClass]="{'invalid-feedback': apellido.errors?.minlength}" class="text-center mt-2" role="alert" *ngIf="apellido.errors?.minlength">Tiene que tener al menos {{apellido.errors?.minlength.requiredLength}} caracteres y tiene {{apellido.errors?.minlength.actualLength}}</div>
     </div>
 
   </div>
 
   <div class="form-group row">
     <label class="col-2 col-form-label">Correo</label>
-    <div class="col-md-8">
+    <div class="col-md-10">
 
-      <input class="form-control"
+      <input class="form-control" [ngClass]="{'is-invalid': ( email.errors?.minlength || email.errors?.required || email.errors?.pattern ) && email.touched}"
              type="email"
              placeholder="Correo electrónico"
              name="email"
@@ -62,25 +57,58 @@
              autocomplete="email"
              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
              #email="ngModel">
-      <div class="alert alert-danger text-center mt-2" role="alert">
-          <span *ngIf="email.errors?.required">Este campo es required</span>  
-          <span *ngIf="email.errors?.minlength">Tiene que tener al menos {{email.errors?.minlength.requiredLength}} caracteres y tiene {{email.errors?.minlength.actualLength}}</span>
-        </div>
+
+          <div [ngClass]="{'invalid-feedback': email.errors?.required && email.touched}" class="text-center mt-2" role="alert" *ngIf="email.errors?.required && email.touched">Este campo es required</div>  
+          <div [ngClass]="{'invalid-feedback': email.errors?.minlength}" class="text-center mt-2" role="alert" *ngIf="email.errors?.minlength">Tiene que tener al menos {{email.errors?.minlength.requiredLength}} caracteres y tiene {{email.errors?.minlength.actualLength}}</div>
+          <div [ngClass]="{'invalid-feedback': email.errors?.pattern}" class="text-center mt-2" role="alert" *ngIf="email.errors?.pattern">No cumple el patrón de correo electrónico</div>
+      </div>
     </div>
+
   </div>
 
-
+   <div class="form-group row">
+    <label class="col-2 col-form-label">País</label>
+    <div class="col-md-10">
+      <select name="pais" id="pais"
+              [(ngModel)]="usuario.pais"
+              class="form-control">
+            <option value="">Selecciona un pais</option>
+            <option *ngFor="let pais of paises" [value]="pais.codigo">{{ pais.nombre }}</option>
+      </select>
+      </div>
+  </div>
 
   <div class="form-group row">
-    <label class="col-2 col-form-label">&nbsp;</label>
-    <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary">
-        Guardar
-      </button>
-      <button type="button" class="btn btn-outline-danger" [routerLink]="['']">
-        Atras
-      </button>
-    </div>
+    <label class="col-2 col-form-label">Gender</label>
+    <div class="col-md-10">
+      <div class="form-check form-check-inline">
+          <input [(ngModel)]="usuario.gender" class="form-check-input" id="inlineRadio1" name="gender" type="radio" value="man">
+          <label class="form-check-label" for="inlineRadio1">Man</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input [(ngModel)]="usuario.gender" class="form-check-input" id="inlineRadio2" name="gender" type="radio" value="women">
+          <label class="form-check-label" for="inlineRadio2">Women</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input [(ngModel)]="usuario.gender" class="form-check-input" id="inlineRadio3" name="gender" type="radio" value="nc">
+          <label class="form-check-label" for="inlineRadio3">N/C</label>
+        </div>
+      </div>
+  </div>
+
+  <br class="mt-4">
+
+  <div class="form-group row">
+    <div class="col-6">
+        <button class="btn btn-outline-primary float-left" type="submit" [disabled]="forma.invalid">
+          Guardar
+        </button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-outline-danger float-right" type="button" [routerLink]="['']">
+          Atras
+        </button>
+      </div>
   </div>
 
 </form>
