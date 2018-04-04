@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./template.component.scss']
 })
 export class TemplateComponent {
-  usuario: Object = {
+  usuario: object = {
     nombre: null,
     apellido: null,
     email: null,
@@ -15,7 +15,7 @@ export class TemplateComponent {
     gender: null
   };
 
-  paises: Object[] = [
+  paises: object[] = [
     {
       codigo: 'ESP',
       nombre: 'España'
