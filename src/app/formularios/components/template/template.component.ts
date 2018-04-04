@@ -9,7 +9,8 @@ import { NgForm } from '@angular/forms';
 export class TemplateComponent {
 
   usuario: Object = {
-    nombre: 'Jorge'
+    nombre: null,
+    apellido: null,
   };
 
   constructor() {}
@@ -17,6 +18,7 @@ export class TemplateComponent {
   guardar(forma: NgForm) {
     console.log('post');
     console.log(forma);
-    console.log(`Valor: ${forma.value}`);
+    console.log(`Valor: ${JSON.stringify(forma.value, null, 4)}`);
+    // console.log('Usuario', this.usuario);
   }
 }

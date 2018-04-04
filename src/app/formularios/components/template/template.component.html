@@ -1,6 +1,6 @@
 <h4>Formularios <small>template</small></h4>
 <hr>
-<form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate>
+<form (ngSubmit)="guardar(forma)" #forma="ngForm">
 
   <div>
 
@@ -13,8 +13,15 @@
                placeholder="Nombre"
                name="nombre"
                required
-               ngModel
-               minlength="5">
+               [(ngModel)]="usuario.nombre"
+               minlength="5"
+               autocomplete="name"
+               #nombre="ngModel">
+
+       <div class="alert alert-danger text-center mt-2" role="alert">
+          <span *ngIf="nombre.errors?.required">Este campo es required</span>  
+          <span *ngIf="nombre.errors?.minlength">Tiene que tener al menos {{nombre.errors?.minlength.requiredLength}} caracteres y tiene {{nombre.errors?.minlength.actualLength}}</span>
+        </div>
       </div>
     </div>
 
@@ -27,8 +34,15 @@
                placeholder="Apellido"
                name="apellido"
                required
-               ngModel
-               minlength="5">
+               [(ngModel)]="usuario.apellido"
+               minlength="5"
+               autocomplete="cc-family-name"
+               #apellido="ngModel">
+        
+       <div class="alert alert-danger text-center mt-2" role="alert">
+          <span *ngIf="apellido.errors?.required">Este campo es required</span>  
+          <span *ngIf="apellido.errors?.minlength">Tiene que tener al menos {{apellido.errors?.minlength.requiredLength}} caracteres y tiene {{apellido.errors?.minlength.actualLength}}</span>
+        </div>
       </div>
     </div>
 
@@ -43,8 +57,15 @@
              placeholder="Correo electrónico"
              name="email"
              required
-             ngModel
-             minlength="5">
+             [(ngModel)]="usuario.email"
+             minlength="5"
+             autocomplete="email"
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             #email="ngModel">
+      <div class="alert alert-danger text-center mt-2" role="alert">
+          <span *ngIf="email.errors?.required">Este campo es required</span>  
+          <span *ngIf="email.errors?.minlength">Tiene que tener al menos {{email.errors?.minlength.requiredLength}} caracteres y tiene {{email.errors?.minlength.actualLength}}</span>
+        </div>
     </div>
   </div>
 
