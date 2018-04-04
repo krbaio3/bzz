@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AuthappRoutingModule } from './authapp.routing';
 import { AuthappComponent } from './authapp.component';
-import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { PrecioComponent } from './components/precio/precio.component';
 import { ProtegidaComponent } from './components/protegida/protegida.component';
@@ -16,7 +16,7 @@ import { AuthGuardService } from './service/auth-guard.service';
   imports: [CommonModule, AuthappRoutingModule],
   declarations: [
     AuthappComponent,
-    NavBarComponent,
+    NavbarComponent,
     HomeComponent,
     PrecioComponent,
     ProtegidaComponent
