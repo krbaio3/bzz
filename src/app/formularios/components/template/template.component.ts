@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./template.component.scss']
 })
 export class TemplateComponent {
-// Se le quita el tipo porque al seleccionar Object/object, travis no construye
+
   usuario = {
     nombre: null,
     apellido: null,
