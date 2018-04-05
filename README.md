@@ -284,6 +284,11 @@ No obstante, también está preparado para usar [PostCSS](http://postcss.org/), 
 
 Se ha dotado a este generador de proyectos Front, con herramientas de calidad de código. Para su control, se ha instalado un linter para Typescript, [TSLint](https://palantir.github.io/tslint/), un linter para Sass, [SassLint]https://github.com/sasstools/sass-lint), y, para el caso de PostCSS, el linter [StyleLint](https://stylelint.io/). Para mayor calidad, se ha preinstalado, el linter basado en AirBnB para [TypeScript](https://github.com/progre/tslint-config-airbnb), y para [Sass](https://github.com/airbnb/css/blob/master/.scss-lint.yml), también se recomienda el linter de AirBnB. En el caso de PostCSS, se ha propuesto el linter recomendado por StyleLint.
 
+Para mejor control sobre la calidad de código, se han incorporado tres scrips en el package.json para que se puedan pasar estos controles. Más adelante, se estudiará la posibilidad de que en la fase de construcción, si el linter da algúnfallo, no construya la aplicación hasta que se arreglen esos fallos. Los `scripts`son:
+    * `lint`: escanea el código TypeScript, y 'repara' según las reglas predefinidas en el archivo `tslint.json`
+    * `sass`: escanea el código SCSS/SASS, y 'repara' según las reglas predefinidas en el archivo `.scss-lint.yml`
+    * `stylelint`: escanea el código PostCSS, y 'repara' según las reglas predefinidas en el archivo `stylelint.json`
+
 Para poder desarrollar un código mantenible, legible, escalable,... se recomienda, a parte de todas las reglas anteriores, seguir la guía de estilos que proporciona [Angular](https://angular.io/guide/styleguide).
 ### <a id="testing"></a> Descripción de Testing
 
