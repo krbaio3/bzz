@@ -3,9 +3,9 @@ import { Injectable, Optional } from '@angular/core';
 
 @Injectable()
 export class UserService {
-  private _userName = 'Sherlock Holmes';
+  private _userName: string = 'Sherlock Holmes';
 
-  constructor( @Optional() config: UserServiceConfig) {
+  constructor(@Optional() config: UserServiceConfig) {
     if (config) { this._userName = config.userNameMethod; }
     console.log(new Date().getTime());
   }

@@ -1,4 +1,4 @@
-const { ContextReplacementPlugin } = require('webpack');
+const { ContextReplacementPlugin, DllReferencePlugin } = require('webpack');
 const { CommonsChunkPlugin } = require('webpack').optimize;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -68,7 +68,7 @@ module.exports = {
      *
      * See: https://webpack.js.org/configuration/resolve/#resolve-modules
      */
-    modules: [root('src'), root('node_modules')]
+    modules: [root('src')]
   },
   module: {
     rules: [
@@ -201,12 +201,17 @@ module.exports = {
       name: 'webpackManifest'
     }),
 
-    new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
+    // new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
+
     // See: https://github.com/webpack-contrib/extract-text-webpack-plugin
     new ExtractTextPlugin({
       filename: '[name].css',
       disable: false,
       allChunks: true
+    }),
+    new DllReferencePlugin({
+      context: __dirname,
+      manifest: require('../lib/library.json')
     })
   ]
 };

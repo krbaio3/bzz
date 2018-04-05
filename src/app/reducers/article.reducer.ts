@@ -3,19 +3,19 @@ import * as fromActions from '../actions/article.actions';
 import { JAVA_ARTICLES, ANGULAR_ARTICLES } from '../models/article';
 import { ArticleState } from './app.states';
 
-export const initialState: ArticleState = { articles: []};
+export const initialState: ArticleState = { articles: [] };
 
 export function reducer(state = initialState, action: fromActions.All): ArticleState {
-  switch(action.type) {
+  switch (action.type) {
     case fromActions.JAVA: {
-      return {articles: JAVA_ARTICLES};
+      return { articles: JAVA_ARTICLES };
     }
     case fromActions.ANGULAR: {
-      return {articles: ANGULAR_ARTICLES};
+      return { articles: ANGULAR_ARTICLES };
     
     } 
     case fromActions.MY_ARTICLES: {
-      return {articles: action.payload};
+      return { articles: action.payload };
     }    
     default: {
       return state;
@@ -27,5 +27,5 @@ export const getArticleState = createFeatureSelector<ArticleState>('articleState
 
 export const getArticles = createSelector(
     getArticleState, 
-    (state: ArticleState) => state.articles 
+    (state: ArticleState) => state.articles, 
 );

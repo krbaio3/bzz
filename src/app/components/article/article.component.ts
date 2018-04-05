@@ -9,7 +9,7 @@ import { Article, FAVORITE_ARTICLES } from '../../models/article';
 @Component({
   selector: 'app-article',
   styleUrls: ['article.component.scss'],
-  templateUrl: 'article.component.html'
+  templateUrl: 'article.component.html',
 })
 export class ArticleComponent {
   articles: Observable<Article[]>;
@@ -25,7 +25,7 @@ export class ArticleComponent {
   }
   showFavoriteArticles() {
     this.store.dispatch(
-      new fromActions.FavoriteArticlesAction(FAVORITE_ARTICLES)
+      new fromActions.FavoriteArticlesAction(FAVORITE_ARTICLES),
     );
   }
 }

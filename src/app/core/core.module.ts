@@ -4,7 +4,7 @@ import {
   ModuleWithProviders,
   NgModule,
   Optional,
-  SkipSelf
+  SkipSelf,
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -15,25 +15,25 @@ import { NavComponent } from './nav/nav.component';
   imports: [RouterModule],
   exports: [NavComponent],
   declarations: [NavComponent],
-  providers: [UserService]
+  providers: [UserService],
 })
 export class CoreModule {
 
   public static forRoot(config: UserServiceConfig): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [{ provide: UserServiceConfig, useValue: config }]
+      providers: [{ provide: UserServiceConfig, useValue: config }],
     };
   }
 
   constructor(
     @Optional()
     @SkipSelf()
-    parentModule: CoreModule
+    parentModule: CoreModule,
   ) {
     if (parentModule) {
       throw new Error(
-        'CoreModule is already loaded. Import it in the AppModule only'
+        'CoreModule is already loaded. Import it in the AppModule only',
       );
     }
   }
