@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 })
 export class TemplateComponent {
 
+  // Se quitan los tipos porque no construye con travisgi
+
   usuario = {
     nombre: null,
     apellido: null,
