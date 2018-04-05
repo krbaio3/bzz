@@ -7,7 +7,9 @@ exports.root = function(args) {
   return path.join.apply(path, [_root].concat(args));
 };
 
-exports.removeWarning = __path => path.join(__dirname, __path);
+exports.absolutPath = __path => path.join(__dirname, __path);
+
+exports.dirname = __path => path.dirname(__path);
 
 exports.resolve = dir => path.join(__dirname, '..', dir);
 

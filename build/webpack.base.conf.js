@@ -1,27 +1,33 @@
-const webpack = require('webpack');
+const { ContextReplacementPlugin } = require('webpack');
+const { CommonsChunkPlugin } = require('webpack').optimize;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const ngcWebpack = require('ngc-webpack');
-const path = require('path');
+const { NgcWebpackPlugin } = require('ngc-webpack');
 
-const helpers = require('./helpers');
-const utils = require('./utils');
-const config = require('../config');
-const builder = require('./builder');
+const { resolve, root, absolutPath } = require('./helpers');
+const {
+  ngcWebpackSetup,
+  assetsLoader,
+  tsLintLoader,
+  preAssetsLoader,
+  scssLoaders
+} = require('./utils');
+
+const { build, dev } = require('../config');
+const { entry, output, METADATOS_DEFECTO } = require('./builder');
+const postCSS = absolutPath('../postcss.config');
 
 const NODE_ENV =
-  process.env.NODE_ENV == 'production'
-    ? config.build.env.NODE_ENV
-    : config.dev.env.NODE_ENV;
+  process.env.NODE_ENV == 'production' ? build.env.NODE_ENV : dev.env.NODE_ENV;
 
 console.log(`Variable de entorno: ${NODE_ENV}`);
 
-const isProduction = NODE_ENV == config.build.env.NODE_ENV ? true : false;
+const isProduction = NODE_ENV == build.env.NODE_ENV;
 
-const METADATOS = Object.assign({}, builder.METADATOS_DEFECTO, {
+const METADATOS = Object.assign({}, METADATOS_DEFECTO, {
   ENV: NODE_ENV,
   envFileSuffix: isProduction ? 'prod' : ''
 });
@@ -30,47 +36,47 @@ console.log(`is production: ${isProduction}`);
 
 console.log(`builder.Metadatos: ${JSON.stringify(METADATOS, null, 2)}`);
 
-const ngcWebpackConfig = utils.ngcWebpackSetup(isProduction, METADATOS);
+const ngcWebpackConfig = ngcWebpackSetup(isProduction, METADATOS);
 
-const assetsLoader = utils.assetsLoader(10 * 1024);
+const assets_loader = assetsLoader(10 * 1024);
 
-const tsLintLoader = utils.tsLintLoader(
-  [helpers.resolve('src'), helpers.resolve('test')],
+const tsLint_loader = tsLintLoader(
+  [resolve('src'), resolve('test')],
   METADATOS
 );
 
-const preAssetsLoader = utils.preAssetsLoader(isProduction);
+const preAssets_loader = preAssetsLoader(isProduction);
 
-const scssLoaders = utils.scssLoaders(isProduction);
+const scss_loaders = scssLoaders(isProduction);
 
 Object.assign(ngcWebpackConfig.plugin, {
   tsConfigPath: METADATOS.tsConfigPath,
-  mainPath: builder.entry.main
+  mainPath: entry.main
 });
 
 module.exports = {
-  entry: builder.entry,
-  output: builder.output,
+  entry: entry,
+  output: output,
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     // Indicamos el alias para que al hacer el import, sepa dónde tiene que ir a buscar
     alias: {
-      '@': helpers.resolve('src')
+      '@': resolve('src')
     },
     /**
      * Indique a webpack qué directorios se deben buscar al resolver módulos.
      *
      * See: https://webpack.js.org/configuration/resolve/#resolve-modules
      */
-    modules: [helpers.root('src'), helpers.root('node_modules')]
+    modules: [root('src'), root('node_modules')]
   },
   module: {
     rules: [
       // Trocear loaders en PRE
 
-      ...tsLintLoader,
+      ...tsLint_loader,
       // See: https://github.com/tcoopman/image-webpack-loader
-      ...preAssetsLoader,
+      ...preAssets_loader,
 
       // equivalente al typescript loader
       // See: https://github.com/shlomiassaf/ngc-webpack
@@ -85,9 +91,17 @@ module.exports = {
         use: [
           { loader: 'to-string-loader' },
           { loader: 'css-loader', options: { sourceMap: isProduction } },
-          { loader: 'postcss-loader', options: { sourceMap: isProduction } }
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: isProduction,
+              config: {
+                path: postCSS
+              }
+            }
+          }
         ],
-        exclude: [helpers.root('src', 'styles')]
+        exclude: [root('src', 'styles')]
       },
 
       /**
@@ -95,19 +109,8 @@ module.exports = {
        * Returns compiled css content as string
        *
        */
-      // {
-      //   test: /\.scss$/,
-      //   use: [
-      //     { loader: 'to-string-loader' },
-      //     { loader: 'css-loader', options: { sourceMap: true } },
-      //     { loader: 'postcss-loader', options: { sourceMap: true } },
-      //     { loader: 'resolve-url-loader' },
-      //     { loader: 'sass-loader', options: { sourceMap: true } }
-      //   ],
-      //   exclude: [helpers.root('src', 'styles')]
-      // },
 
-      ...scssLoaders,
+      ...scss_loaders,
 
       /**
        * Raw loader support for *.html
@@ -119,14 +122,14 @@ module.exports = {
       {
         test: /\.html$/,
         use: 'raw-loader',
-        exclude: [helpers.root('index.html')]
+        exclude: [root('index.html')]
       },
 
       // Assets Loader
       // See:
       // * https://github.com/bhovhannes/svg-url-loader
       // * https://github.com/webpack-contrib/url-loader
-      ...assetsLoader
+      ...assets_loader
     ]
   },
 
@@ -134,23 +137,23 @@ module.exports = {
     // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
     // todo el codigo comun lo quita y lo pone en vendor
     // Revisarr al actualizar a webpack4
-    new webpack.optimize.CommonsChunkPlugin({
+    new CommonsChunkPlugin({
       name: 'polyfills',
       chunks: ['polyfills']
     }),
 
-    new webpack.optimize.CommonsChunkPlugin({
+    new CommonsChunkPlugin({
       minChunks: Infinity,
       name: 'inline'
     }),
-    new webpack.optimize.CommonsChunkPlugin({
+    new CommonsChunkPlugin({
       name: 'main',
       async: 'common',
       children: true,
       minChunks: 2
     }),
 
-    new webpack.optimize.CommonsChunkPlugin({
+    new CommonsChunkPlugin({
       name: 'vendor',
       chunks: ['vendor']
     }),
@@ -169,7 +172,7 @@ module.exports = {
       prefetch: [/chunk/]
     }),
 
-    new ngcWebpack.NgcWebpackPlugin(ngcWebpackConfig.plugin),
+    new NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
@@ -198,10 +201,7 @@ module.exports = {
       name: 'webpackManifest'
     }),
 
-    new webpack.ContextReplacementPlugin(
-      /angular(\\|\/)core/,
-      helpers.resolve('src')
-    ),
+    new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
     // See: https://github.com/webpack-contrib/extract-text-webpack-plugin
     new ExtractTextPlugin({
       filename: '[name].css',
