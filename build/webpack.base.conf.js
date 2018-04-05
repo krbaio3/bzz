@@ -156,10 +156,10 @@ module.exports = {
       minChunks: 2
     }),
 
-    new CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['vendor']
-    }),
+    // new CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   chunks: ['vendor']
+    // }),
 
     /**
      * Plugin: ScriptExtHtmlWebpackPlugin
@@ -169,9 +169,9 @@ module.exports = {
      * See: https://github.com/numical/script-ext-html-webpack-plugin
      */
     new ScriptExtHtmlWebpackPlugin({
-      sync: /inline|polyfills|vendor|main/,
+      sync: /inline|polyfills|main/,
       defaultAttribute: 'async',
-      preload: [/polyfills|vendor|main/],
+      preload: [/polyfills|main/],
       prefetch: [/chunk/]
     }),
 
@@ -179,7 +179,11 @@ module.exports = {
 
     new DllReferencePlugin({
       context: path.join(__dirname),
-      manifest: require('../lib/library-manifest.json'),
+      manifest: require('../lib/polyfills-manifest.json'),
+    }),
+    new DllReferencePlugin({
+      context: path.join(__dirname),
+      manifest: require('../lib/vendor-manifest.json'),
     }),
 
     // https://github.com/ampedandwired/html-webpack-plugin
@@ -217,9 +221,19 @@ module.exports = {
       disable: false,
       allChunks: true
     }),
+    
     new AddAssetHtmlPlugin({
-      filepath: path.resolve(__dirname, '../lib/library/*.dll.js'),
+      filepath: '../lib/library/vendor.dll.js',
       includeSourcemap: true
     }),
+
+    new AddAssetHtmlPlugin({
+      filepath: '../lib/library/polyfills.dll.js',
+      includeSourcemap: true
+    }),
+
+
+
+
   ]
 };

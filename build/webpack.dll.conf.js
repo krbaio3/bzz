@@ -1,6 +1,11 @@
 const path = require('path');
-const { DllPlugin, ContextReplacementPlugin } = require('webpack');
-const { resolve } = require('./helpers');
+const {
+  DllPlugin,
+  ContextReplacementPlugin
+} = require('webpack');
+const {
+  resolve
+} = require('./helpers');
 
 module.exports = {
   context: process.cwd(),
@@ -10,22 +15,8 @@ module.exports = {
   },
 
   entry: {
-    library: [
-      '@angular/animations',
-      '@angular/common',
-      '@angular/compiler',
-      '@angular/core',
-      '@angular/forms',
-      '@angular/http',
-      '@angular/platform-browser',
-      '@angular/platform-browser-dynamic',
-      '@angular/platform-server',
-      '@angular/router',
-      '@ngrx/store',
-      'core-js',
-      'rxjs',
-      'zone.js'
-    ]
+    'polyfills': ['./src/polyfills.ts'],
+    'vendor': ['./src/vendor.ts']
   },
   output: {
     filename: '[name].dll.js',
