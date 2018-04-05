@@ -1,13 +1,15 @@
-const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const baseWebpackConfig = require('./webpack.base.conf.js');
-const helpers = require('./helpers');
-const config = require('../config');
+const { DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const EvalSourceMapDevToolPlugin = require('webpack/lib/EvalSourceMapDevToolPlugin');
+const webpackMerge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const ENV = (process.env.NODE_ENV = config.dev.env.NODE_ENV);
+const baseWebpackConfig = require('./webpack.base.conf.js');
+const { root, absolutPath } = require('./helpers');
+const { dev } = require('../config');
+const postCSS = absolutPath('../postcss.config');
+
+const ENV = (process.env.NODE_ENV = dev.env.NODE_ENV);
 const APP_CONFIG = {
   API_URL: 'dev.api.local'
 };
@@ -33,9 +35,17 @@ module.exports = webpackMerge(baseWebpackConfig, {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader', options: { sourceMap: false } },
-          { loader: 'postcss-loader', options: { sourceMap: false } }
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: false,
+              config: {
+                path: postCSS
+              }
+            }
+          }
         ],
-        include: [helpers.root('src', 'styles')]
+        include: [root('src', 'styles')]
       },
 
       /**
@@ -48,10 +58,18 @@ module.exports = webpackMerge(baseWebpackConfig, {
         use: [
           { loader: 'style-loader', options: { sourceMap: false } },
           { loader: 'css-loader', options: { sourceMap: false } },
-          { loader: 'postcss-loader', options: { sourceMap: false } },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: false,
+              config: {
+                path: postCSS
+              }
+            }
+          },
           { loader: 'sass-loader', options: { sourceMap: false } }
         ],
-        include: [helpers.root('src', 'styles')]
+        include: [root('src', 'styles')]
       }
     ]
   },
@@ -65,15 +83,15 @@ module.exports = webpackMerge(baseWebpackConfig, {
     // }),
     new ExtractTextPlugin('[name].css'),
 
-    new webpack.DefinePlugin({
+    new DefinePlugin({
       'process.env': {
-        ENV: config.dev.env,
+        ENV: dev.env,
         APP_CONFIG: JSON.stringify(APP_CONFIG)
       }
     }),
 
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
-    new webpack.HotModuleReplacementPlugin(),
+    new HotModuleReplacementPlugin(),
     new FriendlyErrorsPlugin()
   ],
   // cheap-module-eval-source-map is faster for development

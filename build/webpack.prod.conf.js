@@ -1,16 +1,18 @@
-const webpack = require('webpack');
+const { HashedModuleIdsPlugin, DefinePlugin } = require('webpack');
+const { UglifyJsPlugin } = require('webpack').optimize;
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.conf.js');
 const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
-const helpers = require('./helpers');
-const config = require('../config');
-const utils = require('./utils');
+const { root, absolutPath } = require('./helpers');
+const {build, dev} = require('../config');
+const { getUglifyOptions } = require('./utils');
+const postCSS = absolutPath('../postcss.config');
 
 const ENV =
   process.env.NODE_ENV == 'production'
-    ? config.build.env.NODE_ENV
-    : config.dev.env.NODE_ENV;
+    ? build.env.NODE_ENV
+    : dev.env.NODE_ENV;
 console.log('ENV ===> ', ENV);
 console.log('process.env.NODE_ENV ===> ', process.env.NODE_ENV);
 const APP_CONFIG = {
@@ -29,10 +31,18 @@ module.exports = webpackMerge(baseWebpackConfig, {
           fallback: 'style-loader',
           use: [
             { loader: 'css-loader', options: { sourceMap: true } },
-            { loader: 'postcss-loader', options: { sourceMap: true } }
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                config: {
+                  path: postCSS
+                }
+              }
+            }
           ]
         }),
-        include: [helpers.root('src', 'styles')]
+        include: [root('src', 'styles')]
       },
 
       /**
@@ -44,12 +54,20 @@ module.exports = webpackMerge(baseWebpackConfig, {
           fallback: 'style-loader',
           use: [
             { loader: 'css-loader', options: { sourceMap: true } },
-            { loader: 'postcss-loader', options: { sourceMap: true } },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                config: {
+                  path: postCSS
+                }
+              }
+            },
             { loader: 'resolve-url-loader' },
             { loader: 'sass-loader', options: { sourceMap: true } }
           ]
         }),
-        include: [helpers.root('src', 'styles')]
+        include: [root('src', 'styles')]
       }
     ]
   },
@@ -66,9 +84,9 @@ module.exports = webpackMerge(baseWebpackConfig, {
      *
      * NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
      */
-    new webpack.optimize.UglifyJsPlugin({
+    new UglifyJsPlugin({
       sourceMap: true,
-      uglifyOptions: utils.getUglifyOptions,
+      uglifyOptions: getUglifyOptions,
       // https://github.com/angular/angular/issues/10618
       mangle: {
         keep_fnames: true
@@ -78,7 +96,7 @@ module.exports = webpackMerge(baseWebpackConfig, {
 
     new PurifyPlugin() /* buildOptimizer */,
 
-    new webpack.HashedModuleIdsPlugin({
+    new HashedModuleIdsPlugin({
       hashFunction: 'md5',
       hashDigest: 'base64',
       hashDigestLength: 20
@@ -86,9 +104,9 @@ module.exports = webpackMerge(baseWebpackConfig, {
     //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios
     // new webpack.optimize.ModuleConcatenationPlugin(),
 
-    new webpack.DefinePlugin({
+    new DefinePlugin({
       'process.env': {
-        ENV: config.build.env,
+        ENV: build.env,
         APP_CONFIG: JSON.stringify(APP_CONFIG)
       }
     })

@@ -17,7 +17,7 @@ export function main(): Promise<any> {
   return platformBrowserDynamic()
     .bootstrapModule(AppModule)
     .then(environment.decorateModuleRef)
-    .catch((err) => console.error(err));
+    .catch(err => console.error(err));
 }
 
 /**
@@ -26,7 +26,7 @@ export function main(): Promise<any> {
  */
 switch (document.readyState) {
   case 'loading':
-    document.addEventListener('DOMContentLoaded', _domReadyHandler, false);
+    document.addEventListener('DOMContentLoaded', domReadyHandler, false);
     break;
   case 'interactive':
   case 'complete':
@@ -34,7 +34,7 @@ switch (document.readyState) {
     main();
 }
 
-function _domReadyHandler() {
-  document.removeEventListener('DOMContentLoaded', _domReadyHandler, false);
+function domReadyHandler() {
+  document.removeEventListener('DOMContentLoaded', domReadyHandler, false);
   main();
 }

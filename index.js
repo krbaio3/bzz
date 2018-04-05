@@ -1,3 +1,5 @@
-const { scssLoaders } = require('./build/utils');
+let { absolutPath } = require('./build/helpers');
 
-scssLoaders(false);
+const path = require('path');
+
+console.log(absolutPath('./postcss.config'));

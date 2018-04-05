@@ -7,7 +7,7 @@ import { HomeRoutingModule, routedComponents } from './home-routing.module';
 @NgModule({
   imports: [HomeRoutingModule],
   declarations: [routedComponents],
-  providers: [HomeService]
+  providers: [HomeService],
 })
 export class HomeModule {}
 
