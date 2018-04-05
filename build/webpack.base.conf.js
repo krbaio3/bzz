@@ -6,6 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const { NgcWebpackPlugin } = require('ngc-webpack');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 const { resolve, root, absolutPath } = require('./helpers');
 const {
@@ -53,6 +54,8 @@ Object.assign(ngcWebpackConfig.plugin, {
   tsConfigPath: METADATOS.tsConfigPath,
   mainPath: entry.main
 });
+
+const path = require('path');
 
 module.exports = {
   entry: entry,
@@ -174,6 +177,11 @@ module.exports = {
 
     new NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
+    new DllReferencePlugin({
+      context: path.join(__dirname),
+      manifest: require('../lib/library-manifest.json'),
+    }),
+
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -209,9 +217,9 @@ module.exports = {
       disable: false,
       allChunks: true
     }),
-    new DllReferencePlugin({
-      context: __dirname,
-      manifest: require('../lib/library.json')
-    })
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, '../lib/library/*.dll.js'),
+      includeSourcemap: true
+    }),
   ]
 };

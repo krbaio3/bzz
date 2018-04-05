@@ -32,10 +32,11 @@ module.exports = {
     path: path.resolve(__dirname, '../lib/library'),
     library: '[name]'
   },
+  devtool: '#source-map',
   plugins: [
     new DllPlugin({
-      name: '[name]',
-      path: path.resolve(__dirname, '../lib/[name].json')
+      path: path.join(__dirname, '../lib', '[name]-manifest.json'),
+      name: '[name]_[hash]',
     }),
     new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src'))
   ]
