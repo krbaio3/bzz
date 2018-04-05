@@ -7,8 +7,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./template.component.scss']
 })
 export class TemplateComponent {
-
-  usuario: Object = {
+// Se le quita el tipo porque al seleccionar Object/object, travis no construye
+  usuario = {
     nombre: null,
     apellido: null,
     email: null,
@@ -16,7 +16,7 @@ export class TemplateComponent {
     gender: null
   };
 
-  paises: Object[] = [
+  paises = [
     {
       codigo: 'ESP',
       nombre: 'España'
@@ -31,7 +31,7 @@ export class TemplateComponent {
     }
   ];
 
-  genders: Object[] = [
+  genders = [
     {
       value: 'm',
       name: 'Man'
