@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NgClassComponent implements OnInit {
 
-  alerta: string = 'alert-danger';
+  alerta = 'alert-danger';
   propiedades = {
     danger: false
   };

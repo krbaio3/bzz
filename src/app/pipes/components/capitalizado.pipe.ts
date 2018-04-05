@@ -7,7 +7,7 @@ export class CapitalizePipe implements PipeTransform {
   transform(value: string, todas: boolean = true): string {
     value = value.toLocaleLowerCase();
 
-    let nombres = value.split(' ');
+    const nombres = value.split(' ');
 
     if (todas) {
       for (const i in nombres) {

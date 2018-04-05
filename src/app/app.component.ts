@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  option: boolean = false;
+  option = false;
 
   constructor() {
     // this.spoty = true;

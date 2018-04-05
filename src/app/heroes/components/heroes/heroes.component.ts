@@ -14,7 +14,7 @@ export class HeroesComponent implements OnInit {
   // heroes: Heroe[] = [];
   miPrueba;
   heroes: Observable<Heroe[]>;
-  input: string = 'read';
+  input = 'read';
   constructor(
     private _heroesSrv: HeroesService,
     private router: Router,
