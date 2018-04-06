@@ -9,10 +9,6 @@ const {
 
 module.exports = {
   context: process.cwd(),
-  resolve: {
-    extensions: ['.js', '.jsx', '.json', '.less', '.css'],
-    modules: [__dirname, 'node_modules']
-  },
 
   entry: {
     'polyfills': ['./src/polyfills.ts'],

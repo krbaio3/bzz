@@ -223,12 +223,12 @@ module.exports = {
     }),
     
     new AddAssetHtmlPlugin({
-      filepath: '../lib/library/vendor.dll.js',
+      filepath: './lib/library/vendor.dll.js',
       includeSourcemap: true
     }),
 
     new AddAssetHtmlPlugin({
-      filepath: '../lib/library/polyfills.dll.js',
+      filepath: './lib/library/polyfills.dll.js',
       includeSourcemap: true
     }),
 

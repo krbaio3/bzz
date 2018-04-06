@@ -3,6 +3,7 @@
   "version": "0.0.1-alpha.1",
   "description": "Pruebas de concepto",
   "scripts": {
+    "dll":"rimraf ./lib && webpack --config ./build/webpack.dll.conf.js",
     "lint": "node node_modules/.bin/tslint src/**/*.ts --fix",
     "sass": "node node_modules/.bin/sass-lint -c .scss-lint.yml 'src/**/*.scss' -v -q --fix",
     "stylelint": "node node_modules/.bin/stylelint 'src/**/*.scss' --config stylelint.json --syntax sass --fix",
