@@ -8,7 +8,7 @@ const helpers = require('./helpers');
 // En vendor deberían de estar las librerías de terceros comunes a todo el proyecto, para así partirlo y que la carga sea más rpida
 const entry = {
   // vendor: './src/vendor.ts',
-  polyfills: './src/polyfills.ts',
+  // polyfills: './src/polyfills.ts',
   main: './src/main.ts'
 };
 

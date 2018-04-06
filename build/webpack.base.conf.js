@@ -7,6 +7,7 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const { NgcWebpackPlugin } = require('ngc-webpack');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const DebugWebpackPlugin = require('debug-webpack-plugin');
 
 const { resolve, root, absolutPath } = require('./helpers');
 const {
@@ -61,7 +62,7 @@ module.exports = {
   entry: entry,
   output: output,
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.ts', '.tsx', '.json'],
     // Indicamos el alias para que al hacer el import, sepa dónde tiene que ir a buscar
     alias: {
       '@': resolve('src')
@@ -140,18 +141,40 @@ module.exports = {
     // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
     // todo el codigo comun lo quita y lo pone en vendor
     // Revisarr al actualizar a webpack4
-    new CommonsChunkPlugin({
-      name: 'polyfills',
-      chunks: ['polyfills']
+
+    // new CommonsChunkPlugin({
+    //   name: 'polyfills',
+    //   chunks: ['polyfills']
+    // }),
+
+    new DebugWebpackPlugin({
+      // Defaults to ['webpack:*'] which can be VERY noisy, so try to be specific
+      scope: [
+        'webpack:compiler:*', // include compiler logs
+        'webpack:plugin:CommonsChunkPlugin' // include a specific plugin's logs
+      ],
+
+      // Inspect the arguments passed to an event
+      // These are triggered on emits
+      listeners: {
+        'webpack:compiler:run': function(compiler) {
+          console.log(JSON.stringify(compiler, null, 4));
+          // Read some data out of the compiler
+        }
+      },
+
+      // Defaults to the compiler's setting
+      debug: true
     }),
 
     new CommonsChunkPlugin({
       minChunks: Infinity,
       name: 'inline'
     }),
+
     new CommonsChunkPlugin({
       name: 'main',
-      async: 'common',
+      async: true,
       children: true,
       minChunks: 2
     }),
@@ -161,30 +184,17 @@ module.exports = {
     //   chunks: ['vendor']
     // }),
 
-    /**
-     * Plugin: ScriptExtHtmlWebpackPlugin
-     * Description: Enhances html-webpack-plugin functionality
-     * with different deployment options for your scripts including:
-     *
-     * See: https://github.com/numical/script-ext-html-webpack-plugin
-     */
-    new ScriptExtHtmlWebpackPlugin({
-      sync: /inline|polyfills|main/,
-      defaultAttribute: 'async',
-      preload: [/polyfills|main/],
-      prefetch: [/chunk/]
+    new DllReferencePlugin({
+      context: path.join(__dirname),
+      manifest: require('../lib/vendor-manifest.json')
+    }),
+
+    new DllReferencePlugin({
+      context: path.join(__dirname),
+      manifest: require('../lib/polyfills-manifest.json')
     }),
 
     new NgcWebpackPlugin(ngcWebpackConfig.plugin),
-
-    new DllReferencePlugin({
-      context: path.join(__dirname),
-      manifest: require('../lib/polyfills-manifest.json'),
-    }),
-    new DllReferencePlugin({
-      context: path.join(__dirname),
-      manifest: require('../lib/vendor-manifest.json'),
-    }),
 
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
@@ -209,9 +219,9 @@ module.exports = {
      *
      * https://github.com/szrenwei/inline-manifest-webpack-plugin
      */
-    new InlineManifestWebpackPlugin({
-      name: 'webpackManifest'
-    }),
+    // new InlineManifestWebpackPlugin({
+    //   name: 'webpackManifest'
+    // }),
 
     // new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
 
@@ -221,19 +231,29 @@ module.exports = {
       disable: false,
       allChunks: true
     }),
-    
-    new AddAssetHtmlPlugin({
-      filepath: './lib/library/vendor.dll.js',
-      includeSourcemap: true
-    }),
 
     new AddAssetHtmlPlugin({
       filepath: './lib/library/polyfills.dll.js',
       includeSourcemap: true
     }),
 
+    new AddAssetHtmlPlugin({
+      filepath: './lib/library/vendor.dll.js',
+      includeSourcemap: true
+    })
 
-
-
-  ]
+    /**
+     * Plugin: ScriptExtHtmlWebpackPlugin
+     * Description: Enhances html-webpack-plugin functionality
+     * with different deployment options for your scripts including:
+     *
+     * See: https://github.com/numical/script-ext-html-webpack-plugin
+     */
+    // new ScriptExtHtmlWebpackPlugin({
+    //   sync: /vendor|inline|polyfills|main/,
+    //   defaultAttribute: 'async',
+    //   preload: [/vendor|polyfills|main/],
+    //   prefetch: [/chunk/]
+    // })
+  ],
 };
