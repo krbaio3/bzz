@@ -1,18 +1,16 @@
 const { HashedModuleIdsPlugin, DefinePlugin } = require('webpack');
-const { UglifyJsPlugin } = require('webpack').optimize;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.conf.js');
 const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
 const { root, absolutPath } = require('./helpers');
-const {build, dev} = require('../config');
+const { build, dev } = require('../config');
 const { getUglifyOptions } = require('./utils');
 const postCSS = absolutPath('../postcss.config');
 
 const ENV =
-  process.env.NODE_ENV == 'production'
-    ? build.env.NODE_ENV
-    : dev.env.NODE_ENV;
+  process.env.NODE_ENV == 'production' ? build.env.NODE_ENV : dev.env.NODE_ENV;
 console.log('ENV ===> ', ENV);
 console.log('process.env.NODE_ENV ===> ', process.env.NODE_ENV);
 const APP_CONFIG = {
@@ -100,15 +98,9 @@ module.exports = webpackMerge(baseWebpackConfig, {
       hashFunction: 'md5',
       hashDigest: 'base64',
       hashDigestLength: 20
-    }),
+    })
     //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios
     // new webpack.optimize.ModuleConcatenationPlugin(),
 
-    new DefinePlugin({
-      'process.env': {
-        ENV: build.env,
-        APP_CONFIG: JSON.stringify(APP_CONFIG)
-      }
-    })
   ]
 });

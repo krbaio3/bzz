@@ -12,13 +12,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 
 export class HomeRoutingModule { }
 
 export const routedComponents = [
-  HomeComponent
+  HomeComponent,
 ];
 
 console.log('prueba2');
