@@ -1,4 +1,4 @@
-const { ContextReplacementPlugin } = require('webpack');
+const { ContextReplacementPlugin, DefinePlugin } = require('webpack');
 const { CommonsChunkPlugin } = require('webpack').optimize;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -6,6 +6,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const { NgcWebpackPlugin } = require('ngc-webpack');
+const { DllBundlesPlugin } = require('webpack-dll-bundles-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 const { resolve, root, absolutPath } = require('./helpers');
 const {
@@ -23,6 +25,16 @@ const postCSS = absolutPath('../postcss.config');
 const NODE_ENV =
   process.env.NODE_ENV == 'production' ? build.env.NODE_ENV : dev.env.NODE_ENV;
 
+// Preconfigurado, e.g: Firebase
+const APP_CONFIG =
+  process.env.NODE_ENV == 'production'
+    ? {
+        API_URL: 'prod.api.local'
+      }
+    : {
+        API_URL: 'dev.api.local'
+      };
+
 console.log(`Variable de entorno: ${NODE_ENV}`);
 
 const isProduction = NODE_ENV == build.env.NODE_ENV;
@@ -31,6 +43,12 @@ const METADATOS = Object.assign({}, METADATOS_DEFECTO, {
   ENV: NODE_ENV,
   envFileSuffix: isProduction ? 'prod' : ''
 });
+
+console.log(
+  `Define plugin: METADATos.ENV ${METADATOS.ENV} y APP_CONFIG: ${JSON.stringify(
+    APP_CONFIG
+  )}`
+);
 
 console.log(`is production: ${isProduction}`);
 
@@ -63,6 +81,7 @@ module.exports = {
     alias: {
       '@': resolve('src')
     },
+    mainFields: ['browser', 'module', 'main'],
     /**
      * Indique a webpack qué directorios se deben buscar al resolver módulos.
      *
@@ -134,6 +153,12 @@ module.exports = {
   },
 
   plugins: [
+    new DefinePlugin({
+      'process.env': {
+        ENV: METADATOS.ENV,
+        APP_CONFIG: JSON.stringify(APP_CONFIG)
+      }
+    }),
     // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
     // todo el codigo comun lo quita y lo pone en vendor
     // Revisarr al actualizar a webpack4
@@ -153,11 +178,6 @@ module.exports = {
       minChunks: 2
     }),
 
-    new CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['vendor']
-    }),
-
     /**
      * Plugin: ScriptExtHtmlWebpackPlugin
      * Description: Enhances html-webpack-plugin functionality
@@ -174,6 +194,25 @@ module.exports = {
 
     new NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
+    new DllBundlesPlugin({
+      bundles: {
+        polyfills: ['core-js', 'zone.js'],
+        vendor: [
+          '@angular/platform-browser',
+          '@angular/platform-browser-dynamic',
+          '@angular/core',
+          '@angular/common',
+          '@angular/forms',
+          '@angular/animations',
+          '@angular/router',
+          '@angular/compiler',
+          '@angular/platform-server',
+          'rxjs'
+        ]
+      },
+      dllDir: './dll'
+    }),
+
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -189,6 +228,14 @@ module.exports = {
         : false
     }),
 
+    new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
+    // See: https://github.com/webpack-contrib/extract-text-webpack-plugin
+    new ExtractTextPlugin({
+      filename: '[name].css',
+      disable: false,
+      allChunks: true
+    }),
+
     /**
      * Plugin: InlineManifestWebpackPlugin
      * Inline Webpack's manifest.js in index.html
@@ -201,12 +248,15 @@ module.exports = {
       name: 'webpackManifest'
     }),
 
-    new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
-    // See: https://github.com/webpack-contrib/extract-text-webpack-plugin
-    new ExtractTextPlugin({
-      filename: '[name].css',
-      disable: false,
-      allChunks: true
-    })
+    new AddAssetHtmlPlugin([
+      {
+        filepath: root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`),
+        includeSourcemap: false
+      },
+      {
+        filepath: root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`),
+        includeSourcemap: false
+      }
+    ])
   ]
 };

@@ -104,11 +104,11 @@ module.exports = webpackMerge(baseWebpackConfig, {
     //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios
     // new webpack.optimize.ModuleConcatenationPlugin(),
 
-    new DefinePlugin({
-      'process.env': {
-        ENV: build.env,
-        APP_CONFIG: JSON.stringify(APP_CONFIG)
-      }
-    })
+    // new DefinePlugin({
+    //   'process.env': {
+    //     ENV: build.env,
+    //     APP_CONFIG: JSON.stringify(APP_CONFIG)
+    //   }
+    // })
   ]
 });

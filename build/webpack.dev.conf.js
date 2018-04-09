@@ -83,12 +83,12 @@ module.exports = webpackMerge(baseWebpackConfig, {
     // }),
     new ExtractTextPlugin('[name].css'),
 
-    new DefinePlugin({
-      'process.env': {
-        ENV: dev.env,
-        APP_CONFIG: JSON.stringify(APP_CONFIG)
-      }
-    }),
+    // new DefinePlugin({
+    //   'process.env': {
+    //     ENV: dev.env,
+    //     APP_CONFIG: JSON.stringify(APP_CONFIG)
+    //   }
+    // }),
 
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new HotModuleReplacementPlugin(),
