@@ -56,10 +56,16 @@ Object.assign(ngcWebpackConfig.plugin, {
   mainPath: entry.main
 });
 
+
+
 const path = require('path');
 
 module.exports = {
-  entry: entry,
+  entry: {
+    polyfills: './src/polyfills.ts',
+    main: './src/main.ts'
+  },
+  // entry: entry,
   output: output,
   resolve: {
     extensions: ['.ts', '.tsx', '.json'],
@@ -67,12 +73,17 @@ module.exports = {
     alias: {
       '@': resolve('src')
     },
+    mainFields: [
+      'browser',
+      'module',
+      'main'
+    ],
     /**
      * Indique a webpack qué directorios se deben buscar al resolver módulos.
      *
      * See: https://webpack.js.org/configuration/resolve/#resolve-modules
      */
-    modules: [root('src')]
+    modules: [root('src'), root('node_modules')]
   },
   module: {
     rules: [
@@ -142,10 +153,10 @@ module.exports = {
     // todo el codigo comun lo quita y lo pone en vendor
     // Revisarr al actualizar a webpack4
 
-    // new CommonsChunkPlugin({
-    //   name: 'polyfills',
-    //   chunks: ['polyfills']
-    // }),
+    new CommonsChunkPlugin({
+      name: 'polyfills',
+      chunks: ['polyfills']
+    }),
 
     new DebugWebpackPlugin({
       // Defaults to ['webpack:*'] which can be VERY noisy, so try to be specific
@@ -164,7 +175,7 @@ module.exports = {
       },
 
       // Defaults to the compiler's setting
-      debug: true
+      debug: false
     }),
 
     new CommonsChunkPlugin({
@@ -179,20 +190,20 @@ module.exports = {
       minChunks: 2
     }),
 
-    // new CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   chunks: ['vendor']
+    new CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: ['vendor']
+    }),
+
+    // new DllReferencePlugin({
+    //   context: path.join(__dirname),
+    //   manifest: require('../lib/vendor-manifest.json')
     // }),
 
-    new DllReferencePlugin({
-      context: path.join(__dirname),
-      manifest: require('../lib/vendor-manifest.json')
-    }),
-
-    new DllReferencePlugin({
-      context: path.join(__dirname),
-      manifest: require('../lib/polyfills-manifest.json')
-    }),
+    // new DllReferencePlugin({
+    //   context: path.join(__dirname),
+    //   manifest: require('../lib/polyfills-manifest.json')
+    // }),
 
     new NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
@@ -219,11 +230,11 @@ module.exports = {
      *
      * https://github.com/szrenwei/inline-manifest-webpack-plugin
      */
-    // new InlineManifestWebpackPlugin({
-    //   name: 'webpackManifest'
-    // }),
+    new InlineManifestWebpackPlugin({
+      name: 'webpackManifest'
+    }),
 
-    // new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
+    new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
 
     // See: https://github.com/webpack-contrib/extract-text-webpack-plugin
     new ExtractTextPlugin({
@@ -232,15 +243,15 @@ module.exports = {
       allChunks: true
     }),
 
-    new AddAssetHtmlPlugin({
-      filepath: './lib/library/polyfills.dll.js',
-      includeSourcemap: true
-    }),
+    // new AddAssetHtmlPlugin({
+    //   filepath: './lib/library/polyfills.dll.js',
+    //   includeSourcemap: true
+    // }),
 
-    new AddAssetHtmlPlugin({
-      filepath: './lib/library/vendor.dll.js',
-      includeSourcemap: true
-    })
+    // new AddAssetHtmlPlugin({
+    //   filepath: './lib/library/vendor.dll.js',
+    //   includeSourcemap: true
+    // })
 
     /**
      * Plugin: ScriptExtHtmlWebpackPlugin
@@ -249,11 +260,11 @@ module.exports = {
      *
      * See: https://github.com/numical/script-ext-html-webpack-plugin
      */
-    // new ScriptExtHtmlWebpackPlugin({
-    //   sync: /vendor|inline|polyfills|main/,
-    //   defaultAttribute: 'async',
-    //   preload: [/vendor|polyfills|main/],
-    //   prefetch: [/chunk/]
-    // })
-  ],
+    new ScriptExtHtmlWebpackPlugin({
+      sync: /vendor|inline|polyfills|main/,
+      defaultAttribute: 'async',
+      preload: [/vendor|polyfills|main/],
+      prefetch: [/chunk/]
+    })
+  ]
 };

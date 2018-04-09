@@ -6,12 +6,12 @@ import { ShopComponent } from './shop/shop.component';
 const routes: Routes = [
   {
     path: '',
-    component: ShopComponent
-  }
+    component: ShopComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ShopRoutingModule {}
