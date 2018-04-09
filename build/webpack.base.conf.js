@@ -1,3 +1,4 @@
+// Plugins
 const { ContextReplacementPlugin, DefinePlugin } = require('webpack');
 const { CommonsChunkPlugin } = require('webpack').optimize;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,7 +9,10 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const { NgcWebpackPlugin } = require('ngc-webpack');
 const { DllBundlesPlugin } = require('webpack-dll-bundles-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const DebugWebpackPlugin = require('debug-webpack-plugin');
 
+// helpers and builders
+const { polyfills, vendor } = require('./bundle');
 const { resolve, root, absolutPath } = require('./helpers');
 const {
   ngcWebpackSetup,
@@ -17,7 +21,6 @@ const {
   preAssetsLoader,
   scssLoaders
 } = require('./utils');
-
 const { build, dev } = require('../config');
 const { entry, output, METADATOS_DEFECTO } = require('./builder');
 const postCSS = absolutPath('../postcss.config');
@@ -28,14 +31,8 @@ const NODE_ENV =
 // Preconfigurado, e.g: Firebase
 const APP_CONFIG =
   process.env.NODE_ENV == 'production'
-    ? {
-        API_URL: 'prod.api.local'
-      }
-    : {
-        API_URL: 'dev.api.local'
-      };
-
-console.log(`Variable de entorno: ${NODE_ENV}`);
+    ? { API_URL: 'prod.api.local' }
+    : { API_URL: 'dev.api.local' };
 
 const isProduction = NODE_ENV == build.env.NODE_ENV;
 
@@ -43,16 +40,6 @@ const METADATOS = Object.assign({}, METADATOS_DEFECTO, {
   ENV: NODE_ENV,
   envFileSuffix: isProduction ? 'prod' : ''
 });
-
-console.log(
-  `Define plugin: METADATos.ENV ${METADATOS.ENV} y APP_CONFIG: ${JSON.stringify(
-    APP_CONFIG
-  )}`
-);
-
-console.log(`is production: ${isProduction}`);
-
-console.log(`builder.Metadatos: ${JSON.stringify(METADATOS, null, 2)}`);
 
 const ngcWebpackConfig = ngcWebpackSetup(isProduction, METADATOS);
 
@@ -72,11 +59,25 @@ Object.assign(ngcWebpackConfig.plugin, {
   mainPath: entry.main
 });
 
+console.log(`Vendor: ${vendor} \n Polyfills: ${polyfills}`);
+
+console.log(`Variable de entorno: ${NODE_ENV}`);
+
+console.log(
+  `Define plugin: METADATos.ENV ${METADATOS.ENV} y APP_CONFIG: ${JSON.stringify(
+    APP_CONFIG
+  )}`
+);
+
+console.log(`is production: ${isProduction}`);
+
+console.log(`builder.Metadatos: ${JSON.stringify(METADATOS, null, 2)}`);
+
 module.exports = {
   entry: entry,
   output: output,
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     // Indicamos el alias para que al hacer el import, sepa dónde tiene que ir a buscar
     alias: {
       '@': resolve('src')
@@ -153,6 +154,26 @@ module.exports = {
   },
 
   plugins: [
+    new DebugWebpackPlugin({
+      // Defaults to ['webpack:*'] which can be VERY noisy, so try to be specific
+      scope: [
+        'webpack:compiler:*', // include compiler logs
+        'webpack:plugin:UglifyJsPlugin' // include a specific plugin's logs
+      ],
+
+      // Inspect the arguments passed to an event
+      // These are triggered on emits
+      listeners: {
+        'webpack:compiler:run': function(compiler) {
+          console.log(compiler, null, 4);
+          // Read some data out of the compiler
+        }
+      },
+
+      // Defaults to the compiler's setting
+      debug: false
+    }),
+
     new DefinePlugin({
       'process.env': {
         ENV: METADATOS.ENV,
@@ -194,23 +215,15 @@ module.exports = {
 
     new NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
+    // https://github.com/shlomiassaf/webpack-dll-bundles-plugin
+    // Separa en archivos las librerías de terceros para que no se tengan que recompilar
+    // PROBLEMA CON LAZY LOADING: https://github.com/shlomiassaf/webpack-dll-bundles-plugin/issues/21
     new DllBundlesPlugin({
       bundles: {
-        polyfills: ['core-js', 'zone.js'],
-        vendor: [
-          '@angular/platform-browser',
-          '@angular/platform-browser-dynamic',
-          '@angular/core',
-          '@angular/common',
-          '@angular/forms',
-          '@angular/animations',
-          '@angular/router',
-          '@angular/compiler',
-          '@angular/platform-server',
-          'rxjs'
-        ]
+        polyfills: [...polyfills],
+        vendor: [...vendor]
       },
-      dllDir: './dll'
+      dllDir: './lib'
     }),
 
     // https://github.com/ampedandwired/html-webpack-plugin
@@ -228,7 +241,8 @@ module.exports = {
         : false
     }),
 
-    new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src')),
+    new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src'), {}),
+
     // See: https://github.com/webpack-contrib/extract-text-webpack-plugin
     new ExtractTextPlugin({
       filename: '[name].css',
@@ -250,11 +264,11 @@ module.exports = {
 
     new AddAssetHtmlPlugin([
       {
-        filepath: root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`),
+        filepath: root(`lib/${DllBundlesPlugin.resolveFile('polyfills')}`),
         includeSourcemap: false
       },
       {
-        filepath: root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`),
+        filepath: root(`lib/${DllBundlesPlugin.resolveFile('vendor')}`),
         includeSourcemap: false
       }
     ])
