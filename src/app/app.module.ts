@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 
 /* App Root */
 import { AppComponent } from './app.component';
+import { HomeModule } from './home/home.module';
 
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
@@ -20,6 +21,7 @@ import { reducers, metaReducers } from './reducers/reducers';
 @NgModule({
   imports: [
     BrowserModule,
+    HomeModule,
     /* Core Module */
     CoreModule.forRoot(new UserServiceConfig('Nguyen Tran')),
     StoreModule.forRoot(reducers, { metaReducers }),
@@ -28,9 +30,9 @@ import { reducers, metaReducers } from './reducers/reducers';
   declarations: [AppComponent, ArticleComponent],
   providers: [
     { provide: AppConfig, useValue: process.env.APP_CONFIG },
-    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: APP_BASE_HREF, useValue: '/' }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
 
