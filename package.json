@@ -1,6 +1,6 @@
 {
   "name": "bzz-wip",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.3",
   "description": "Pruebas de concepto",
   "scripts": {
     "lint": "node node_modules/.bin/tslint src/**/*.ts --fix",
