@@ -11,15 +11,16 @@ const routes: Routes = [
     path: 'formulario',
     component: FormularioComponent,
     children: [
-      { path: '', component: TemplateComponent },
+      { path: '', component: InicioComponent },
+      { path: 'template', component: TemplateComponent },
       { path: 'inicio', component: InicioComponent },
       { path: 'data', component: DataComponent }
-    ],
+    ]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class FormulariosRoutingModule {}
