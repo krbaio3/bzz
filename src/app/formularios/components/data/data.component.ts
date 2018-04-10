@@ -8,15 +8,36 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class DataComponent implements OnInit {
 
-  forma: FormGroup;
+  formulario: FormGroup;
+
+  usuario: Object = {
+    nombreCompleto: {
+      nombre: 'Jorge',
+      apellido: 'KrBaIO3',
+    },
+    correo: 'krbaio3@gmail.com',
+  };
 
   constructor() {
-    this.forma = new FormGroup({
-      'nombre': new FormControl('Jorge', [], []),
-      'apellido': new FormControl(),
-      'email': new FormControl,
+    this.formulario = new FormGroup({
+      nombre: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3)
+      ]),
+      apellido: new FormControl('', Validators.required),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')
+      ])
     });
+
+    console.log('Object USUARIO', this.usuario);
+
   }
 
   ngOnInit() {}
+
+  guardarCambios() {
+    console.log(this.formulario.value);
+  }
 }

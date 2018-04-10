@@ -1,6 +1,6 @@
 <h4>Formularios <small>data</small></h4>
 <hr>
-<form [formGroup]="forma" (ngSubmit)="guardarCambios()" novalidate>
+<form [formGroup]="formulario" (ngSubmit)="guardarCambios()" novalidate>
 
   <div>
 
@@ -8,19 +8,25 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control"
+        <input [ngClass]="{'is-invalid': formulario.controls['nombre'].errors?.minlength || (formulario.controls['nombre'].errors?.required && formulario.controls['nombre'].touched)}"
+               class="form-control"
                type="text"
-               placeholder="Nombre">
+               placeholder="Nombre"
+               formControlName="nombre">
+               <!-- [ngClass]="{'is-invalid': formulario.get('nombre').invalid}"  -->
+        <!-- <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['nombre'].errors?.required && formulario.controls['nombre'].touched}" *ngIf="formulario.controls['nombre'].errors?.required && formulario.controls['nombre'].touched">Este campo es required</div>   -->
+        <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['nombre'].errors?.required && formulario.controls['nombre'].touched}" *ngIf="formulario.controls['nombre'].errors?.required && formulario.controls['nombre'].touched">Este campo es required</div>  
+        <div class="text-center mt-2" role="alert" *ngIf="formulario.controls['nombre'].errors?.minlength">Tiene que tener al menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['nombre'].errors?.minlength.actualLength}}</div>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
-
         <input class="form-control"
                type="text"
-               placeholder="Apellido">
+               placeholder="Apellido"
+               formControlName="apellido">
       </div>
     </div>
 
@@ -32,14 +38,15 @@
 
       <input class="form-control"
              type="email"
-             placeholder="Correo electrónico">
+             placeholder="Correo electrónico"
+             formControlName="email">
     </div>
   </div>
 
 
   <div class="form-group row">
     <div class="col-6">
-        <button class="btn btn-outline-primary float-left" type="submit" [disabled]="forma.invalid">
+        <button class="btn btn-outline-primary float-left" type="submit" [disabled]="formulario.invalid">
           Guardar
         </button>
       </div>
@@ -51,5 +58,7 @@
   </div>
 </form>
 <pre>
-    {{ usuario | json }}
+    {{ formulario.value | json }}
+    {{ formulario.valid }}
+    {{ formulario.controls['nombre'].errors | json }}
   </pre>
