@@ -1,6 +1,6 @@
 // Plugins
 const { ContextReplacementPlugin, DefinePlugin } = require('webpack');
-const { CommonsChunkPlugin } = require('webpack').optimize;
+const { SplitChunksPlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -152,6 +152,23 @@ module.exports = {
       ...assets_loader
     ]
   },
+  optimization: {
+    minimize: true,
+    runtimeChunk: {
+      name: 'vendor'
+    },
+    splitChunks: {
+      cacheGroups: {
+        default: false,
+        commons: {
+          test: /node_modules/,
+          name: 'vendor',
+          chunks: 'initial',
+          minSize: 1
+        }
+      }
+    }
+  },
 
   plugins: [
     new DebugWebpackPlugin({
@@ -183,21 +200,22 @@ module.exports = {
     // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
     // todo el codigo comun lo quita y lo pone en vendor
     // Revisarr al actualizar a webpack4
-    new CommonsChunkPlugin({
-      name: 'polyfills',
-      chunks: ['polyfills']
-    }),
+    
+    // new CommonsChunkPlugin({
+    //   name: 'polyfills',
+    //   chunks: ['polyfills']
+    // }),
 
-    new CommonsChunkPlugin({
-      minChunks: Infinity,
-      name: 'inline'
-    }),
-    new CommonsChunkPlugin({
-      name: 'main',
-      async: 'common',
-      children: true,
-      minChunks: 2
-    }),
+    // new CommonsChunkPlugin({
+    //   minChunks: Infinity,
+    //   name: 'inline'
+    // }),
+    // new CommonsChunkPlugin({
+    //   name: 'main',
+    //   async: 'common',
+    //   children: true,
+    //   minChunks: 2
+    // }),
 
     /**
      * Plugin: ScriptExtHtmlWebpackPlugin
