@@ -15,7 +15,8 @@ export class TemplateComponent {
     apellido: null,
     email: null,
     pais: '',
-    gender: null
+    gender: null,
+    accept: false,
   };
 
   paises = [
