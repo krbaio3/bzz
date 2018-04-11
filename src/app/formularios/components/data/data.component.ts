@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { CONSTANTS } from '../../formulario.const';
 import { Usuario } from '../../models/usuario';
@@ -18,7 +18,8 @@ export class DataComponent implements OnInit {
       nombre: 'Jorge',
       apellido: 'KrBaIO3'
     },
-    email: 'krbaio3@gmail.com'
+    email: 'krbaio3@gmail.com',
+    hobbys: [],
   };
 
   constructor() {
@@ -37,10 +38,15 @@ export class DataComponent implements OnInit {
       email: new FormControl('', [
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')
+      ]),
+      hobbys: new FormArray([
+        new FormControl('Correr', [
+          Validators.required
+        ]),
       ])
     });
 
-    this.formulario.setValue(this.usuario);
+    // this.formulario.setValue(this.usuario);
   }
 
   ngOnInit() {}
@@ -59,5 +65,10 @@ export class DataComponent implements OnInit {
     };
 
     this.formulario.reset(usuario);
+  }
+  addHobby() {
+    (<FormArray>this.formulario.controls['hobby']).push(
+      new FormControl('Boxeo', Validators.required)
+    );
   }
 }
