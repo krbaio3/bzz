@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { CONSTANTS } from '../../formulario.const';
+import { Usuario } from '../../models/usuario';
 
 @Component({
   selector: 'app-data',
@@ -12,12 +13,12 @@ export class DataComponent implements OnInit {
   formulario: FormGroup;
   CONSTANTS: any;
 
-  usuario: Object = {
+  usuario: Usuario = {
     nombreCompleto: {
       nombre: 'Jorge',
       apellido: 'KrBaIO3'
     },
-    correo: 'krbaio3@gmail.com'
+    email: 'krbaio3@gmail.com'
   };
 
   constructor() {
@@ -39,13 +40,24 @@ export class DataComponent implements OnInit {
       ])
     });
 
-    console.log('Object USUARIO', this.usuario);
-    console.log('Constantes', CONSTANTS);
+    this.formulario.setValue(this.usuario);
   }
 
   ngOnInit() {}
 
   guardarCambios() {
     console.log(this.formulario.value);
+  }
+
+  resetForm() {
+    const usuario: Usuario = {
+      nombreCompleto: {
+        nombre: '',
+        apellido: '',
+      },
+      email: '',
+    };
+
+    this.formulario.reset(usuario);
   }
 }

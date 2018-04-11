@@ -50,16 +50,21 @@
     </div>
   </div>
 
-
+  
   <div class="form-group row">
-    <div class="col-6">
-        <button class="btn btn-outline-primary float-left" type="submit" [disabled]="formulario.invalid" [innerHtml]="CONSTANTS.save">
-        </button>
-      </div>
-      <div class="col-6">
-        <button class="btn btn-outline-danger float-right" type="button" [routerLink]="['']" [innerHtml]="CONSTANTS.back">
-        </button>
-      </div>
+      <br><br>
+    <div class="col-5">
+      <button class="btn btn-outline-primary float-left" type="submit" [disabled]="formulario.invalid" [innerHtml]="CONSTANTS.save">
+      </button>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-outline-danger float-left" type="reset" (click)="resetForm()" [innerHtml]="CONSTANTS.reset">
+      </button>
+    </div>
+    <div class="col-5">
+      <button class="btn btn-outline-warning float-right" type="button" [routerLink]="['']" [innerHtml]="CONSTANTS.back">
+      </button>
+    </div>
   </div>
 </form>
 <pre>

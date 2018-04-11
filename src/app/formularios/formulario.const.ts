@@ -4,5 +4,6 @@ export const CONSTANTS = {
   emailShort: 'Correo',
   email: 'Correo Electrónico',
   save: 'Guardar',
-  back: 'Atrás'
+  back: 'Atrás',
+  reset: 'Reset'
 };
