@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { CONSTANTS } from '../../formulario.const';
+
 @Component({
   selector: 'app-data',
   templateUrl: './data.component.html',
@@ -8,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class DataComponent implements OnInit {
   formulario: FormGroup;
+  CONSTANTS: any;
 
   usuario: Object = {
     nombreCompleto: {
@@ -18,6 +21,7 @@ export class DataComponent implements OnInit {
   };
 
   constructor() {
+    this.CONSTANTS = CONSTANTS;
     this.formulario = new FormGroup({
       nombreCompleto: new FormGroup({
         nombre: new FormControl('', [
@@ -27,7 +31,7 @@ export class DataComponent implements OnInit {
         apellido: new FormControl('', [
           Validators.required,
           Validators.minLength(3)
-        ]),
+        ])
       }),
       email: new FormControl('', [
         Validators.required,
@@ -36,6 +40,7 @@ export class DataComponent implements OnInit {
     });
 
     console.log('Object USUARIO', this.usuario);
+    console.log('Constantes', CONSTANTS);
   }
 
   ngOnInit() {}

@@ -4,13 +4,13 @@
 
   <div formGroupName="nombreCompleto">
     <div class="form-group row">
-      <label class="col-2 col-form-label">Nombre</label>
+      <label class="col-2 col-form-label" [innerHtml]="CONSTANTS.name"></label>
       <div class="col-8">
           <input 
                 [ngClass]="{'is-invalid': formulario.get('nombreCompleto.nombre').errors?.minlength || (formulario.get('nombreCompleto.nombre').errors?.required && formulario.get('nombreCompleto.nombre').touched)}"
                 class="form-control"
                 type="text"
-                placeholder="Nombre"
+                [placeholder]="CONSTANTS.name"
                 formControlName="nombre"> 
         <div class="text-center mt-2" role="alert" 
           *ngIf="formulario.get('nombreCompleto.nombre').errors?.required && formulario.get('nombreCompleto.nombre').touched"
@@ -22,12 +22,12 @@
     </div>  
 
     <div class="form-group row">
-      <label class="col-2 col-form-label">Apellido</label>
+      <label class="col-2 col-form-label" [innerHtml]="CONSTANTS.lastName"></label>
       <div class="col-8">
         <input [ngClass]="{'is-invalid': formulario.get('nombreCompleto.apellido').errors?.minlength || (formulario.get('nombreCompleto.apellido').errors?.required && formulario.get('nombreCompleto.apellido').touched)}"
                 class="form-control"
                 type="text"
-                placeholder="Apellido"
+                [placeholder]="CONSTANTS.lastName"
                 formControlName="apellido">
         <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.get('nombreCompleto.apellido').errors?.required && formulario.get('nombreCompleto.apellido').touched}" *ngIf="formulario.get('nombreCompleto.apellido').errors?.required && formulario.get('nombreCompleto.apellido').touched">Este campo es required</div>  
         <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.get('nombreCompleto.apellido').errors?.minlength}" *ngIf="formulario.get('nombreCompleto.apellido').errors?.minlength">Tiene que tener al menos {{formulario.get('nombreCompleto.apellido').errors?.minlength.requiredLength}} caracteres y tiene {{formulario.get('nombreCompleto.apellido').errors?.minlength.actualLength}}</div>
@@ -36,13 +36,13 @@
   </div>
 
   <div class="form-group row">
-    <label class="col-2 col-form-label">Correo</label>
+    <label class="col-2 col-form-label" [innerHtml]="CONSTANTS.emailShort"></label>
     <div class="col-md-8">
 
       <input [ngClass]="{'is-invalid': ( formulario.controls['email'].errors?.minlength || formulario.controls['email'].errors?.required || formulario.controls['email'].errors?.pattern ) && formulario.controls['email'].touched}"
              class="form-control"
              type="email"
-             placeholder="Correo electrónico"
+             [placeholder]="CONSTANTS.email"
              formControlName="email">
       <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.required && formulario.controls['email'].touched}" *ngIf="formulario.controls['email'].errors?.required && formulario.controls['email'].touched">Este campo es required</div>  
       <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.minlength}" *ngIf="formulario.controls['email'].errors?.minlength">Tiene que tener al menos {{formulario.controls['email'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['email'].errors?.minlength.actualLength}}</div>
@@ -53,13 +53,11 @@
 
   <div class="form-group row">
     <div class="col-6">
-        <button class="btn btn-outline-primary float-left" type="submit" [disabled]="formulario.invalid">
-          Guardar
+        <button class="btn btn-outline-primary float-left" type="submit" [disabled]="formulario.invalid" [innerHtml]="CONSTANTS.save">
         </button>
       </div>
       <div class="col-6">
-        <button class="btn btn-outline-danger float-right" type="button" [routerLink]="['']">
-          Atras
+        <button class="btn btn-outline-danger float-right" type="button" [routerLink]="['']" [innerHtml]="CONSTANTS.back">
         </button>
       </div>
   </div>
@@ -68,5 +66,6 @@
     {{ formulario.value | json }}
     Errores NombreCompleto {{ formulario.get('nombreCompleto').errors | json }}
     Errores Email {{ formulario.controls['email'].errors | json }}
+    {{ constants | json }}
 </pre>
 
