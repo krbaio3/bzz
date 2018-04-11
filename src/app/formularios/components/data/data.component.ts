@@ -3,11 +3,12 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
 import { CONSTANTS } from '../../formulario.const';
 import { Usuario } from '../../models/usuario';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-data',
   templateUrl: './data.component.html',
-  styleUrls: ['./data.component.scss']
+  styleUrls: ['./data.component.scss'],
 })
 export class DataComponent implements OnInit {
   formulario: FormGroup;
@@ -16,10 +17,10 @@ export class DataComponent implements OnInit {
   usuario: Usuario = {
     nombreCompleto: {
       nombre: 'Jorge',
-      apellido: 'KrBaIO3'
+      apellido: 'KrBaIO3',
     },
     email: 'krbaio3@gmail.com',
-    hobbys: []
+    hobbys: [],
   };
 
   constructor() {
@@ -28,29 +29,29 @@ export class DataComponent implements OnInit {
       nombreCompleto: new FormGroup({
         nombre: new FormControl('', [
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(3),
         ]),
         apellido: new FormControl('', [
           Validators.required,
           Validators.minLength(3),
-          this.noApellido
-        ])
+          this.noApellido,
+        ]),
       }),
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')
+        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
       ]),
       hobbys: new FormArray([new FormControl('Correr', [Validators.required])]),
-      username: new FormControl('', Validators.required),
+      username: new FormControl('', [Validators.required], [this.existeUsurio]),
       pass1: new FormControl(new FormControl('', [Validators.required])),
-      pass2: new FormControl()
+      pass2: new FormControl(),
     });
 
     // this.formulario.setValue(this.usuario);
     this.formulario.controls['pass2'].setValidators([
       Validators.required,
       // Hay que b indear el objeto this por el error de JS
-      this.noIgual.bind(this.formulario)
+      this.noIgual.bind(this.formulario),
     ]);
   }
 
@@ -64,9 +65,9 @@ export class DataComponent implements OnInit {
     const usuario: Usuario = {
       nombreCompleto: {
         nombre: '',
-        apellido: ''
+        apellido: '',
       },
-      email: ''
+      email: '',
     };
 
     // this.formulario.reset(usuario);
@@ -74,14 +75,14 @@ export class DataComponent implements OnInit {
 
   addHobby() {
     (<FormArray>this.formulario.controls['hobbys']).push(
-      new FormControl('', Validators.required)
+      new FormControl('', Validators.required),
     );
   }
 
   noApellido(control: FormControl): { [s: string]: boolean } {
     if (control.value === 'Apellido') {
       return {
-        noApellido: true
+        noApellido: true,
       };
     }
     return null;
@@ -92,9 +93,24 @@ export class DataComponent implements OnInit {
     const formulario: any = this;
     if (control.value !== formulario.controls['pass1'].value) {
       return {
-        noiguales: true
+        noiguales: true,
       };
     }
     return null;
+  }
+
+  existeUsurio(control: FormControl): Promise<any> | Observable<any> {
+    let promesa = new Promise(
+      (resolve, reject) => {
+        setTimeout(() => {
+          if ( control.value === 'vankish' ) {
+            resolve({existe: true});
+          } else {
+            resolve(null);
+          }
+        }, 3000);
+      }
+    );
+    return promesa;
   }
 }
