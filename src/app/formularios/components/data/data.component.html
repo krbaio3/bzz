@@ -2,8 +2,6 @@
 <hr>
 <form [formGroup]="formulario" (ngSubmit)="guardarCambios()" novalidate>
 
-  <div>
-
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
@@ -23,23 +21,29 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
-        <input class="form-control"
+        <input [ngClass]="{'is-invalid': formulario.controls['apellido'].errors?.minlength || (formulario.controls['apellido'].errors?.required && formulario.controls['apellido'].touched)}"
+               class="form-control"
                type="text"
                placeholder="Apellido"
                formControlName="apellido">
+        <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['apellido'].errors?.required && formulario.controls['apellido'].touched}" *ngIf="formulario.controls['apellido'].errors?.required && formulario.controls['apellido'].touched">Este campo es required</div>  
+        <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['apellido'].errors?.minlength}" *ngIf="formulario.controls['apellido'].errors?.minlength">Tiene que tener al menos {{formulario.controls['apellido'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['apellido'].errors?.minlength.actualLength}}</div>
       </div>
     </div>
 
-  </div>
 
   <div class="form-group row">
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-md-8">
 
-      <input class="form-control"
+      <input [ngClass]="{'is-invalid': ( formulario.controls['email'].errors?.minlength || formulario.controls['email'].errors?.required || formulario.controls['email'].errors?.pattern ) && formulario.controls['email'].touched}"
+             class="form-control"
              type="email"
              placeholder="Correo electrónico"
              formControlName="email">
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.required && formulario.controls['email'].touched}" *ngIf="formulario.controls['email'].errors?.required && formulario.controls['email'].touched">Este campo es required</div>  
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.minlength}" *ngIf="formulario.controls['email'].errors?.minlength">Tiene que tener al menos {{formulario.controls['email'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['email'].errors?.minlength.actualLength}}</div>
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.pattern}" *ngIf="formulario.controls['email'].errors?.pattern">No cumple el patrón de email electrónico</div>
     </div>
   </div>
 
@@ -56,9 +60,9 @@
         </button>
       </div>
   </div>
+  <pre>
+      {{ formulario.value | json }}
+      Errores {{ formulario.controls['nombre'].errors }}
+      {{ formulario.controls['nombre'].errors | json }}
+    </pre>
 </form>
-<pre>
-    {{ formulario.value | json }}
-    {{ formulario.valid }}
-    {{ formulario.controls['nombre'].errors | json }}
-  </pre>
