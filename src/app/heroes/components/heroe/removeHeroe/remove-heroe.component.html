@@ -7,8 +7,6 @@
     <img [src]="heroe.img" [alt]="heroe.nombre" class="img-fluid">
     <br>
     <br>
-    <a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Volver</a>
-    <a [routerLink]="['../../../heroes']" class="btn btn-outline-danger btn-block">Borrar</a>
   </div>
   <div class="col-md-8">
     <h3>{{heroe.nombre}}</h3>
@@ -22,3 +20,7 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<a class="btn btn-outline-primary btn-block" [routerLink]="['../../../heroes']">Volver</a>
+<a class="btn btn-outline-danger btn-block" (click)="removeItem()" [routerLink]="['../../../heroes']">Borrar</a>

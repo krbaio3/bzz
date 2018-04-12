@@ -1,4 +1,7 @@
-<form>
+<h1>Heroe: <small class="text-uppercase">dinamico</small></h1>
+<hr>
+<br>
+<form class="fadeIn fast">
   <div class="form-group">
     <label for="nombreInput">Nombre</label>
     <input type="text" class="form-control" id="nombreInput" aria-describedby="nombreHelp" placeholder="Introduce nombre" #nombre>
@@ -9,17 +12,33 @@
     <textarea class="form-control" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia" #bio></textarea>
     <small id="biografiaHelp" class="form-text text-muted">Introduce una pequeña biografía.</small>
   </div>
+
   <div class="form-group">
-    <label for="inputImg">Img</label>
-    <input type="text" class="form-control" id="inputImg" placeholder="Aparición" #img>
+    <label for="inputImg">Imagen</label>
+    <div class="input-group">
+      <div class="custom-file">
+        <input class="custom-file-input" id="inputImg" type="file" #img>
+        <label class="custom-file-label text-center" for="inputGroupFile04">Añadir Imagen</label>
+      </div>
+    </div>
+    <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
   </div>
+
   <div class="form-group">
-    <label for="inputAparicion">Fecha</label>
-    <input type="text" class="form-control" id="inputAparicion" placeholder="Aparición" #aparicion>
+    <label class="col-form-label"for="inputAparicion">Fecha</label>
+    <div class="">
+      <input class="form-control text-center" id="inputAparicion" placeholder="Aparición" type="date" #aparicion>
+    </div>
+    <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
   </div>
+
   <div class="form-group">
     <label for="inputCasa">Casa</label>
-    <input type="text" class="form-control" id="inputCasa" placeholder="Casa a la que pertenece" #casa>
+    <select class="form-control" name="casa">
+      <option value="">Pertenece a...</option>
+      <option value="Marvel">Marvel</option>
+      <option value="DC">DC</option>
+    </select>
   </div>
   <!-- <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">

@@ -22,4 +22,9 @@ export class RemoveHeroeComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  remove(index: string): boolean {
+    console.log(`index es: ${index}`);
+    return true;
+  }
 }
