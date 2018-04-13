@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HeroesRoutingModule } from './heroes.routing';
 import { PipesModule } from '../pipes/pipes.module';
@@ -24,7 +25,9 @@ import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.comp
   imports: [
     CommonModule,
     HeroesRoutingModule,
-    PipesModule
+    PipesModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     // AvengerComponent,

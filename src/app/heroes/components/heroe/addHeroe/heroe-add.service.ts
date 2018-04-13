@@ -5,9 +5,9 @@ export class HeroeAddService {
 
   constructor() { }
 
-  getEditorial(): string[] {
+  getEditorial(): object[] {
     // llamada a MongoDB
-    return ['DC', 'Marvel'];
+    return [{value: 'DC', code: 'dc'}, {value: 'Marvel', code: 'marvel'}];
   }
 
 }
