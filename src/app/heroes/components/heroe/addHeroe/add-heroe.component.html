@@ -36,8 +36,7 @@
     <label for="inputCasa">Casa</label>
     <select class="form-control" name="casa">
       <option value="">Pertenece a...</option>
-      <option value="Marvel">Marvel</option>
-      <option value="DC">DC</option>
+      <option *ngFor="let editorial of editoriales" [value]="editorial">{{ editorial }}</option>
     </select>
   </div>
   <!-- <div class="form-check">
