@@ -1,10 +1,10 @@
-<h1>Heroe: <small class="text-uppercase">dinamico</small></h1>
+<h1>Heroe: <small class="text-uppercase">{{nombreHero}}</small></h1>
 <hr>
 <br>
 <form (ngSubmit)="onSubmit()" [formGroup]="formAlta" class="fadeIn fast" novalidate>
   <div class="form-group">
     <label for="nombreInput">Nombre</label>
-    <input type="text" class="form-control" id="nombreInput" aria-describedby="nombreHelp" placeholder="Introduce nombre" formControlName="nombre">
+    <input type="text" class="form-control" id="nombreInput" [(ngModel)]="nombreHero" aria-describedby="nombreHelp" placeholder="Introduce nombre" formControlName="nombre">
     <small id="nombreHelp" class="form-text text-muted">Introduce el nombre del super-héroe o anti-héroe.</small>
   </div>
   <div class="form-group">

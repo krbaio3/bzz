@@ -13,6 +13,7 @@ import { HeroeAddService } from './heroe-add.service';
 export class AddHeroeComponent implements OnInit {
   formAlta: FormGroup;
   editoriales: object[];
+  nombreHero: string;
 
   constructor(
     private pruebaSrv: PruebaSrv,
