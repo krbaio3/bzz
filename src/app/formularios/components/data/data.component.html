@@ -134,10 +134,6 @@
   </div>
 </form>
 <pre>
-    {{ formulario.value | json }}
-    Errores NombreCompleto {{ formulario.get('nombreCompleto').errors | json }}
-    Errores Email {{ formulario.controls['email'].errors | json }}
-    Errores Hobbys {{ formulario.get('hobbys').errors }}
     {{ formulario.valid }}
     <br>
     {{ formulario.status }}

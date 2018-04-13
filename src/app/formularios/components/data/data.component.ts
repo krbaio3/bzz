@@ -53,6 +53,17 @@ export class DataComponent implements OnInit {
       // Hay que b indear el objeto this por el error de JS
       this.noIgual.bind(this.formulario),
     ]);
+
+    // Suscritos a nivel general al formulario
+
+    // this.formulario.valueChanges
+    //   .subscribe(data => console.log(data));
+
+    this.formulario.controls['username'].valueChanges
+      .subscribe(data => console.log(data));
+
+    this.formulario.controls['username'].statusChanges
+    .subscribe(data => console.log(data));
   }
 
   ngOnInit() {}
