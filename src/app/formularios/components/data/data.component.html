@@ -96,13 +96,20 @@
     <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.hobby"></label>
     <div class="col-8 row" formArrayName="hobbys">
 
-      <input   *ngFor="let hobby of formulario.controls['hobbys']. controls; let index = index"
-              class="form-control col-6 col-md-8"
-              type="text" 
-              [placeholder]="CONSTANTS.hobby" 
-              [formControlName]="index"
-              [ngClass]="{'is-invalid': ( formulario.controls['hobbys'].errors?.minlength || formulario.controls['hobbys'].errors?.required || formulario.controls['hobbys'].errors?.pattern ) && formulario.controls['hobbys'].touched}"
-              >
+      <input *ngFor="let hobby of getControls(formulario, 'hobbys');let index = index"
+             class="form-control col-6 col-md-8"
+             type="text" 
+             [placeholder]="CONSTANTS.hobby" 
+             [formControlName]="index"
+             [ngClass]="{'is-invalid': ( formulario.controls['hobbys'].errors?.minlength || formulario.controls['hobbys'].errors?.required || formulario.controls['hobbys'].errors?.pattern ) && formulario.controls['hobbys'].touched}"
+             >
+      <!-- <input *ngFor="let hobby of formulario.controls['hobbys'].controls; let index = index"
+             class="form-control col-6 col-md-8"
+             type="text" 
+             [placeholder]="CONSTANTS.hobby" 
+             [formControlName]="index"
+             [ngClass]="{'is-invalid': ( formulario.controls['hobbys'].errors?.minlength || formulario.controls['hobbys'].errors?.required || formulario.controls['hobbys'].errors?.pattern ) && formulario.controls['hobbys'].touched}"
+             > -->
       <div class="col-6 col-md-4">
         <button type="button"
                 class="form-control btn btn-success"

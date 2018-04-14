@@ -1,7 +1,7 @@
 <h1>Heroe: <small class="text-uppercase">dinamico</small></h1>
 <hr>
 <br>
-<form class="fadeIn fast">
+<form class="fadeIn fast" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="nombreInput">Nombre</label>
     <input class="form-control" id="nombreInput" type="text" aria-describedby="nombreHelp" placeholder="Introduce nombre" #nombre>
@@ -43,6 +43,6 @@
 
   <br>
   
-  <button class="btn btn-outline-primary btn-block" type="button" (click)="onSubmit(nombre.value, bio.value, img.value, aparicion.value, casa.value)">Submit</button>
+  <button class="btn btn-outline-primary btn-block" type="submit">Submit</button>
   <button class="btn btn-outline-danger btn-block" type="button" [routerLink]="['../../heroes']">Volver</button>
 </form>

@@ -72,6 +72,10 @@ export class DataComponent implements OnInit {
     console.log(this.formulario.value);
   }
 
+  getControls(frmGrp: FormGroup, key: string) {
+    return (<FormArray>frmGrp.controls[key]).controls;
+  }
+
   resetForm() {
     const usuario: Usuario = {
       nombreCompleto: {

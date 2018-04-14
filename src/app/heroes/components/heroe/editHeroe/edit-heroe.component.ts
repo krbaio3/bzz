@@ -14,4 +14,5 @@ export class EditHeroeComponent implements OnInit {
   }
 
   ngOnInit() {}
+  onSubmit() {}
 }
