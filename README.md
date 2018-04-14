@@ -2,6 +2,16 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
+La rama ng5 son pruebas de concepto de Angular 5, con diferentes ejemplos. A la hora de escribir este readme, la aplicacion tiene las siguientes pruebas:
+
+* avenger: Lista de Heroes. En construccion integrar con FireBase
+* spoty: Hay que actualizar el Token, construir y desplegar. Dura 1 hora
+* nebular: Prueba con componentes Nebular
+* miscelaneos: Variedad de pruebas 
+* auth0: Prueba con Auth0, de momento, no funciona
+* formularios: Pruebas con formularios
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
