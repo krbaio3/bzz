@@ -4,10 +4,11 @@
 
 <!-- Botonera Opciones -->
 <div class="container main-container" *ngIf="!option">
-  <button class="btn btn-outline-primary btn-block" (click)="option = true" [routerLink]="['avenger']">Avenger</button>
-  <button class="btn btn-outline-primary btn-block" (click)="goToSpoty()" [routerLink]="['spoty']">Spoty</button>
-  <button class="btn btn-outline-primary btn-block" (click)="goToNebular()" [routerLink]="['auth']">Nebular</button>
-  <button class="btn btn-outline-primary btn-block" (click)="goToMiscelaneos()" [routerLink]="['miscelaneos']">Miscelaneos</button>
-  <button class="btn btn-outline-primary btn-block" (click)="goToAuth0()" [routerLink]="['auth0']">Auth0</button>
-  <button class="btn btn-outline-primary btn-block" (click)="goToForm()" [routerLink]="['formulario']">Formularios</button>
+  <button class="btn btn-outline-primary btn-block" (click)="hiddeOptions()" [routerLink]="['avenger']">Avenger</button>
+  <button class="btn btn-outline-primary btn-block" (click)="hiddeOptions()" [routerLink]="['spoty']">Spoty</button>
+  <button class="btn btn-outline-primary btn-block" (click)="hiddeOptions()" [routerLink]="['auth']">Nebular</button>
+  <button class="btn btn-outline-primary btn-block" (click)="hiddeOptions()" [routerLink]="['miscelaneos']">Miscelaneos</button>
+  <button class="btn btn-outline-primary btn-block" (click)="hiddeOptions()" [routerLink]="['auth0']">Auth0</button>
+  <button class="btn btn-outline-primary btn-block" (click)="hiddeOptions()" [routerLink]="['formulario']">Formularios</button>
+  <button class="btn btn-outline-primary btn-block" (click)="hiddeOptions()" [routerLink]="['openID']">OpenID</button>
 </div>

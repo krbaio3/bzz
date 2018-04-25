@@ -16,33 +16,7 @@ export class AppComponent {
     //Add 'implements OnInit' to the class.
   }
 
-  goToAvengers() {
-    console.log('entra Avengers');
-    this.option = true;
-  }
-
-  goToSpoty() {
-    console.log('entra Spoty');
-    this.option = true;
-  }
-
-  goToNebular() {
-    console.log('entra Nebular');
-    this.option = true;
-  }
-
-  goToMiscelaneos() {
-    console.log('entra Miscelaneos');
-    this.option = true;
-  }
-
-  goToAuth0() {
-    console.log('entra Auth0');
-    this.option = true;
-  }
-
-  goToForm () {
-    console.log('entra forms');
+  hiddeOptions() {
     this.option = true;
   }
 }

@@ -7,6 +7,7 @@ import { NebularRoutingModule } from './nebular/nebular.routing';
 import { MiscelaneosRoutingModule } from './miscelaneos/miscelaneos.routing';
 import { AuthappRoutingModule } from './authapp/authapp.routing';
 import { FormulariosRoutingModule } from './formularios/formularios.routing';
+import { OpenIdRoutingModule } from './open-id/open-id.routing';
 
 import { AppComponent } from './app.component';
 
@@ -14,21 +15,21 @@ const APP_ROUTES: Routes = [
   {
     path: '',
     component: AppComponent,
-    data: { option: false },
+    data: { option: false }
   },
   {
     path: '**',
     pathMatch: 'full',
     redirectTo: '',
-    data: { option: false },
-  },
+    data: { option: false }
+  }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(APP_ROUTES, {
-      useHash: true,
-      enableTracing: true,
+      useHash: true
+      // enableTracing: true,
     }),
     HeroesRoutingModule,
     SpotyRoutingModule,
@@ -36,7 +37,8 @@ const APP_ROUTES: Routes = [
     MiscelaneosRoutingModule,
     AuthappRoutingModule,
     FormulariosRoutingModule,
+    OpenIdRoutingModule
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -31,6 +31,7 @@ import { HeroesModule } from './heroes/heroes.module';
 import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
 import { AuthappModule } from './authapp/authapp.module';
 import { FormulariosModule } from './formularios/formularios.module';
+import { OpenIdModule } from './open-id/open-id.module';
 
 import { PruebaSrv } from './service/service';
 
@@ -51,7 +52,8 @@ registerLocaleData(localeEs);
     AuthappModule,
     AngularFireModule.initializeApp(environment.fireConfig, 'bzz-poc'),
     AngularFirestoreModule,
-    FormulariosModule
+    FormulariosModule,
+    OpenIdModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }, PruebaSrv],
   bootstrap: [AppComponent],

@@ -20,11 +20,12 @@
       <p class="card-text">
         <small class="text-muted">{{ heroe.aparicion }}</small>
       </p>
+      <p>Indice: {{indice}}</p>
       <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['../heroe', indice, 'show']">
         Ver mas...
       </button>
       <button type="button" name="editar" id="editar" class="btn btn-outline-warning btn-block" [routerLink]="['../heroe', indice, 'edit']">Editar</button>
-      <button type="button" name="editar" id="editar" class="btn btn-outline-danger btn-block" [routerLink]="['../heroe', indice, 'remove']">Borrar</button>
+      <button type="button" name="borrar" id="borrar" class="btn btn-outline-danger btn-block" [routerLink]="['../heroe', indice, 'remove']">Borrar</button>
       <!-- Tambien se puede usar como función click, quitando el routerLink y añadiendo esto:
         (click)="verHeroe(indice)"
         Ver ĺógica controlador -->
