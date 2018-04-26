@@ -8,6 +8,7 @@ import { MiscelaneosRoutingModule } from './miscelaneos/miscelaneos.routing';
 import { AuthappRoutingModule } from './authapp/authapp.routing';
 import { FormulariosRoutingModule } from './formularios/formularios.routing';
 import { OpenIdRoutingModule } from './open-id/open-id.routing';
+import { NgrxAuthRoutingModule } from './ngrx-auth/ngrx-auth.routing';
 
 import { AppComponent } from './app.component';
 
@@ -37,7 +38,8 @@ const APP_ROUTES: Routes = [
     MiscelaneosRoutingModule,
     AuthappRoutingModule,
     FormulariosRoutingModule,
-    OpenIdRoutingModule
+    OpenIdRoutingModule,
+    NgrxAuthRoutingModule
   ],
   exports: [RouterModule]
 })

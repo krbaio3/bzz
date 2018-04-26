@@ -34,6 +34,7 @@ import { FormulariosModule } from './formularios/formularios.module';
 import { OpenIdModule } from './open-id/open-id.module';
 
 import { PruebaSrv } from './service/service';
+import { NgrxAuthModule } from './ngrx-auth/ngrx-auth.module';
 
 registerLocaleData(localeEs);
 
@@ -53,7 +54,8 @@ registerLocaleData(localeEs);
     AngularFireModule.initializeApp(environment.fireConfig, 'bzz-poc'),
     AngularFirestoreModule,
     FormulariosModule,
-    OpenIdModule
+    OpenIdModule,
+    NgrxAuthModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }, PruebaSrv],
   bootstrap: [AppComponent],
