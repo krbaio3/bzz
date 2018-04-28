@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, NgForm } from '@angular/forms';
 
-import { PruebaSrv } from '../../../../service/service';
 import { HeroeAddService } from './heroe-add.service';
+import { HeroesService } from '../../../service/heroes.service';
+import { Heroe } from '../models/I-AddHeroe';
+import { Editorial } from '../models/I-Editorial';
 
 @Component({
   selector: 'app-add-heroe',
@@ -11,44 +13,47 @@ import { HeroeAddService } from './heroe-add.service';
   providers: [HeroeAddService],
 })
 export class AddHeroeComponent implements OnInit {
-  formAlta: FormGroup;
-  editoriales: object[];
-  nombreHero: string;
+
+
+  heroe: Heroe = {
+    nombre: '',
+    bio: '',
+    editorial: '',
+    aparicion: '',
+    img: '',
+    imgURL: '',
+  };
+
+  editoriales: Editorial[];
+
 
   constructor(
-    private pruebaSrv: PruebaSrv,
+    private heroeSrv: HeroesService,
     private heroAddService: HeroeAddService,
   ) {
-    this.formAlta = new FormGroup({
-      nombre: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      biografia: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      imagen: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      fechAparicion: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      editorial: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-    });
   }
 
   ngOnInit() {
     this.editoriales = this.heroAddService.getEditorial();
   }
 
+  changeListener($event): void {
+    this.readThis($event.target);
+  }
+
+  readThis(inputValue: any): void {
+    const file:File = inputValue.files[0];
+    this.heroe.img = inputValue.files[0].name;
+    const myReader:FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.heroe.imgURL = myReader.result;
+    };
+
+    myReader.readAsDataURL(file);
+  }
+
   onSubmit() {
-    console.log(`Valor: ${JSON.stringify(this.formAlta.value, null, 4)}`);
-    // this.pruebaSrv.addHeroe()
+    console.log(`Valor: ${JSON.stringify(this.heroe, null, 4)}`);
   }
 }

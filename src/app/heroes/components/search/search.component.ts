@@ -9,7 +9,8 @@ import { Heroe } from '../../../models/heroe.model';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  heroes: Heroe[] = [];
+  // heroes: Heroe[] = [];
+  heroes: void;
   buscado: string;
 
   constructor(

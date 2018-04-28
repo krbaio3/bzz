@@ -57,7 +57,7 @@ registerLocaleData(localeEs);
     OpenIdModule,
     NgrxAuthModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es' }, PruebaSrv],
+  providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -16,15 +16,11 @@ export class ShowHeroeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _heroeService: HeroesService
   ) {
-    this.paramSubscription = activatedRoute.paramMap.subscribe(
-      (params: ParamMap): void => {
-        console.log('Parent ID changed:', params.get('id'));
-
-        console.log(params.get('id'));
-
-        // Simulate loading the data from some external service.
-      }
-    );
+    activatedRoute.params.subscribe((params) => {
+      console.log(params.id);
+      // this.heroes = this._heroeService.getHeroes();
+      this.heroe = this._heroeService.getHeroe(params['id']);
+    });
   }
 
   ngOnInit() {}

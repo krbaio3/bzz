@@ -1,15 +1,15 @@
-<h1>Heroe: <small class="text-uppercase">{{nombreHero}}</small></h1>
+<h1>Heroe: <small class="text-uppercase">{{heroe.nombre}}</small></h1>
 <hr>
 <br>
-<form (ngSubmit)="onSubmit()" [formGroup]="formAlta" class="fadeIn fast" novalidate>
+<form (ngSubmit)="onSubmit()" #formAlta="ngForm" class="fadeIn fast" novalidate>
   <div class="form-group">
     <label for="nombreInput">Nombre</label>
-    <input type="text" class="form-control" id="nombreInput" [(ngModel)]="nombreHero" aria-describedby="nombreHelp" placeholder="Introduce nombre" formControlName="nombre">
+    <input type="text" name="nombre" class="form-control" id="nombreInput" [(ngModel)]="heroe.nombre" aria-describedby="nombreHelp" placeholder="Introduce nombre" required>
     <small id="nombreHelp" class="form-text text-muted">Introduce el nombre del super-héroe o anti-héroe.</small>
   </div>
   <div class="form-group">
     <label for="inputBiografia">Biografía</label>
-    <textarea class="form-control" id="inputBiografia" aria-describedby="biografiaHelp" placeholder="Enter biografia" formControlName="biografia"></textarea>
+    <textarea class="form-control" name="biografia" id="inputBiografia" [(ngModel)]="heroe.bio" aria-describedby="biografiaHelp" placeholder="Enter biografia"></textarea>
     <small id="biografiaHelp" class="form-text text-muted">Introduce una pequeña biografía.</small>
   </div>
 
@@ -17,8 +17,15 @@
     <label for="inputImg">Imagen</label>
     <div class="input-group">
       <div class="custom-file">
-        <input class="custom-file-input" id="inputImg" type="file" formControlName="imagen">
-        <label class="custom-file-label text-center" for="inputGroupFile04">Añadir Imagen</label>
+        <input class="custom-file-input" [value]="heroe.img" name="imagen" id="inputImg" type="file" accept="image/*" (change)="changeListener($event)">
+        <label class="custom-file-label text-center" for="imagen">
+          <ng-container *ngIf="heroe.img === ''; else heroeTemplate">
+            Añadir Imagen            
+          </ng-container>
+          <ng-template #heroeTemplate>
+            {{heroe.img}}            
+          </ng-template>
+        </label>
       </div>
     </div>
     <small class="form-text text-muted">Introduce una ruta para cargar la imagen</small>
@@ -27,22 +34,22 @@
   <div class="form-group">
     <label class="col-form-label"for="inputAparicion">Fecha</label>
     <div class="">
-      <input class="form-control text-center" id="inputAparicion" placeholder="Aparición" type="date" formControlName="fechAparicion">
+      <input class="form-control text-center" name="fecha" id="inputAparicion" [(ngModel)]="heroe.aparicion" placeholder="Aparición" type="date">
     </div>
     <small class="form-text text-muted">Introduce la fecha de primera aparición</small>
   </div>
 
   <div class="form-group">
-    <label for="inputCasa">Casa</label>
-    <select class="form-control" name="editorial" formControlName="editorial">
+    <label for="inputCasa">Editorial</label>
+    <select class="form-control" name="editorial" [(ngModel)]="heroe.editorial">
       <option value="">Pertenece a...</option>
-      <option *ngFor="let editorial of editoriales" [ngValue]="editorial.code">{{ editorial.value }}</option>
+      <option *ngFor="let editorial of editoriales" [ngValue]="editorial?.code">{{ editorial?.value }}</option>
     </select>
   </div>
   <!-- <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div> -->
-  <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+  <button type="submit" [disabled]="formAlta.invalid" class="btn btn-outline-primary btn-block">Submit</button>
   <button type="button" class="btn btn-outline-danger btn-block" [routerLink]="['../../heroes']">Volver</button>
 </form>
