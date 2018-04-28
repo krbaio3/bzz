@@ -17,6 +17,9 @@ ngrx
 
 https://appdividend.com/2018/01/31/angular-ngrx-store-tutorial-example-scratch/?utm_source=hashnode.com
 
+http://mherman.org/blog/2018/04/17/authentication-in-angular-with-ngrx/?utm_campaign=NG-Newsletter&utm_medium=email&utm_source=NG-Newsletter_249#.WuLzQHWFO03
+
+
 
 # MIS NOTAS
 
