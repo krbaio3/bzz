@@ -12,15 +12,15 @@ export class HeroeAddService {
 
   constructor(private http: Http, private utils: Utils) {}
 
-  nuevoHeroe (heroe: Heroe){
-    let body = this.utils.body(heroe);
-    let headers = this.utils.headers;
+  nuevoHeroe (heroe: Heroe) {
+    // let body = this.utils.body(heroe);
+    // let headers = this.utils.headers;
 
-    return this.http.post(this.heroeURL, body, {headers})
-    .map(response => {
-      console.log(response.json());
-      return response.json;
-    });
+    // return this.http.post(this.heroeURL, body, {headers})
+    // .map(response => {
+    //   console.log(response.json());
+    //   return response.json;
+    // });
   }
 
   getEditorial(): Editorial[] {

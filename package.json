@@ -28,6 +28,7 @@
     "@nebular/theme": "~2.0.0-rc.6",
     "@ngrx/effects": "^5.2.0",
     "@ngrx/store": "^5.2.0",
+    "@ngrx/store-devtools": "^5.2.0",
     "angular-auth-oidc-client": "~4.1.0",
     "angularfire2": "^5.0.0-rc.6",
     "auth0-js": "^9.4.2",

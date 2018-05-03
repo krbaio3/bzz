@@ -32,8 +32,7 @@ import { MiscelaneosModule } from './miscelaneos/miscelaneos.module';
 import { AuthappModule } from './authapp/authapp.module';
 import { FormulariosModule } from './formularios/formularios.module';
 import { OpenIdModule } from './open-id/open-id.module';
-
-import { PruebaSrv } from './service/service';
+import { ConsoleModule } from './console/console.module';
 import { NgrxAuthModule } from './ngrx-auth/ngrx-auth.module';
 
 registerLocaleData(localeEs);
@@ -44,7 +43,6 @@ registerLocaleData(localeEs);
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule,
     NebularModule,
     SpotyModule,
     HeroesModule,
@@ -55,7 +53,9 @@ registerLocaleData(localeEs);
     AngularFirestoreModule,
     FormulariosModule,
     OpenIdModule,
-    NgrxAuthModule
+    ConsoleModule,
+    NgrxAuthModule,
+    AppRoutingModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],
