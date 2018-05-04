@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // Environments
 import { environment } from '../environments/environment';
@@ -56,8 +57,12 @@ registerLocaleData(localeEs);
     ConsoleModule,
     NgrxAuthModule,
     AppRoutingModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production // Restrict extension to log-only mode
+    })
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
