@@ -5,7 +5,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LandingComponent } from './components/landing/landing.component';
 
-const routes: Routes = [
+const NGRX_ROUTES: Routes = [
   {
     path: 'ngrx',
     component: NgrxAuthComponent,
@@ -31,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(NGRX_ROUTES)],
   exports: [RouterModule]
 })
 export class NgrxAuthRoutingModule {}

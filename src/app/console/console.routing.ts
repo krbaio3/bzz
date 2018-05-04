@@ -5,7 +5,7 @@ import { InitialComponent } from './components/initial/initial.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 
-const routes: Routes = [
+const CONSOLE_ROUTES: Routes = [
   {
     path: 'initial',
     component: ConsoleComponent,
@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(CONSOLE_ROUTES)],
   exports: [RouterModule]
 })
 export class ConsoleRoutingModule {}

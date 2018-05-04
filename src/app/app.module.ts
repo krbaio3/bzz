@@ -35,6 +35,7 @@ import { FormulariosModule } from './formularios/formularios.module';
 import { OpenIdModule } from './open-id/open-id.module';
 import { ConsoleModule } from './console/console.module';
 import { NgrxAuthModule } from './ngrx-auth/ngrx-auth.module';
+import { UdemyModule } from './udemy/udemy.module';
 
 registerLocaleData(localeEs);
 
@@ -54,9 +55,10 @@ registerLocaleData(localeEs);
     AngularFirestoreModule,
     FormulariosModule,
     OpenIdModule,
-    ConsoleModule,
     NgrxAuthModule,
+    ConsoleModule,
     AppRoutingModule,
+    UdemyModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode

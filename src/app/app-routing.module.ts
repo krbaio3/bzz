@@ -10,6 +10,7 @@ import { FormulariosRoutingModule } from './formularios/formularios.routing';
 import { OpenIdRoutingModule } from './open-id/open-id.routing';
 import { NgrxAuthRoutingModule } from './ngrx-auth/ngrx-auth.routing';
 import { ConsoleRoutingModule } from './console/console.routing';
+import { UdemyRoutingModule } from './udemy/udemy.routing';
 
 import { AppComponent } from './app.component';
 
@@ -41,7 +42,8 @@ const APP_ROUTES: Routes = [
     FormulariosRoutingModule,
     OpenIdRoutingModule,
     NgrxAuthRoutingModule,
-    ConsoleRoutingModule
+    ConsoleRoutingModule,
+    UdemyRoutingModule,
   ],
   exports: [RouterModule]
 })
