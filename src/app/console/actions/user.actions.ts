@@ -1,4 +1,4 @@
-import { User } from '../components/models/user';
+import { User } from '../components/models/user-console';
 
 export const LOAD_USERS = 'LOAD_USERS';
 export const LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS';

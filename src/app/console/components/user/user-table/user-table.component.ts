@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../../models/user';
+import { User } from '../../models/user-console';
 
 @Component({
   selector: 'app-user-table',

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from '../../models/user';
+import { User } from '../../models/user-console';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../states/app.states';
+import { ConsoleState } from '../../../states/console.states';
 import * as userAction from '../../../actions/user.actions';
 // import { UserService } from '../user.service';
 
@@ -11,7 +11,7 @@ import * as userAction from '../../../actions/user.actions';
 })
 export class UserListComponent implements OnInit {
   users: User[];
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<ConsoleState>) {
     this.store
       .select(state => state.users)
       .subscribe(users => (this.users = users));

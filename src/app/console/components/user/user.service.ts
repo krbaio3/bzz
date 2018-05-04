@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../models/user-console';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 let _users: User[] = [
   {
