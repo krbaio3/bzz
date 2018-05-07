@@ -9,8 +9,10 @@ import localeEs from '@angular/common/locales/es';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Angular Material
 import {
+  MatInputModule,
   MatButtonModule,
-  MatCheckboxModule
+  MatSelectModule,
+  MatIconModule
 } from '@angular/material';
 
 // Environments
@@ -50,8 +52,10 @@ registerLocaleData(localeEs);
     BrowserModule,
     FormsModule,
     HttpModule,
+    MatInputModule,
     MatButtonModule,
-    MatCheckboxModule,
+    MatSelectModule,
+    MatIconModule,
     NebularModule,
     SpotyModule,
     HeroesModule,
