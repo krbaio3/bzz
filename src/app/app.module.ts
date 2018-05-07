@@ -7,6 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// Angular Material
+import {
+  MatButtonModule,
+  MatCheckboxModule
+} from '@angular/material';
 
 // Environments
 import { environment } from '../environments/environment';
@@ -45,6 +50,8 @@ registerLocaleData(localeEs);
     BrowserModule,
     FormsModule,
     HttpModule,
+    MatButtonModule,
+    MatCheckboxModule,
     NebularModule,
     SpotyModule,
     HeroesModule,
