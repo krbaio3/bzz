@@ -10,7 +10,8 @@ import { Heroe } from '../../../models/heroe.model';
 })
 export class SearchComponent implements OnInit {
   // heroes: Heroe[] = [];
-  heroes: void;
+  // heroes: void;
+  heroes;
   buscado: string;
 
   constructor(

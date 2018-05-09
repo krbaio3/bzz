@@ -4,16 +4,15 @@ node_js:
 dist: trusty
 sudo: true
 cache:
+  yarn: true
   directories:
   - node_modules
 before_install:
-- npm cache verify
-- npm prune
-- npm install -g @angular/cli
+- yarn global add @angular/cli
 install:
-- npm install
+- yarn install
 script:
-- npm run ci:travis
+- yarn ci:travis
 notifications:
   email:
     recipients:
