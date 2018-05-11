@@ -46,3 +46,5 @@ yarn-error\.log
 test/coverage/
 
 lib/
+
+yarn\.lock

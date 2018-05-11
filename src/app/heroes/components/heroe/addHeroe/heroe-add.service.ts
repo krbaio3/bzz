@@ -3,18 +3,22 @@ import { Editorial } from '../models/I-Editorial';
 import { CONSTANTES } from '../heroe.constans';
 import { Http } from '@angular/http';
 import { Heroe } from '../models/I-AddHeroe';
-import { Utils } from '../utils';
+// import { Utils } from '../utils';
 
 @Injectable()
 export class HeroeAddService {
 
   heroeURL = CONSTANTES.heroesURL;
 
-  constructor(private http: Http, private utils: Utils) {}
+  headers: Headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+  constructor(private http: Http) {}
 
   nuevoHeroe (heroe: Heroe) {
-    // let body = this.utils.body(heroe);
-    // let headers = this.utils.headers;
+    // let body =  JSON.stringify(heroe);
+    // let headers = this.headers;
 
     // return this.http.post(this.heroeURL, body, {headers})
     // .map(response => {

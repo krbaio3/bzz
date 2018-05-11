@@ -7,13 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-// Angular Material
-import {
-  MatInputModule,
-  MatButtonModule,
-  MatSelectModule,
-  MatIconModule
-} from '@angular/material';
+
 
 // Environments
 import { environment } from '../environments/environment';
@@ -52,10 +46,6 @@ registerLocaleData(localeEs);
     BrowserModule,
     FormsModule,
     HttpModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
     NebularModule,
     SpotyModule,
     HeroesModule,
@@ -66,8 +56,8 @@ registerLocaleData(localeEs);
     AngularFirestoreModule,
     FormulariosModule,
     OpenIdModule,
-    NgrxAuthModule,
     ConsoleModule,
+    NgrxAuthModule,
     AppRoutingModule,
     UdemyModule,
     StoreDevtoolsModule.instrument({

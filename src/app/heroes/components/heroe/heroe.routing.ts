@@ -8,6 +8,10 @@ import { ShowHeroeComponent } from './showHeroe/show-heroe.component';
 
 export const HEROE_ROUTES: Routes = [
   {
+    path: 'addHeroe',
+    component: AddHeroeComponent,
+  },
+  {
     path: ':id/show',
     component: ShowHeroeComponent,
   },
@@ -18,9 +22,5 @@ export const HEROE_ROUTES: Routes = [
   {
     path: ':id/remove',
     component: RemoveHeroeComponent,
-  },
-  {
-    path: 'addHeroe',
-    component: AddHeroeComponent,
   },
 ];

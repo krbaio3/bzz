@@ -13,7 +13,7 @@ import { RemoveHeroeComponent } from './components/heroe/removeHeroe/remove-hero
 import { EditHeroeComponent } from './components/heroe/editHeroe/edit-heroe.component';
 import { ShowHeroeComponent } from './components/heroe/showHeroe/show-heroe.component';
 
-import { HEROE_ROUTES } from './components/heroe/heroe.router';
+import { HEROE_ROUTES } from './components/heroe/heroe.routing';
 
 const APP_ROUTES: Routes = [
   {

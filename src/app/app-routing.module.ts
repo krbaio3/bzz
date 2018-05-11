@@ -31,8 +31,8 @@ const APP_ROUTES: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(APP_ROUTES, {
-      useHash: true
-      // enableTracing: true,
+      useHash: true,
+      enableTracing: true,
     }),
     HeroesRoutingModule,
     SpotyRoutingModule,
