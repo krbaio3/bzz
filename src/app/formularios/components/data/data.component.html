@@ -58,39 +58,44 @@
              type="text"
              [placeholder]="CONSTANTS.userName"
              formControlName="username">
+
+      <!-- MEJORA POR HACER: LOADING MIENTRAS COMPRUEBA EL NOMBRE 
+        <i [ngClass]="{ '': !loading, 'fa-refresh fa-spin': loading }" class="fa"></i>
+      <span *ngIf="loading">Comprobando...</span> -->
+
     </div>
   </div>
 
   <div class="form-group row">
-    <label class="col-3 col-md-2 col-form-label">Password</label>
+    <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.password"></label>
     <div class="col-8 row">
 
       <input class="form-control" 
       type="password" 
-      [ngClass]="{'is-invalid': ( formulario.controls['email'].errors?.minlength || formulario.controls['email'].errors?.required || formulario.controls['email'].errors?.pattern ) && formulario.controls['email'].touched}" 
-      placeholder="Password" formControlName="pass1">
-      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.required && formulario.controls['email'].touched}" *ngIf="formulario.controls['email'].errors?.required && formulario.controls['email'].touched">Este campo es required</div>  
-      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.minlength}" *ngIf="formulario.controls['email'].errors?.minlength">Tiene que tener al menos {{formulario.controls['email'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['email'].errors?.minlength.actualLength}}</div>
-      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.pattern}" *ngIf="formulario.controls['email'].errors?.pattern">No cumple el patrón de email electrónico</div>
+      [ngClass]="{'is-invalid': ( formulario.controls['pass1'].errors?.minlength || formulario.controls['pass1'].errors?.required ) && formulario.controls['pass1'].touched}" 
+      [placeholder]="CONSTANTS.passwordPlace"
+      formControlName="pass1">
+
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass1'].errors?.required && formulario.controls['pass1'].touched}" *ngIf="formulario.controls['pass1'].errors?.required && formulario.controls['pass1'].touched">Este campo es required</div>  
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass1'].errors?.minlength}" *ngIf="formulario.controls['pass1'].errors?.minlength">Tiene que tener al menos {{formulario.controls['pass1'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['pass1'].errors?.minlength.actualLength}}</div>
     </div>
   </div>
   
   <div class="form-group row">
-    <label class="col-3 col-md-2 col-form-label">Repetir Password</label>
+    <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.repeatPassword"></label>
     <div class="col-8 row">
 
       <input class="form-control" 
       type="password" 
-      [ngClass]="{'is-invalid': ( formulario.controls['email'].errors?.minlength || formulario.controls['email'].errors?.required || formulario.controls['email'].errors?.pattern ) && formulario.controls['email'].touched}" 
-      placeholder="Repetir Password"
+      [ngClass]="{'is-invalid': ( formulario.controls['pass2'].errors?.minlength || formulario.controls['pass2'].errors?.required || formulario.controls['pass2'].errors?.noiguales ) && formulario.controls['pass2'].touched}" 
+      [placeholder]="CONSTANTS.repeatPassPlace"
       formControlName="pass2">
-      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.required && formulario.controls['email'].touched}" *ngIf="formulario.controls['email'].errors?.required && formulario.controls['email'].touched">Este campo es required</div>  
-      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.minlength}" *ngIf="formulario.controls['email'].errors?.minlength">Tiene que tener al menos {{formulario.controls['email'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['email'].errors?.minlength.actualLength}}</div>
-      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['email'].errors?.pattern}" *ngIf="formulario.controls['email'].errors?.pattern">No cumple el patrón de email electrónico</div>
+      
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass2'].errors?.required && formulario.controls['pass2'].touched}" *ngIf="formulario.controls['pass2'].errors?.required && formulario.controls['pass2'].touched">Este campo es required</div>  
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass2'].errors?.minlength}" *ngIf="formulario.controls['pass2'].errors?.minlength">Tiene que tener al menos {{formulario.controls['pass2'].errors?.minlength.requiredLength}} caracteres y tiene {{formulario.controls['pass2'].errors?.minlength.actualLength}}</div>
+      <div class="text-center mt-2" role="alert" [ngClass]="{'invalid-feedback': formulario.controls['pass2'].errors.noiguales}" *ngIf="formulario.controls['pass2'].errors.noiguales">Los Password no son iguales</div>
     </div>
   </div>
-
-
 
   <div class="form-group row">
     <label class="col-3 col-md-2 col-form-label" [innerHtml]="CONSTANTS.hobby"></label>

@@ -29,28 +29,39 @@ export class DataComponent implements OnInit {
       nombreCompleto: new FormGroup({
         nombre: new FormControl('', [
           Validators.required,
-          Validators.minLength(3),
+          Validators.minLength(3)
         ]),
         apellido: new FormControl('', [
           Validators.required,
           Validators.minLength(3),
-          this.noApellido,
-        ]),
+          this.noApellido
+        ])
       }),
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')
       ]),
-      hobbys: new FormArray([new FormControl('Correr', [Validators.required])]),
-      username: new FormControl('', [Validators.required], [this.existeUsurio]),
-      pass1: new FormControl(new FormControl('', [Validators.required])),
-      pass2: new FormControl(),
+      hobbys: new FormArray([
+        new FormControl('Correr', [Validators.required])
+      ]),
+      username: new FormControl(
+        '',
+        [Validators.required],
+        [this.existeUsurio]
+      ),
+      pass1: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+      ]),
+      pass2: new FormControl()
     });
 
     // this.formulario.setValue(this.usuario);
+
     this.formulario.controls['pass2'].setValidators([
       Validators.required,
-      // Hay que b indear el objeto this por el error de JS
+      Validators.minLength(5),
+      // Hay que bindear el objeto this por el error de JS
       this.noIgual.bind(this.formulario),
     ]);
 
@@ -106,6 +117,7 @@ export class DataComponent implements OnInit {
   noIgual(control: FormControl): { [s: string]: boolean } {
     // por el bind a this, en la llamada del formulario, decimos que cuando se ejecute la funcion  this es el formulario
     const formulario: any = this;
+    // console.log(this);
     if (control.value !== formulario.controls['pass1'].value) {
       return {
         noiguales: true,
