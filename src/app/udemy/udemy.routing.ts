@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UdemyComponent } from './udemy.component';
 import { HomeComponent } from './components/home/home.component';
+import { EventBusExperimentsComponent } from './components/event-bus-experiments/event-bus-experiments.component';
 
 const UDEMY_ROUTES: Routes = [
   {
@@ -12,6 +13,18 @@ const UDEMY_ROUTES: Routes = [
         path: '',
         component: HomeComponent
       },
+      {
+        path: 'event',
+        component: EventBusExperimentsComponent
+      },
+      // {
+      //   path: '',
+      //   component: HomeComponent
+      // },
+      // {
+      //   path: '',
+      //   component: HomeComponent
+      // }
     ]
   }
 ];
