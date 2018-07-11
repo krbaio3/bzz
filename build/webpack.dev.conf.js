@@ -22,6 +22,7 @@ Object.keys(baseWebpackConfig.entry).forEach(function(name) {
 });
 
 module.exports = webpackMerge(baseWebpackConfig, {
+  mode: 'development',
   module: {
     rules: [
       // extraer en funcion la generacion de loaders. Se quita CSS, habilitar cuando esté postCSS

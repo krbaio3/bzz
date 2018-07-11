@@ -1,14 +1,14 @@
 // Plugins
 const { ContextReplacementPlugin, DefinePlugin } = require('webpack');
-const { SplitChunksPlugin } = require('webpack');
+// const {optimization} = require('webpack').optimization;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const { NgcWebpackPlugin } = require('ngc-webpack');
-const { DllBundlesPlugin } = require('webpack-dll-bundles-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+// const { DllBundlesPlugin } = require('webpack-dll-bundles-plugin');
+// const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const DebugWebpackPlugin = require('debug-webpack-plugin');
 
 // helpers and builders
@@ -152,23 +152,6 @@ module.exports = {
       ...assets_loader
     ]
   },
-  optimization: {
-    minimize: true,
-    runtimeChunk: {
-      name: 'vendor'
-    },
-    splitChunks: {
-      cacheGroups: {
-        default: false,
-        commons: {
-          test: /node_modules/,
-          name: 'vendor',
-          chunks: 'initial',
-          minSize: 1
-        }
-      }
-    }
-  },
 
   plugins: [
     new DebugWebpackPlugin({
@@ -200,7 +183,7 @@ module.exports = {
     // si no separamos en app y vendor, cada vez que usamos una libreria de terceros, copia y pega el codigo, esto optimiza lo repetido en un vendor
     // todo el codigo comun lo quita y lo pone en vendor
     // Revisarr al actualizar a webpack4
-    
+
     // new CommonsChunkPlugin({
     //   name: 'polyfills',
     //   chunks: ['polyfills']
@@ -217,32 +200,18 @@ module.exports = {
     //   minChunks: 2
     // }),
 
-    /**
-     * Plugin: ScriptExtHtmlWebpackPlugin
-     * Description: Enhances html-webpack-plugin functionality
-     * with different deployment options for your scripts including:
-     *
-     * See: https://github.com/numical/script-ext-html-webpack-plugin
-     */
-    new ScriptExtHtmlWebpackPlugin({
-      sync: /inline|polyfills|vendor|main/,
-      defaultAttribute: 'async',
-      preload: [/polyfills|vendor|main/],
-      prefetch: [/chunk/]
-    }),
-
     new NgcWebpackPlugin(ngcWebpackConfig.plugin),
 
     // https://github.com/shlomiassaf/webpack-dll-bundles-plugin
     // Separa en archivos las librerías de terceros para que no se tengan que recompilar
     // PROBLEMA CON LAZY LOADING: https://github.com/shlomiassaf/webpack-dll-bundles-plugin/issues/21
-    new DllBundlesPlugin({
-      bundles: {
-        polyfills: [...polyfills],
-        vendor: [...vendor]
-      },
-      dllDir: './lib'
-    }),
+    // new DllBundlesPlugin({
+      //   bundles: {
+    //     polyfills: [...polyfills],
+    //     vendor: [...vendor]
+    //   },
+    //   dllDir: './lib'
+    // }),
 
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
@@ -250,13 +219,27 @@ module.exports = {
       template: 'index.html',
       inject: 'body',
       xhtml: true,
-      minify: isProduction
-        ? {
-            caseSensitive: true,
-            collapseWhitespace: true,
-            keepClosingSlash: true
-          }
-        : false
+      minify: false,
+      // ? isProduction {
+      //   caseSensitive: true,
+      //       collapseWhitespace: true,
+      //       keepClosingSlash: true
+      //     }
+      //     : false
+      }),
+
+    /**
+    * Plugin: ScriptExtHtmlWebpackPlugin
+    * Description: Enhances html-webpack-plugin functionality
+    * with different deployment options for your scripts including:
+    *
+    * See: https://github.com/numical/script-ext-html-webpack-plugin
+    */
+    new ScriptExtHtmlWebpackPlugin({
+      sync: /inline|polyfills|vendor|main/,
+      defaultAttribute: 'async',
+      preload: [/polyfills|vendor|main/],
+      prefetch: [/chunk/]
     }),
 
     new ContextReplacementPlugin(/angular(\\|\/)core/, resolve('src'), {}),
@@ -276,19 +259,59 @@ module.exports = {
      *
      * https://github.com/szrenwei/inline-manifest-webpack-plugin
      */
-    new InlineManifestWebpackPlugin({
-      name: 'webpackManifest'
-    }),
+    // update with webpack 4
+    new InlineManifestWebpackPlugin(),
 
-    new AddAssetHtmlPlugin([
-      {
-        filepath: root(`lib/${DllBundlesPlugin.resolveFile('polyfills')}`),
-        includeSourcemap: false
-      },
-      {
-        filepath: root(`lib/${DllBundlesPlugin.resolveFile('vendor')}`),
-        includeSourcemap: false
-      }
-    ])
-  ]
+    // new AddAssetHtmlPlugin([
+    //   {
+    //     filepath: root(`lib/${DllBundlesPlugin.resolveFile('polyfills')}`),
+    //     includeSourcemap: false
+    //   },
+    //   {
+    //     filepath: root(`lib/${DllBundlesPlugin.resolveFile('vendor')}`),
+    //     includeSourcemap: false
+    //   }
+    // ])
+  ],
+
+  optimization: {
+    runtimeChunk: {
+      name: 'webpackManifest'
+    },
+    namedModules: true, // NamedModulesPlugin()
+    splitChunks: { // CommonsChunkPlugin()
+      chunks: 'all',
+      // name: 'vendor',
+      // minChunks: 2,
+       cacheGroups: {
+         vendors: {
+           name: 'vendor',
+           test: /[\\/]node_modules[\\/]/,
+           priority: -10
+         },
+         default: {
+           minChunks: 2,
+           priority: -20,
+           reuseExistingChunk: true
+         }
+       }
+    },
+    noEmitOnErrors: true, // NoEmitOnErrorsPlugin
+    concatenateModules: true //ModuleConcatenationPlugin
+  }
 };
+// new CommonsChunkPlugin({
+//   name: 'polyfills',
+//   chunks: ['polyfills']
+// }),
+
+// new CommonsChunkPlugin({
+//   minChunks: Infinity,
+//   name: 'inline'
+// }),
+// new CommonsChunkPlugin({
+//   name: 'main',
+//   async: 'common',
+//   children: true,
+//   minChunks: 2
+// }),

@@ -18,6 +18,7 @@ const APP_CONFIG = {
 };
 
 module.exports = webpackMerge(baseWebpackConfig, {
+  mode: 'production',
   module: {
     rules: [
       /**
@@ -99,7 +100,8 @@ module.exports = webpackMerge(baseWebpackConfig, {
       hashDigest: 'base64',
       hashDigestLength: 20
     })
-    //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios
+    //Dependencias Cíclicas. Analizar cómo se hacen el import de dependencias desde Module hasta los servicios.
+    // Se ha eliminado con la actualización de webpack 4
     // new webpack.optimize.ModuleConcatenationPlugin(),
 
   ]

@@ -154,21 +154,23 @@ exports.ngcWebpackSetup = (prod, metadata) => {
 exports.tsLintLoader = (include, metadatos) => {
   let tslint = [
     {
-      test: /\.tsx?$/,
-      loader: 'tslint-loader',
-      enforce: 'pre',
-      include: include,
-      options: {
-        // automatically fix linting errors
-        fix: metadatos.fixTs,
-        // can specify a custom tsconfig file relative to current directory or with absolute path
-        // to be used with type checked rules
-        tsConfigFile: metadatos.tsConfigPath,
-        // name of your formatter (optional)
-        formatter: metadatos.formatter,
-        // path to directory containing formatter (optional)
-        formattersDirectory: metadatos.urlFormatter
-      }
+      // test: /\.tsx?$/,
+      // enforce: 'pre',
+      // use: [{
+      //   loader: 'tslint-loader',
+      //   options: {
+      //     // automatically fix linting errors
+      //     fix: metadatos.fixTs,
+      //     // can specify a custom tsconfig file relative to current directory or with absolute path
+      //     // to be used with type checked rules
+      //     tsConfigFile: metadatos.tsConfigPath,
+      //     // name of your formatter (optional)
+      //     formatter: metadatos.formatter,
+      //     // path to directory containing formatter (optional)
+      //     formattersDirectory: metadatos.urlFormatter,
+      //     // include: include,
+      //  }
+      // }],
     }
   ];
 

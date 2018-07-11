@@ -73,6 +73,8 @@ import 'zone.js/dist/zone';
 
 if (process.env.ENV  === 'production') {
   // Production;
+  console.log('Modo Producción');
 } else {
   // Development;
+  console.log('Modo Desarrollo');
 }
