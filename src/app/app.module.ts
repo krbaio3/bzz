@@ -21,7 +21,7 @@ import { reducers, metaReducers } from './reducers/reducers';
 @NgModule({
   imports: [
     BrowserModule,
-    HomeModule,
+    // HomeModule,
     /* Core Module */
     CoreModule.forRoot(new UserServiceConfig('Nguyen Tran')),
     StoreModule.forRoot(reducers, { metaReducers }),
