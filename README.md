@@ -1,6 +1,4 @@
-# Generador de Proyectos Front Atmira
-
-[![Atmira](./atmira_logo.png)](http://www.atmira.com/inicio)
+# Generador de Proyectos Front
 
 ## Introducción
 
@@ -33,7 +31,7 @@ Para poder hacer uso del generador, hace falta tener instalado Yeoman de manera 
 $ npm install --global yo
 ```
 
-El siguiente paso, es instalar el generador de Atmira:
+El siguiente paso, es instalar el generador:
 
 ```sh
 $ npm install --global generator-proyect-base-front
